@@ -46,7 +46,7 @@ var loginController = {
             dataType: "json",
             success: function(callback){
                 if(callback){
-                    loginController.userNavBar.html("<li><a href=\"#\">Sign up <span class=\"glyphicon glyphicon-user\"></span></a></li>"+
+                    loginController.userNavBar.html("<li><a href=\"./views/sign_up_view.php\">Sign up <span class=\"glyphicon glyphicon-user\"></span></a></li>"+
 						"<li><a href=\"#\" data-toggle=\"modal\" data-target=\"#popUpWindow\">Login <span class=\"glyphicon glyphicon-log-in\"></span></a></li>");
                 }
 			}

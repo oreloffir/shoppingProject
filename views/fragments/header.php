@@ -28,7 +28,7 @@
                     <li><a href="#" id="logoutBtn">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
                 <?php }else{
                 ?>
-                <li><a href="#">Sign up <span class="glyphicon glyphicon-user"></span></a></li>
+                <li><a href="./views/sign_up_view.php">Sign up <span class="glyphicon glyphicon-user"></span></a></li>
                 <li><a href="#" data-toggle="modal" data-target="#popUpWindow">Login <span class="glyphicon glyphicon-log-in"></span></a></li>
                 <?php }?>
             </ul>
