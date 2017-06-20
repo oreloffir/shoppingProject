@@ -1,11 +1,3 @@
-@media(min-width: 500px){
-    .navbar-nav > li{
-        float: right;
-    }
-}
-.navbar-nav > li > a{
-    text-align: right;
-}
 div[class^="col-"]{ padding:5px; }
 
 .max-width-1200-center{
@@ -17,14 +9,14 @@ div[class^="col-"]{ padding:5px; }
     width: 100%;
     border:1px solid #dddddd;
     border-radius: 2px;
-    float: right;
+    float: left;
     display: block;
 }
 
 .post-mini-title{
     width: 100%;
-    text-align: right;
-    float: right;
+    text-align: left;
+    float: left;
 }
 
 .post-mini-title a{
@@ -34,12 +26,12 @@ div[class^="col-"]{ padding:5px; }
 
 .post-mini-top{
     width: 100%;
-    float: right;
+    float: left;
     display: block;
 }
 
 .post-mini-top a{
-    float: right;
+    float: left;
     padding: 5px;
     text-decoration: none;
     font-size: 12px;
@@ -48,7 +40,7 @@ div[class^="col-"]{ padding:5px; }
 }
 
 .post-mini-top span{
-    float:left;
+    float:right;
     padding: 5px;
     text-decoration: none;
     font-size: 12px;
@@ -57,9 +49,9 @@ div[class^="col-"]{ padding:5px; }
 
 .post-mini-main{
     width: 100%;
-    text-align: right;
+    text-align: left;
     position: relative;
-    float: right;
+    float: left;
 }
 
 .post-mini-img{

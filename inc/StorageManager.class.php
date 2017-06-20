@@ -239,7 +239,17 @@ class StorageManager
 			$errors[] = EMAIL_TAKEN;
 		}
 		return $errors;
-	}	
+	}
+
+	public function getUserById($userId){
+        $userId = $this->_db->filter($userId);
+        $where = array(
+            'id' => $userId
+        );
+        $user = $this->_db->simpleSelectQuery(USERS_TABLE, $where)[0];
+        unset($user['password']);
+        return $user;
+    }
 
 	/**
 	 	* Login to the system
@@ -351,6 +361,16 @@ class StorageManager
 		return $this->_db->selectQuery($sql->getSqlStatement());
 	}
 
+	public function checkUserFavorite($userId,$postId){
+	    $where = array(
+	        "userId" => $userId,
+            "relativeId" => $postId
+        );
+	    $result = $this->_db->simpleSelectQuery(FAVORITES_TABLE,$where);
+	    if(!empty($result))
+	        return true;
+	    return false;
+    }
 	
 	// --------------------------------   VALIDATION METHODS  ------------------------------------- //
 	private function checkTableRowById($tableName, $objectId)
