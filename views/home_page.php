@@ -8,6 +8,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./views/resources/css/style.css">
     <script src="./views/resources/js/login.js" type="text/javascript"></script>
+    <script src="./views/resources/js/showPost.js" type="text/javascript"></script>
 </head>
 <body>
     <?php require_once("fragments/header.php"); ?>
@@ -22,9 +23,9 @@
                     <div class="col-sm-6 col-md-3">
                         <div class="post-mini">
                             <div class="post-mini-top"><a href="#"><?php echo $post['displayName'];?></a><span>לפני 8 דקות</span></div>
-                            <div class="post-mini-title"><a href="#"><?php echo $post['title'];?></a></div>
+                            <div class="post-mini-title"><a href="#" class="postDialog" postId="<?php echo $post['id'];?>"><?php echo $post['title'];?></a></div>
                             <div class="post-mini-main">
-                                <div class="post-mini-img"><img src="http://www.xiaomidevice.com/media/catalog/product/cache/1/image/65aadb52917bee7d7b6b835b46585ecc/x/i/xiaomi-mi5-white.jpg" class="img-responsive"></div>
+                                <div class="post-mini-img"><img src="http://www.xiaomidevice.com/media/catalog/product/cache/1/image/65aadb52917bee7d7b6b835b46585ecc/x/i/xiaomi-mi5-white.jpg" class="img-responsive postDialog" postId="<?php echo $post['id'];?>"></div>
                                 <div class="post-mini-img-des"><span><?php echo $post['description']; ?></span></div>
                             </div>
                         </div>
@@ -33,5 +34,45 @@
                 </div>
         <?php } ?>
     </div>
+    <div class="modal fade" id="displayPostModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="postDialogTitle">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div>
+                                    <div><a href="#" id="postDialogDisplayName"></a></div>
+                                    <div id="postDialogDescription"></div>
+                                </div>
+                                <div>
+                                    <div class="center-title-underline">Comments</div>
+                                        <div class="container-fluid" id="postDialogComments"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" id="postDialogSide">
+                                <img src="http://www.xiaomidevice.com/media/catalog/product/cache/1/image/65aadb52917bee7d7b6b835b46585ecc/x/i/xiaomi-mi5-white.jpg" class="img-responsive postDialog"">
+                                <a href="#" class="btn btn-success" role="button" id="postDialogUrl">Buy!</a>
+                                <code id="postDialogCouponCode"></code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        displayPost.init();
+    </script>
 </body>
 </html>
