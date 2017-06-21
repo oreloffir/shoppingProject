@@ -69,6 +69,31 @@ div[class^="col-"]{ padding:5px; }
     width: 100%;
 }
 
+
+/* ~~~~~~~~ add post view ~~~~~~~~*/
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+#img-upload{
+    width: 100%;
+}
 .center-title-underline{
     width: 100%;
     border-bottom:1px solid #dddddd;
@@ -87,4 +112,5 @@ div[class^="col-"]{ padding:5px; }
 
 .post-dialog-comment-time{
     font-size: 9px;
+
 }

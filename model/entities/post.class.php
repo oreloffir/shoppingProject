@@ -13,7 +13,7 @@ class Post
     public $postType;
     public $couponCode;
 
-	public function __construct($id = 0, $title, $des, $saleUrl, $publisherId, $imagePath, $time, $category, $couponCode = "")
+	public function __construct($id = 0, $title, $des, $saleUrl, $publisherId, $imagePath="", $time, $category, $couponCode = "")
     {
     	$this->id 			= $id;
     	$this->title 		= $title;
@@ -24,7 +24,7 @@ class Post
         $this->time         = $time;
     	$this->category 	= $category;
     	$this->couponCode 	= $couponCode;
-        if($this->couponCod != "")
+        if($this->couponCode != "")
             $this->postType = 1;
         else
             $this->postType = 0;

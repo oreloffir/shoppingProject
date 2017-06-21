@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-4" for="pwd">Name:</label>
+            <label class="control-label col-sm-4" for="name">Name:</label>
             <div class="col-sm-8">
                 <input type="text" class="form-control" id="displayName" placeholder="Enter your name" name="displayName">
             </div>
