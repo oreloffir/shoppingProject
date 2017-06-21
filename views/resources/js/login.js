@@ -34,7 +34,6 @@ var loginController = {
                     callback.errors.forEach(function (error) { errorsString += error })
                     loginController.loginErrors.html("<div class=\"alert alert-danger text-align-right\" role=\"\" >"+errorsString+"</div>");
                 }
-
 			}
 		});
 	},
