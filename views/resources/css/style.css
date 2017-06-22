@@ -116,6 +116,9 @@ div[class^="col-"]{ padding:5px; }
 
 }
 
+#postDialogErrors{
+    float: left;
+}
 #favoriteBtn{
     float: left;
 }

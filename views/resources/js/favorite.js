@@ -18,19 +18,24 @@ var favoritesController = {
 
     addToFavorites : function () {
         var postId = $(this).attr("postId");
-        console.log("addToFavorites function "+postId);
+        console.log("In addToFavorites function with postId="+postId+"\n");
         var dataString = "id="+postId;
         $.ajax({
             url: "./ajax/addFavoriteAjax.php",
             type: "POST",
             data: dataString,
             dataType: "json",
-            success: function (callback) {
 
-                if(callback.constructor === Array){
+            success: function (callback){
+                var attr = $(callback).attr('errors');
+                console.log(attr);
+                if (typeof attr !== typeof undefined && attr !== false) {
+                    console.log("\ncallback = errors ");
                     errorsString = "";
-                    callback.errors.forEach(function (error) { errorsString += error })
-                        favoritesController.postDialogErrors.html("<div class=\"alert alert-danger text-align-right col-sm-offset-4 col-sm-8\" id=\"postDialogErrors\" >"+errorsString+"</div>");
+                    $(callback.errors).each(function () {
+                        errorsString += this;
+                    });
+                    favoritesController.postDialogErrors.html("<div class=\"alert alert-danger text-align-right col-sm-offset-4 col-sm-8\" id=\"postDialogErrors\" >"+errorsString+"</div>");
                 }else {
                     if (callback) {
                         if (favoritesController.favoriteBtn.hasClass("btn-gray")) {
