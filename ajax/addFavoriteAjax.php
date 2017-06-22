@@ -20,7 +20,6 @@ if(isset($_SESSION['userId'])){
 
 
 }else{
-    echo "You need to Login!";
     echo json_encode(array(
         'errors' => array("You need to Login!")
     ));
