@@ -15,12 +15,11 @@ if(isset($_SESSION['userId'])){
     $userId = $_SESSION['userId'];
     if($storageManager->checkUserFavorite($userId, $postId)){
         echo json_encode($storageManager->removeFromFavorites($userId, $postId));
-    }else
+    }else {
         echo json_encode($storageManager->addToFavorites($userId, $postId));
-
+    }
 
 }else{
-    echo "You need to Login!";
     echo json_encode(array(
         'errors' => array("You need to Login!")
     ));

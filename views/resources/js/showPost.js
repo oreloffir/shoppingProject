@@ -3,8 +3,16 @@
  */
 var displayPost = {
     init: function (){
-        this.postButtons = $(".postDialog");
-        this.postDialog  = $("#displayPostModal");
+        this.postButtons        = $(".postDialog");
+        this.postDialog         = $("#displayPostModal");
+        this.postDisplayName    = $("#postDialogDisplayName");
+        this.postTitle          = $("#postDialogTitle");
+        this.postDescription    = $("#postDialogDescription");
+        this.postFavBtn         = $("#favoriteBtn");
+        this.postComments       = $("#postDialogComments");
+        this.postSaleUrl        = $("#postDialogUrl");
+        this.postCoupn          = $("#postDialogCouponCode");
+        this.postErrors          = $("#postDialogErrors");
         this.bindEvent();
     },
     bindEvent: function (){
@@ -22,17 +30,26 @@ var displayPost = {
             data: dataString,
             dataType: "json",
             success: function(callback){
-                $("#postDialogDisplayName").html(callback.displayName);
-                $("#postDialogTitle").html(callback.category+" \\ "+callback.title);
-                $("#postDialogDescription").html(callback.description);
-                $("#favoriteBtn").attr("postId", callback['id']);
-                $("#postDialogComments").html("");
+                displayPost.postDisplayName.html(callback.displayName);
+                displayPost.postTitle.html("<a href=\"category.php?id="+callback.category+"\">"+callback.categoryName+" \\ "+callback.title);
+                displayPost.postDescription.html(callback.description);
+                displayPost.postFavBtn.attr("postId", callback['id']);
+                if(callback.favorite) {
+                    displayPost.postFavBtn.removeClass("btn-gray");
+                }else{
+                    if(!displayPost.postFavBtn.hasClass("btn-gray"))
+                        displayPost.postFavBtn.addClass("btn-gray");
+                }
+                displayPost.postComments.html("");
                 $(callback.comments).each(function (){
-                    $("#postDialogComments").append("<div class=\"row border-bottom-grey\"><div class=\"post-dialog-comment-user col-md-3\"><div><a href=\"#\">"+this.displayName+"</a></div><div class=\"post-dialog-comment-time\"\">8 minutes ago</div></div><div class=\"post-dialog-comment-body col-md-9\">"+this.body+"</div></div>");
+                    displayPost.postComments.append("<div class=\"row border-bottom-grey\"><div class=\"post-dialog-comment-user col-md-3\"><div><a href=\"#\">"+this.displayName+"</a></div><div class=\"post-dialog-comment-time\"\">8 minutes ago</div></div><div class=\"post-dialog-comment-body col-md-9\">"+this.body+"</div></div>");
                 });
-                $("#postDialogUrl").attr("href", callback.saleUrl);
+                displayPost.postSaleUrl.attr("href", callback.saleUrl);
                 if(callback.couponCode)
-                    $("#postDialogCouponCode").html("<code>Coupon: "+callback.couponCode+"</code>")
+                    displayPost.postCoupn.html("<code>Coupon: "+callback.couponCode+"</code>")
+                else
+                    displayPost.postCoupn.html("");
+                displayPost.postErrors.html("");
                 displayPost.postDialog.modal('show');
                 console.log(callback);
             }
