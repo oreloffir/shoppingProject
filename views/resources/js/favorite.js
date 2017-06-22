@@ -35,7 +35,7 @@ var favoritesController = {
                     $(callback.errors).each(function () {
                         errorsString += this;
                     });
-                    favoritesController.postDialogErrors.html("<div class=\"alert alert-danger text-align-right col-sm-offset-4 col-sm-8\" id=\"postDialogErrors\" >"+errorsString+"</div>");
+                    favoritesController.postDialogErrors.html("<div class=\"alert alert-danger text-align-left\">"+errorsString+"</div>");
                 }else {
                     if (callback) {
                         if (favoritesController.favoriteBtn.hasClass("btn-gray")) {
@@ -43,7 +43,7 @@ var favoritesController = {
                         }else
                             favoritesController.favoriteBtn.addClass("btn-gray");
                     } else {
-                        favoritesController.postDialogErrors.html("<div class=\"alert alert-danger text-align-right col-sm-offset-4 col-sm-8\" id=\"postDialogErrors\" >" + "Database Error" + "</div>");
+                        favoritesController.postDialogErrors.html("<div class=\"alert alert-danger text-align-left\">" + "Database Error" + "</div>");
                     }
                 }
             }

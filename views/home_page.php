@@ -66,9 +66,14 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-md btn-danger btn-gray" id ="favoriteBtn" postId=""><span class="glyphicon glyphicon-heart"></span></button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <div id="postDialogErrors"></div>
+                    <div class="container-fluid">
+                        <div class="col-md-1"><button type="button" class="btn btn-md btn-danger btn-gray" id ="favoriteBtn" postId=""><span class="glyphicon glyphicon-heart"></span></button></div>
+                        <div class="col-md-10"></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div>
+                    </div>
+                    <div class="container-fluid">
+                        <div id="postDialogErrors" class="col-md-12"></div>
+                    </div>
                 </div>
             </div>
 

@@ -115,10 +115,6 @@ div[class^="col-"]{ padding:5px; }
     font-size: 9px;
 
 }
-
-#postDialogErrors{
-    float: left;
-}
 #favoriteBtn{
     float: left;
 }
@@ -136,4 +132,8 @@ div[class^="col-"]{ padding:5px; }
 .btn-gray:focus{
     background: #aaaaaa;
     border-color: #aaaaaa;
+}
+
+.text-align-left{
+    text-align: left;
 }
