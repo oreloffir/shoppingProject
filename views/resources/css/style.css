@@ -79,8 +79,7 @@ div[class^="col-"]{ padding:5px; }
     position: absolute;
     top: 0;
     right: 0;
-    min-width: 100%;
-    min-height: 100%;
+
     font-size: 100px;
     text-align: right;
     filter: alpha(opacity=0);
@@ -94,6 +93,8 @@ div[class^="col-"]{ padding:5px; }
 #img-upload{
     width: 100%;
 }
+
+
 .center-title-underline{
     width: 100%;
     border-bottom:1px solid #dddddd;
@@ -113,4 +114,23 @@ div[class^="col-"]{ padding:5px; }
 .post-dialog-comment-time{
     font-size: 9px;
 
+}
+
+#favoriteBtn{
+    float: left;
+}
+
+.btn-gray{
+    background: #aaaaaa;
+    border-color: #aaaaaa;
+}
+
+.btn-gray:hover{
+    background: #aaaaaa;
+    border-color: #aaaaaa;
+}
+
+.btn-gray:focus{
+    background: #aaaaaa;
+    border-color: #aaaaaa;
 }

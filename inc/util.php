@@ -5,7 +5,7 @@
  * Date: 6/21/2017
  * Time: 3:57 PM
  */
-function adjImg($imgloc,$ext,$quality=0.8){
+function adjImg($imgloc,$ext,$dir,$quality=0.8){
     $new_width="670";
     list($img_width, $img_height, $image_type) = @getimagesize($imgloc);
     if(!$img_width){
@@ -31,12 +31,12 @@ function adjImg($imgloc,$ext,$quality=0.8){
         return 4;
     }
     $imgname = "image_".time();
-    $th_filename = "uploads/".$imgname.".".$ext;
+    $th_filename = "$dir/$imgname.$ext";
     switch ($image_type)
     {
-        case 1: $success = @imagegif($dst_img,$th_filename); 						break;
-        case 2: $success = @imagejpeg($dst_img,$th_filename,intval($quality*100));  break;
-        case 3: $success = @imagepng($dst_img,$th_filename,intval($quality*9)); 	break;
+        case 1: $success = imagegif($dst_img,$th_filename); 						break;
+        case 2: $success = imagejpeg($dst_img,$th_filename,intval($quality*100));  break;
+        case 3: $success = imagepng($dst_img,$th_filename,intval($quality*9)); 	break;
     }
     if(!$success){
         return 5;

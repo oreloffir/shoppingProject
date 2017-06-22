@@ -25,6 +25,7 @@ var displayPost = {
                 $("#postDialogDisplayName").html(callback.displayName);
                 $("#postDialogTitle").html(callback.category+" \\ "+callback.title);
                 $("#postDialogDescription").html(callback.description);
+                $("#favoriteBtn").attr("postId", callback['id']);
                 $("#postDialogComments").html("");
                 $(callback.comments).each(function (){
                     $("#postDialogComments").append("<div class=\"row border-bottom-grey\"><div class=\"post-dialog-comment-user col-md-3\"><div><a href=\"#\">"+this.displayName+"</a></div><div class=\"post-dialog-comment-time\"\">8 minutes ago</div></div><div class=\"post-dialog-comment-body col-md-9\">"+this.body+"</div></div>");

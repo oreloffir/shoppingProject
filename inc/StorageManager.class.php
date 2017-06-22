@@ -292,6 +292,16 @@ class StorageManager
 		}
 	}
 
+    public function getCategories(){
+	    $fields = array(
+            CATEGORIES_TABLE => array("*")
+        );
+        $sql = new SqlSelectStatement("SELECT");
+        $sql->addSelectFields($fields)
+            ->addTableName(CATEGORIES_TABLE);
+
+        return $this->_db->selectQuery($sql->getSqlStatement());
+    }
 
 	//------------------------------------- POSTS METHODS ------------------------------------------//
 

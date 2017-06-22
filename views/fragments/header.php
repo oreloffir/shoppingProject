@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-inverse max-width-1200-center">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -13,9 +14,9 @@
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span> Categories</a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Page 1-1</a></li>
-                        <li><a href="#">Page 1-2</a></li>
-                        <li><a href="#">Page 1-3</a></li>
+                        <?php foreach($model['categories'] as $category){?>
+                        <li><a href="category.php?id=<?php echo $category['id'];?>"><?php echo $category['category']; ?></a></li>
+                        <?php }?>
                     </ul>
                 </li>
                 <li><a href="#">Page 2</a></li>
@@ -71,5 +72,6 @@
     </div>
     <script>
         loginController.init();
+
     </script>
 </nav>
