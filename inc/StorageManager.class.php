@@ -149,16 +149,18 @@ class StorageManager
 	**/
 	public function addToFavorites($userId, $postId)
 	{
-		if($this->checkTableRowById(POSTS_TABLE, $postId) && $this->checkUser($userId))
+		if($this->checkTableRowById(POSTS_TABLE, $postId))
 		{
-			$favArr = array(
-				'userId' 	 => $userId,
-				'relativeId' => $postId
-			);
-			$favArr = $this->_db->filter($favArr);
-			$result = $this->_db->simpleSelectQuery(FAVORITES_TABLE, $favArr);
-			if(empty($result))
-				return $this->_db->insertQuery(FAVORITES_TABLE, $favArr);
+		    if($this->checkUser($userId)) {
+                $favArr = array(
+                    'userId' => $userId,
+                    'relativeId' => $postId
+                );
+                $favArr = $this->_db->filter($favArr);
+                $result = $this->_db->simpleSelectQuery(FAVORITES_TABLE, $favArr);
+                if (empty($result))
+                    return $this->_db->insertQuery(FAVORITES_TABLE, $favArr);
+            }
 		}
 		return false;
 	}
@@ -317,10 +319,12 @@ class StorageManager
 				posts.*, 
 				AVG(ranking.rank) AS rank, 
 				COUNT(ranking.relativeId) AS rankCount, 
-				users.displayName");
+				users.displayName,
+				categories.category as categoryName");
 		$sql->addTableName(POSTS_TABLE)
 			->addToBody("JOIN users ON (users.id = posts.publisherId)")
 			->addToBody("LEFT JOIN ranking ON (posts.id = ranking.relativeId)")
+            ->addToBody("JOIN categories ON (posts.category = categories.id)")
 			->addWhere($where)
 			->addToBody("GROUP BY(case when relativeId is null then posts.id else relativeId end)")
 			->addOrderBy($orders)
@@ -400,12 +404,12 @@ class StorageManager
 		$result = $this->_db->selectQuery("
 		SELECT 
 			users.id AS userId, 
-			banList.userId AS banned
+			banlist.userId AS banned
 		FROM users 
-		LEFT JOIN banList ON ( users.id = banList.userId ) 
+		LEFT JOIN banlist ON ( users.id = banlist.userId ) 
 		WHERE users.id = ".$userId);
 		if(empty($result))
-			return false;
+            return false;
 		else
 		{
 			if($result[0]['banned'] == $userId)

@@ -3,7 +3,6 @@
  */
 var favoritesController = {
     init : function () {
-
         this.favoriteBtn      = $("#favoriteBtn");
         this.postDialogErrors = $("#postDialogErrors");
         this.bindEvent();
@@ -26,6 +25,7 @@ var favoritesController = {
             type: "POST",
             data: dataString,
             dataType: "json",
+
             success: function (callback){
                 var attr = $(callback).attr('errors');
                 console.log(attr);
@@ -40,11 +40,10 @@ var favoritesController = {
                     if (callback) {
                         if (favoritesController.favoriteBtn.hasClass("btn-gray")) {
                             favoritesController.favoriteBtn.removeClass("btn-gray");
-                        } else
+                        }else
                             favoritesController.favoriteBtn.addClass("btn-gray");
                     } else {
                         favoritesController.postDialogErrors.html("<div class=\"alert alert-danger text-align-right col-sm-offset-4 col-sm-8\" id=\"postDialogErrors\" >" + "Database Error" + "</div>");
-
                     }
                 }
             }
