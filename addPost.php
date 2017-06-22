@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Orel
+ * Date: 6/21/2017
+ * Time: 9:47 PM
+ */
 include_once("inc/StorageManager.class.php");
 $storageManager = new StorageManager();
 $model = array();
@@ -8,17 +14,9 @@ if(isset($_SESSION['userId'])){
     $model['currentUser'] = $storageManager->getUserById($_SESSION['userId']);
 }
 
-$posts = $storageManager->getPosts(0, 12);
 $categories = $storageManager->getCategories();
-foreach ($posts as $key => $post) {
-    $posts[$key]['comments'] = $storageManager->getPostComments($post['id'], 0, 10);
-    if(isset($userId))
-        $posts[$key]['favorite'] = $storageManager->checkUserFavorite($userId, $post['id']);
-}
-
-$model['posts'] = $posts;
 $model['categories'] = $categories;
 
-require_once("views/home_page.php");
+require_once("views/add_post_view.php");
 
 ?>

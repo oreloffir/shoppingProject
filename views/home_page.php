@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./views/resources/css/style.css">
     <script src="./views/resources/js/login.js" type="text/javascript"></script>
     <script src="./views/resources/js/showPost.js" type="text/javascript"></script>
+    <script src="./views/resources/js/favorite.js" type="text/javascript"></script>
 </head>
 <body>
     <?php require_once("fragments/header.php"); ?>
@@ -65,7 +66,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-md btn-danger btn-gray" id ="favoriteBtn" postId=""><span class="glyphicon glyphicon-heart"></span></button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <div id="postDialogErrors"></div>
                 </div>
             </div>
 
@@ -73,6 +76,7 @@
     </div>
     <script>
         displayPost.init();
+        favoritesController.init();
     </script>
 </body>
 </html>

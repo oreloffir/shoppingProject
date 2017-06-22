@@ -13,6 +13,7 @@ define("IGNORE_TABLE", "ignore_list");
 define("PM_TABLE", "privateMsg");
 define("RANK_TABLE", "ranking");
 define("REPORT_TABLE", "reports");
+define("CATEGORIES_TABLE", "categories");
 
 define("EMAIL_TAKEN", "email is alredy taken");
 ?>

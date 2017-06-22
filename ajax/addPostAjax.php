@@ -40,17 +40,19 @@ if(isset($pageImage) && !empty($pageImage['name'])){
 
 if(empty($errors)){
     // Move it
-    $dir = 		"uploads";
+    $dir = 		"../uploads";
     $newname = 	time();
-    if(move_uploaded_file($pageImage["tmp_name"] , "../$dir/$newname.$ext")) {
+    if(move_uploaded_file($pageImage["tmp_name"] , "$dir/$newname.$ext")) {
         // Resize it
-        //$gd_img_name = adjImg("$dir/$newname.$ext", $ext);
+        $adjImgName = adjImg("$dir/$newname.$ext", $ext, $dir);
         //$tumb_img_name = createThumb("$dir/$gd_img_name.$ext", $gd_img_name, $ext);
         // Delete full size
-        unlink("../$dir/$newname.$ext");
-        $imgUrl = $newname . "." . $ext;
 
-        $post->imagePath =  $imgUrl;
+        $unlinkRes = unlink("$dir/$newname.$ext");
+        echo "$adjImgName <br> $unlinkRes";
+        $imgUrl = $adjImgName . "." . $ext;
+
+        $post->imagePath = $imgUrl;
         $res = $storageManager->savePost($post);
         if(is_array($res)){
             $errors[] = "cannot upload the post";
