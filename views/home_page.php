@@ -55,7 +55,7 @@
                 </div>
         <?php } ?>
     </div>
-    <div class="modal fade" id="displayPostModal" role="dialog">
+    <div class="modal fade" id="displayPostModal" role="dialog" postid="">
         <div class="modal-dialog modal-lg">
 
             <!-- Modal content-->
@@ -79,11 +79,21 @@
                                     <div>
                                         <textarea class="form-control" rows="5" id="postDialogCommentsTA"></textarea>
                                     </div>
-                                    <div><a href="#" class="btn btn-primary" id="addCommentBtn" postId="">Add Comment</a></div>
+                                    <div><a href="#" class="btn btn-primary" id="addCommentBtn">Add Comment</a></div>
                                     <?php } ?>
                                 </div>
                             </div>
                             <div class="col-md-4" id="postDialogSide">
+                                <div id="postRankContainer">
+                                    <div id="postRank" postrank="">
+                                        <span class="ranking glyphicon glyphicon-star"></span>
+                                        <span class="ranking glyphicon glyphicon-star"></span>
+                                        <span class="ranking glyphicon glyphicon-star"></span>
+                                        <span class="ranking glyphicon glyphicon-star"></span>
+                                        <span class="ranking glyphicon glyphicon-star"></span>
+                                    </div>
+                                    <span class="ranking-count">based on <span id="postRankingAmount">0</span> users</span>
+                                </div>
                                 <img src="http://www.xiaomidevice.com/media/catalog/product/cache/1/image/65aadb52917bee7d7b6b835b46585ecc/x/i/xiaomi-mi5-white.jpg" class="img-responsive"">
                                 <a href="#" class="btn btn-success" role="button" id="postDialogUrl">Buy!</a>
                                 <code id="postDialogCouponCode"></code>
@@ -94,7 +104,7 @@
                 <div class="modal-footer">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-1 col-xs-6"><a class="btn btn-danger btn-gray" id ="favoriteBtn" postId=""><span class="glyphicon glyphicon-heart"></span></a></div>
+                            <div class="col-md-1 col-xs-6"><a class="btn btn-danger btn-gray" id ="favoriteBtn"><span class="glyphicon glyphicon-heart"></span></a></div>
                             <div class="col-md-10 hidden-xs"></div>
                             <div class="col-md-1 col-xs-6"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div>
                         </div>

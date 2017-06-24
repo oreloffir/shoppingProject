@@ -7,7 +7,7 @@
  */
 
 include_once("../inc/StorageManager.class.php");
-$postId = $_POST["id"];
+$postId = $_POST["postid"];
 $storageManager = new StorageManager();
 
 session_start();
