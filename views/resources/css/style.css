@@ -1,10 +1,17 @@
 div[class^="col-"]{ padding:5px; }
+#mainContent{
+    margin-bottom: 15px;
+}
 
 .max-width-1200-center{
     max-width: 1200px;
     margin:0 auto;
 }
-
+.page-header{
+    background-color: #f1f1f1;
+    box-shadow: inset 0px -10px 15px -10px rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid #d0d0d0;
+}
 
 /*   POST MINI DISPLAY     */
 .post-mini{
@@ -201,7 +208,7 @@ div[class^="col-"]{ padding:5px; }
 }
 
 .no-margin {
-    margin: 0 !important;
+    margin: 0px !important;
 }
 
 .text-align-left{
