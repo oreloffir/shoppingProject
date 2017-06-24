@@ -9,11 +9,31 @@
     <link rel="stylesheet" href="./views/resources/css/style.css">
     <script src="./views/resources/js/login.js" type="text/javascript"></script>
     <script src="./views/resources/js/showPost.js" type="text/javascript"></script>
-    <script src="./views/resources/js/favorite.js" type="text/javascript"></script>
 </head>
 <body>
     <?php require_once("fragments/header.php"); ?>
     <div id="mainContent" class="max-width-1200-center">
+        <div class="page-header">
+            <div class="row no-margin">
+                <div class="col-md-11 col-sm-11">
+                    <h2><?php if(isset($model['categoryName'])) echo $model['categoryName']; else echo "All Categories"; ?></h2>
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Sort by<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="#">Most Recent</a></li>
+                            <li><a href="#">Most Popular</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-1 col-sm-1">
+                    <div class="margin-top-40">
+
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="container-fluid">
             <?php
             $count = 0;
@@ -23,7 +43,7 @@
                 foreach ($row as $post){?>
                     <div class="col-sm-6 col-md-3">
                         <div class="post-mini">
-                            <div class="post-mini-top"><a href="#"><?php echo $post['displayName'];?></a><span>לפני 8 דקות</span></div>
+                            <div class="post-mini-top"><a href="#"><?php echo $post['displayName'];?></a><span><?php echo $post['time'];?></span></div>
                             <div class="post-mini-title"><a href="#" class="postDialog" postId="<?php echo $post['id'];?>"><?php echo $post['title'];?></a></div>
                             <div class="post-mini-main">
                                 <div class="post-mini-img"><img src="http://www.xiaomidevice.com/media/catalog/product/cache/1/image/65aadb52917bee7d7b6b835b46585ecc/x/i/xiaomi-mi5-white.jpg" class="img-responsive postDialog" postId="<?php echo $post['id'];?>"></div>
@@ -52,13 +72,19 @@
                                     <div><a href="#" id="postDialogDisplayName"></a></div>
                                     <div id="postDialogDescription"></div>
                                 </div>
-                                <div>
+                                <div id="postDialogCommentsArea">
                                     <div class="center-title-underline">Comments</div>
-                                        <div class="container-fluid" id="postDialogComments"></div>
+                                    <div class="container-fluid" id="postDialogComments"></div>
+                                    <?php if(!empty($model['currentUser'])){?>
+                                    <div>
+                                        <textarea class="form-control" rows="5" id="postDialogCommentsTA"></textarea>
+                                    </div>
+                                    <div><a href="#" class="btn btn-primary" id="addCommentBtn" postId="">Add Comment</a></div>
+                                    <?php } ?>
                                 </div>
                             </div>
                             <div class="col-md-4" id="postDialogSide">
-                                <img src="http://www.xiaomidevice.com/media/catalog/product/cache/1/image/65aadb52917bee7d7b6b835b46585ecc/x/i/xiaomi-mi5-white.jpg" class="img-responsive postDialog"">
+                                <img src="http://www.xiaomidevice.com/media/catalog/product/cache/1/image/65aadb52917bee7d7b6b835b46585ecc/x/i/xiaomi-mi5-white.jpg" class="img-responsive"">
                                 <a href="#" class="btn btn-success" role="button" id="postDialogUrl">Buy!</a>
                                 <code id="postDialogCouponCode"></code>
                             </div>
@@ -67,21 +93,21 @@
                 </div>
                 <div class="modal-footer">
                     <div class="container-fluid">
-                        <div class="col-md-1"><button type="button" class="btn btn-md btn-danger btn-gray" id ="favoriteBtn" postId=""><span class="glyphicon glyphicon-heart"></span></button></div>
-                        <div class="col-md-10"></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div>
-                    </div>
-                    <div class="container-fluid">
-                        <div id="postDialogErrors" class="col-md-12"></div>
+                        <div class="row">
+                            <div class="col-md-1 col-xs-6"><a class="btn btn-danger btn-gray" id ="favoriteBtn" postId=""><span class="glyphicon glyphicon-heart"></span></a></div>
+                            <div class="col-md-10 hidden-xs"></div>
+                            <div class="col-md-1 col-xs-6"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div>
+                        </div>
+                        <div class="row">
+                            <div id="postDialogErrors" class="col-md-12"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-
+             </div>
         </div>
     </div>
     <script>
         displayPost.init();
-        favoritesController.init();
     </script>
 </body>
 </html>

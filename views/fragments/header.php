@@ -10,12 +10,12 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
+                <li class="active"><a href="index.php">Home</a></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span> Categories</a>
                     <ul class="dropdown-menu">
                         <?php foreach($model['categories'] as $category){?>
-                        <li><a href="category.php?id=<?php echo $category['id'];?>"><?php echo $category['category']; ?></a></li>
+                        <li><a href="index.php?category=<?php echo $category['id'];?>"><?php echo $category['category']; ?></a></li>
                         <?php }?>
                     </ul>
                 </li>

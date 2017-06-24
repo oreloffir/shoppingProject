@@ -93,3 +93,44 @@ function createThumb($imgloc,$imgname,$ext,$quality=0.8){
     imagedestroy($dst_img);
     return "tmb_".$imgname;
 }
+
+function timeAgo($timestamp,$output = 'less then a minute') {
+    $timegot=$timestamp;
+    $timestamp = time() - $timestamp;
+    $units = array(604800=>'week',86400=>'day',3600=>'hour',60=>'minute');
+    foreach($units as $seconds => $unit) {
+        if ($seconds<=$timestamp) {
+            $value = floor($timestamp/$seconds);
+            if($value > 1){
+                switch ($unit){
+                    case 'week':
+                        $unit='weeks';
+                        break;
+                    case 'day':
+                        $unit='days';
+                        break;
+                    case 'hour':
+                        $unit='hours';
+                        break;
+                    case 'minute':
+                        $unit='minutes';
+                        break;
+                }
+            }
+            if($value == '1'){
+                $value=null;
+                if($unit == 'day'){
+                    $output = 'yesterday at'.' '.date("H:i" ,$timegot);
+                    break;
+                }
+            }
+            if($value == '2' and $unit == 'hour'){
+                $output = 'two hours ago';
+                break;
+            }
+            $output = $value.' '.$unit.' ago';
+            break;
+        }
+    }
+    return $output;
+}

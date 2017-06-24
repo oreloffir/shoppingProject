@@ -11,7 +11,7 @@ $description 	= $_POST["description"];
 $postURL 		= $_POST["URL"];
 $category 		= $_POST["category"];
 $couponCode		= $_POST["couponCode"];
-$staticUserId 	= $_SESSION{"userId"};
+$staticUserId 	= $_SESSION["userId"];
 
 $storageManager = new StorageManager();
 

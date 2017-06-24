@@ -365,11 +365,16 @@ class StorageManager
 			"comments.relativeId" => $postId
 		);
 
+		$orderBy = array(
+		    "comments.time" => "DESC"
+        );
+
 		$sql = new SqlSelectStatement("SELECT");
 		$sql->addSelectFields($selectedFields)
 			->addTableName(COMMENTS_TABLE)
 			->addToBody("JOIN users ON (users.id = comments.publisherId)")
 			->addWhere($where)
+            ->addOrderBy($orderBy)
 			->addLimit($start, $count);
 
 		return $this->_db->selectQuery($sql->getSqlStatement());
