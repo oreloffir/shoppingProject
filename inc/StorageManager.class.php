@@ -206,19 +206,20 @@ class StorageManager
 			{
 				$rateArr = $where;
 				$rateArr['rank'] = $this->_db->filter($rank);
-				return $this->_db->insertQuery(RANK_TABLE, $rateArr);
+				if($this->_db->insertQuery(RANK_TABLE, $rateArr))
+				    return INSERT;
 			}else
 			{
 				$rateArr = array(
 					'rank' => $this->_db->filter($rank)
 				);
-				$this->_db->updateQuery(RANK_TABLE, $rateArr, $where);
-				return true;
+				if($this->_db->updateQuery(RANK_TABLE, $rateArr, $where))
+                    return UPDATE;
 			}
 		}
 		return false;
 	}
-		
+
 	/**
 	* Add a user
 	* @param User user

@@ -102,8 +102,10 @@ div[class^="col-"]{ padding:5px; }
     font-size:13px;
     margin-top:10px;
 }
-.border-bottom-grey{
+.post-dialog-comment{
     border-bottom:1px solid #dddddd;
+    padding-bottom: 3px;
+    padding-top: 3px;
 }
 
 #postDialogComments{
@@ -114,6 +116,15 @@ div[class^="col-"]{ padding:5px; }
 .post-dialog-comment-time{
     font-size: 9px;
 
+}
+
+.post-dialog-comment-user{
+    padding:0px !important;
+}
+
+.post-dialog-comment-body{
+    padding:5px !important;
+    background-color: #f3f3f3;
 }
 #favoriteBtn{
     float: left;
@@ -154,4 +165,32 @@ div[class^="col-"]{ padding:5px; }
 #postDialogCommentsTA{
     margin-top: 10px;
     margin-bottom: 10px;
+}
+#postRankContainer{
+    text-align: center;
+}
+#postRank{
+    display: inline;
+}
+#postRank span{
+    display: inline;
+    padding: 1px;
+}
+#postRank span{
+    font-size: 22px;
+    color: #dddddd;
+}
+.gold{
+    color: gold !important;
+}
+#postRank span:hover{
+    color: gold !important;
+}
+
+#postDialogDisplayName{
+    font-weight: bold;
+    margin-left:8px;
+}
+#postDialogDescription{
+    padding: 8px;
 }

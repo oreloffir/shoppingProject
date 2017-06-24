@@ -3,6 +3,8 @@ define("MAX_RANK", 5);
 define("MIN_RANK", 1);
 define("POSTS_SALE_TYPE", 0);
 define("POSTS_COUPON_TYPE", 1);
+define("INSERT", 1);
+define("UPDATE", 2);
 
 define("POSTS_TABLE", "posts");
 define("USERS_TABLE", "users");

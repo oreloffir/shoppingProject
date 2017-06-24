@@ -53,6 +53,7 @@ var addPostController = {
 
     },
 
+    // preview the uploaded image
     browseImage : function () {
         $(document).on('change', '.btn-file :file', function() {
             var input = $(this),
@@ -72,6 +73,7 @@ var addPostController = {
             }
 
         });
+
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
