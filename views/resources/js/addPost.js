@@ -30,7 +30,7 @@ var addPostController = {
             contentType: false,
             success: function(callback){
                 console.log(callback);
-                if (callback.constructor === Array){
+                if (callback.errors.constructor === Array){
                     errorsString = "";
                     callback.errors.forEach(function (error) { errorsString += error+" \n" });
                     console.log(errorsString);

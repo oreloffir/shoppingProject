@@ -8,7 +8,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./views/resources/css/style.css">
     <script src="./views/resources/js/login.js" type="text/javascript"></script>
-    <script src="./views/resources/js/showPost.js" type="text/javascript"></script>
+    <script src="./views/resources/js/displayPost.js" type="text/javascript"></script>
 </head>
 <body>
     <?php require_once("fragments/header.php"); ?>

@@ -11,8 +11,9 @@ if(isset($_SESSION['userId'])){
 }
 $categories = $storageManager->getCategories();
 $where = array();
-$category = $_GET["category"];
-if(isset($category)) {
+
+if(isset($_GET["category"])) {
+    $category = $_GET["category"];
     $where["posts.category"]    = $category;
     $model['categoryName']      = $categories[$category-1]['category'];
 }
