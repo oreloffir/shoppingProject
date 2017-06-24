@@ -1,11 +1,12 @@
 var loginController = {
 	init: function() {
-		this.submitAction	= $("#submit_action");
-		this.loginForm		= $("#login_form");
-		this.userNavBar 	= $("#userNavBar");
-		this.popUpLogin     = $("#popUpWindow");
-		this.loginErrors    = $("#loginErrors")
-		this.logoutBtn		= $("#logoutBtn");
+		this.submitAction		= $("#submit_action");
+		this.loginForm			= $("#login_form");
+		this.userNavBar 		= $("#userNavBar");
+		this.popUpLogin     	= $("#popUpWindow");
+		this.loginErrors    	= $("#loginErrors")
+		this.logoutBtn			= $("#logoutBtn");
+		this.favoritesNavBar 	= $("#navbarFavorites");
 		this.bindEvent();
 	},
 	bindEvent: function(){
@@ -24,10 +25,11 @@ var loginController = {
 			dataType: "json",
 			success: function(callback){
 				if(!callback.errors){
-                    loginController.userNavBar.html("<li><a href=\"#\"><span class=\"glyphicon glyphicon-user\"></span>"+callback['displayName']+"</a></li>"+
+                    loginController.userNavBar.html("<li><a href=\"profile.php\"><span class=\"glyphicon glyphicon-user\"></span>"+callback['displayName']+"</a></li>"+
 						"<li><a href=\"#\" id=\"logoutBtn\">Logout <span class=\"glyphicon glyphicon-log-out\"></span></a></li>");
                     loginController.logoutBtn = $("#logoutBtn");
                     loginController.logoutBtn.click(loginController.doLogout);
+                    loginController.favoritesNavBar.show();
                     loginController.popUpLogin.modal('toggle');
 				}else{
 				    errorsString = "";
@@ -47,6 +49,7 @@ var loginController = {
                 if(callback){
                     loginController.userNavBar.html("<li><a href=\"./views/sign_up_view.php\">Sign up <span class=\"glyphicon glyphicon-user\"></span></a></li>"+
 						"<li><a href=\"#\" data-toggle=\"modal\" data-target=\"#popUpWindow\">Login <span class=\"glyphicon glyphicon-log-in\"></span></a></li>");
+                    loginController.favoritesNavBar.hide();
                 }
 			}
         });

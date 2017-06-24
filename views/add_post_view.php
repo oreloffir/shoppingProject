@@ -41,7 +41,7 @@
                 <div class="input-group col-md-8">
                     <span class="input-group-btn">
                         <span class="btn btn-default btn-file">
-                            Browse… <input type="file" name="postImg" id="file" required>
+                            Browse… <input type="file" name="postImg" id="file">
                         </span>
                     </span>
                     <input type="text" class="form-control" id="imagePath" readonly>
@@ -49,18 +49,6 @@
                 <img id='img-upload'/>
             </div>
 
-            <!--<div class="form-group">
-                <label class="control-label col-md-4">Upload Image:</label>
-                <div class="input-group col-md-8" >
-                    <span class="input-group-btn">
-                        <span class="btn btn-default btn-file">
-                            Browse… <input type="file" name="postImg" id="file" required />
-                        </span>
-                    </span>
-                    <input type="text" class="form-control" readonly>
-                </div>
-                <img id='img-upload'/>
-            </div>-->
             <div class="form-group">
                 <label class="control-label col-md-4" for="Category">Category:</label>
                 <div class="col-md-8">

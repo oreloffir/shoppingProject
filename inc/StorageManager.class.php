@@ -308,7 +308,7 @@ class StorageManager
 
 	//------------------------------------- POSTS METHODS ------------------------------------------//
 
-	public function getPosts($start, $count, $where = array(), $orders = array('id' => 'DESC'))
+	public function getPosts($start, $count, $where = array(), $orders = array('posts.id' => 'DESC'))
 	{
 		$start  	= $this->_db->filter( $start );
 		$count  	= $this->_db->filter( $count );
@@ -343,13 +343,40 @@ class StorageManager
 		return $this->getPosts($start, $count, null, $orders);
 	}
 
-	public function getCouponPosts($start, $count, $where = array(), $orders = array('id' => 'DESC'))
+	public function getFavoritesPosts($userId, $start, $count, $orders = array('posts.id' => 'DESC')){
+        $userId  	= $this->_db->filter( $userId );
+        $selectedFields = array(
+            FAVORITES_TABLE => array('relativeId')
+        );
+        $where = array(
+            "userId" => $userId
+        );
+        $orderBy = array(
+            "id" => "DESC"
+        );
+
+        $whereIn = array();
+        $whereInSql = new SqlSelectStatement("SELECT");
+        $whereInSql ->addSelectFields($selectedFields)
+                    ->addTableName(FAVORITES_TABLE)
+                    ->addWhere($where)
+                    ->addOrderBy($orderBy);
+
+        $results = $this->_db->selectQuery($whereInSql->getSqlStatement());
+        foreach($results as $row)
+            $whereIn[] = $row["relativeId"];
+        $whereIn = array(
+            "posts.id" => $whereIn
+        );
+        return $this->getPosts($start, $count, $whereIn, $orders);
+    }
+	public function getCouponPosts($start, $count, $where = array(), $orders = array('posts.id' => 'DESC'))
 	{
 		$where['postType'] = 1;
 		$this->getPosts($start, $count, $where, $orders);
 	}
 
-	public function getSalePosts($start, $count, $where = array(), $orders = array('id' => 'DESC'))
+	public function getSalePosts($start, $count, $where = array(), $orders = array('posts.id' => 'DESC'))
 	{
 		$where['postType'] = 0;
 		$this->getPosts($start, $count, $where, $orders);
@@ -358,8 +385,8 @@ class StorageManager
 	public function getPostComments($postId, $start, $count)
 	{
 		$selectedFields = array(
-			"comments" 	=> array('*'),
-			"users" 	=> array('displayName')
+			COMMENTS_TABLE 	=> array('*'),
+			USERS_TABLE 	=> array('displayName')
 		);
 
 		$where = array(

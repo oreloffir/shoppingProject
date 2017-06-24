@@ -35,12 +35,16 @@ class SqlSelectStatement
 	}
 	public function addWhere($where = array())
 	{
+        $clause = array();
 		if(!empty($where))
         {
             foreach($where as $field => $value)
             {
-                $value = $value;
-                $clause[] = "$field = '$value'";
+                if(is_array($value)){
+                    $clause[] = "$field IN (".implode(', ', $value).")";
+                }else {
+                    $clause[] = "$field = '$value'";
+                }
             }
             $this->_sqlStatement .= " WHERE ". implode(' AND ', $clause);
         }

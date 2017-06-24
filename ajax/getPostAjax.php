@@ -13,12 +13,13 @@ session_start();
 if(isset($_SESSION['userId'])) {
     $userId = $_SESSION['userId'];
 }
-$post = $storageManager->getPosts(0,1, array('posts.id' => $postId))[0];
-$comments = $storageManager->getPostComments($post['id'],0,10) ;
+$post       = $storageManager->getPosts(0,1, array('posts.id' => $postId))[0];
+$comments   = $storageManager->getPostComments($post['id'],0,10) ;
 foreach ($comments as &$comment){
     $comment['time'] = timeAgo($comment['time']);
 }
-$post['comments'] = $comments;
+$post['comments']   = $comments;
+$post['time']       = timeAgo($post['time']);
 if(isset($userId))
     $post['favorite'] = $storageManager->checkUserFavorite($userId, $post['id']);
 echo json_encode($post);

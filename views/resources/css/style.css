@@ -5,6 +5,8 @@ div[class^="col-"]{ padding:5px; }
     margin:0 auto;
 }
 
+
+/*   POST MINI DISPLAY     */
 .post-mini{
     width: 100%;
     border:1px solid #dddddd;
@@ -95,13 +97,47 @@ div[class^="col-"]{ padding:5px; }
 }
 
 
-.center-title-underline{
-    width: 100%;
-    border-bottom:1px solid #dddddd;
-    text-align: center;
-    font-size:13px;
-    margin-top:10px;
+
+/* POST DIALOG */
+#postDialogCommentsTA{
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
+#postDialogDisplayName{
+    font-weight: bold;
+    margin-left:8px;
+}
+#postDialogDescription{
+    padding: 8px;
+}
+#postDialogTimeAgo {
+    font-size: 11px;
+    margin-left: 8px;
+}
+
+    /* POST DIALOG RANKING */
+#postRankContainer{
+    text-align: center;
+}
+#postRank{
+    display: inline;
+}
+#postRank span{
+    display: inline;
+    padding: 1px;
+}
+#postRank span{
+    font-size: 22px;
+    color: #dddddd;
+}
+.gold{
+    color: gold !important;
+}
+#postRank span:hover{
+    color: gold !important;
+}
+
+    /* POST DIALOG COMMENTS */
 .post-dialog-comment{
     border-bottom:1px solid #dddddd;
     padding-bottom: 3px;
@@ -126,6 +162,8 @@ div[class^="col-"]{ padding:5px; }
     padding:5px !important;
     background-color: #f3f3f3;
 }
+
+    /* POST DIALOG FAVORITES */
 #favoriteBtn{
     float: left;
 }
@@ -145,6 +183,27 @@ div[class^="col-"]{ padding:5px; }
     border-color: #aaaaaa;
 }
 
+
+
+/* GENERAL */
+@media(min-width:768px){
+    .margin-top-40{
+        margin-top:40px;
+    }
+}
+
+.center-title-underline{
+    width: 100%;
+    border-bottom:1px solid #dddddd;
+    text-align: center;
+    font-size:13px;
+    margin-top:10px;
+}
+
+.no-margin {
+    margin: 0 !important;
+}
+
 .text-align-left{
     text-align: left;
 }
@@ -152,45 +211,4 @@ div[class^="col-"]{ padding:5px; }
     text-align: right;
 }
 
-.no-margin {
-    margin: 0 !important;
-}
 
-@media(min-width:768px){
-    .margin-top-40{
-        margin-top:40px;
-    }
-}
-
-#postDialogCommentsTA{
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-#postRankContainer{
-    text-align: center;
-}
-#postRank{
-    display: inline;
-}
-#postRank span{
-    display: inline;
-    padding: 1px;
-}
-#postRank span{
-    font-size: 22px;
-    color: #dddddd;
-}
-.gold{
-    color: gold !important;
-}
-#postRank span:hover{
-    color: gold !important;
-}
-
-#postDialogDisplayName{
-    font-weight: bold;
-    margin-left:8px;
-}
-#postDialogDescription{
-    padding: 8px;
-}

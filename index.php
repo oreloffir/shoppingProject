@@ -17,12 +17,13 @@ if(isset($category)) {
     $model['categoryName']      = $categories[$category-1]['category'];
 }
 $posts = $storageManager->getPosts(0, 12, $where);
-
-foreach ($posts as $key => $post) {
-    $posts[$key]['time'] = timeAgo($posts[$key]['time']);
+if(!empty($posts)) {
+    foreach ($posts as $key => $post) {
+        $posts[$key]['time'] = timeAgo($posts[$key]['time']);
         //$storageManager->getPostComments($post['id'], 0, 10);
-    if(isset($userId))
-        $posts[$key]['favorite'] = $storageManager->checkUserFavorite($userId, $post['id']);
+        if (isset($userId))
+            $posts[$key]['favorite'] = $storageManager->checkUserFavorite($userId, $post['id']);
+    }
 }
 
 $model['posts'] = $posts;

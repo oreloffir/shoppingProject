@@ -12,20 +12,26 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="index.php">Home</a></li>
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span> Categories</a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories <span class="caret"></span> </a>
                     <ul class="dropdown-menu">
                         <?php foreach($model['categories'] as $category){?>
                         <li><a href="index.php?category=<?php echo $category['id'];?>"><?php echo $category['category']; ?></a></li>
                         <?php }?>
                     </ul>
                 </li>
-                <li><a href="#">Page 2</a></li>
+                <?php
+                    if(!empty($model['currentUser'])) {
+                ?>
+                    <li id="navbarFavorites"><a href="favorites.php">Favorites</a></li>
+                <?php
+                    }
+                ?>
                 <li><a href="#">Page 3</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" id="userNavBar">
                 <?php
                 if(!empty($model['currentUser'])){?>
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $model['currentUser']['displayName']; ?></a></li>
+                    <li><a href="profile.php"><span class="glyphicon glyphicon-user"></span> <?php echo $model['currentUser']['displayName']; ?></a></li>
                     <li><a href="#" id="logoutBtn">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
                 <?php }else{
                 ?>

@@ -6,6 +6,7 @@ var displayPost = {
         this.postButtons        = $(".postDialog");
         this.postDialog         = $("#displayPostModal");
         this.postDisplayName    = $("#postDialogDisplayName");
+        this.postDialogTimeAgo  = $("#postDialogTimeAgo");
         this.postTitle          = $("#postDialogTitle");
         this.postDescription    = $("#postDialogDescription");
         this.postFavBtn         = $("#favoriteBtn");
@@ -45,6 +46,8 @@ var displayPost = {
             dataType: "json",
             success: function(callback){
                 displayPost.postDisplayName.html(callback.displayName);
+                displayPost.postDisplayName.attr("href", "profile.php?id="+callback.publisherId);
+                displayPost.postDialogTimeAgo.html(callback.time);
                 displayPost.postTitle.html("<a href=\"index.php?category="+callback.category+"\">"+callback.categoryName+"</a> \\ "+callback.title);
                 displayPost.postDescription.html(callback.description);
                 displayPost.postDialog.attr("postId", callback['id']);
