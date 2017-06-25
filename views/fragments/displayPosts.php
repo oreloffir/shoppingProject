@@ -16,7 +16,7 @@
                         </div>
                         <div class="post-mini-main">
                             <div class="post-mini-img"><img
-                                        src="http://www.xiaomidevice.com/media/catalog/product/cache/1/image/65aadb52917bee7d7b6b835b46585ecc/x/i/xiaomi-mi5-white.jpg"
+                                        src="./uploads/<?php echo $post['imagePath']; ?>"
                                         class="img-responsive postDialog" postId="<?php echo $post['id']; ?>"></div>
                             <div class="post-mini-img-des"><span><?php echo $post['description']; ?></span></div>
                         </div>
@@ -67,7 +67,7 @@
                                     </div>
                                     <span class="ranking-count">based on <span id="postRankingAmount">0</span> users</span>
                                 </div>
-                                <img src="http://www.xiaomidevice.com/media/catalog/product/cache/1/image/65aadb52917bee7d7b6b835b46585ecc/x/i/xiaomi-mi5-white.jpg" class="img-responsive"">
+                                <img src="" class="img-responsive" id="postDialogImage">
                                 <a href="#" class="btn btn-success" role="button" id="postDialogUrl">Buy!</a>
                                 <code id="postDialogCouponCode"></code>
                             </div>

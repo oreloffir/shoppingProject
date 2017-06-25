@@ -9,6 +9,7 @@ var displayPost = {
         this.postDialogTimeAgo  = $("#postDialogTimeAgo");
         this.postTitle          = $("#postDialogTitle");
         this.postDescription    = $("#postDialogDescription");
+        this.postDialogImage    = $("#postDialogImage");
         this.postFavBtn         = $("#favoriteBtn");
         this.postComments       = $("#postDialogComments");
         this.postSaleUrl        = $("#postDialogUrl");
@@ -50,6 +51,7 @@ var displayPost = {
                 displayPost.postDialogTimeAgo.html(callback.time);
                 displayPost.postTitle.html("<a href=\"index.php?category="+callback.category+"\">"+callback.categoryName+"</a> \\ "+callback.title);
                 displayPost.postDescription.html(callback.description);
+                displayPost.postDialogImage.attr("src", "./uploads/"+callback.imagePath);
                 displayPost.postDialog.attr("postId", callback['id']);
                 if(callback.editPost){
                     displayPost.editPostBtn.attr("href", "editPost.php?postId="+callback['id']);

@@ -16,8 +16,6 @@ if(isset($_SESSION['userId'])){
     $model['currentUser'] = $storageManager->getUserById($_SESSION['userId']);
 }
 $categories = $storageManager->getCategories();
-$model['categoryName'] = $categories[$category-1]['category'];
-
 
 if(isset($_GET['id'])){
    $displayUserId = $_GET['id'];

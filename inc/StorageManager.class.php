@@ -370,7 +370,8 @@ class StorageManager
         );
         return $this->getPosts($start, $count, $whereIn, $orders);
     }
-	public function getCouponPosts($start, $count, $where = array(), $orders = array('posts.id' => 'DESC'))
+
+    public function getCouponPosts($start, $count, $where = array(), $orders = array('posts.id' => 'DESC'))
 	{
 		$where['postType'] = 1;
 		$this->getPosts($start, $count, $where, $orders);

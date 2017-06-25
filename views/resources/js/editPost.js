@@ -1,25 +1,28 @@
-var addPostController = {
-	init: function() {
-		this.addPostForm	 = $("#add_post_form");
-        this.addPostErrors   = $("#addPostErrors");
+/**
+ * Created by Orel on 6/24/2017.
+ */
+var editPostController = {
+    init: function() {
+        this.editPostForm	 = $("#editPostForm");
+        this.editPostErrors   = $("#editPostErrors");
         this.couponBox 		 = $("#couponBox");
-        this.couponCodeGroup = $("#couponCodeGroup");
-        this.browseImageBtn     = $("#file");
-        this.flag = false;
+        this.couponCodeGroup = $("#couponCodeGroup");;
         this.bindEvent();
         $(document).ready(this.browseImage);
 
-	},
 
-	bindEvent: function(){
-		this.addPostForm.submit(this.addPost);
-		this.couponBox.change(this.changeCouponBox);
-	},
+    },
+
+    bindEvent: function(){
+        this.editPostForm.submit(this.addPost);
+        this.couponBox.change(this.changeCouponBox);
+        this.changeCouponBox();
+    },
 
     addPost: function(e){
         e.preventDefault();
-        var self = addPostController;
-        var dataString = self.addPostForm.serialize();
+        var self = editPostController;
+        var dataString = self.editPostForm.serialize();
         console.log(dataString);
         $.ajax({
             url: "./ajax/addPostAjax.php",
@@ -34,7 +37,7 @@ var addPostController = {
                     errorsString = "";
                     callback.forEach(function (error) { errorsString += error+" \n" });
                     console.log(errorsString);
-                    self.addPostErrors.html("<div class=\"col-md-8 alert alert-danger text-align-left\" role=\"\" >"+errorsString+"</div>");
+                    self.editPostErrors.html("<div class=\"col-md-offset-4 col-md-8 alert alert-danger text-align-left\" role=\"\" >"+errorsString+"</div>");
                 }else{
                     window.location.replace("../index.php");
                 }
@@ -43,19 +46,17 @@ var addPostController = {
     },
 
     changeCouponBox: function () {
-		if(addPostController.flag){
-            addPostController.couponCodeGroup.addClass("hide");
-            addPostController.flag = false;
-		}else{
-            addPostController.couponCodeGroup.removeClass("hide");
-            addPostController.flag = true;
-		}
+        if(editPostController.couponBox.is(':checked')){
+            editPostController.couponCodeGroup.removeClass("hide");
+        }else{
+            editPostController.couponCodeGroup.addClass("hide");
+        }
 
     },
 
-    // preview
+    // preview the uploaded image
     browseImage : function () {
-        $(document).on('change', '#file', function() {
+        $(document).on('change', '.btn-file :file', function() {
             var input = $(this),
                 label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
             input.trigger('fileselect', [label]);
@@ -73,6 +74,7 @@ var addPostController = {
             }
 
         });
+
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
