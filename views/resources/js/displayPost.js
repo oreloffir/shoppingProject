@@ -17,7 +17,7 @@ var displayPost = {
         this.postErrors         = $("#postDialogErrors");
         this.addCommentBtn      = $("#addCommentBtn");
         this.commentTA          = $("#postDialogCommentsTA");
-
+        this.editPostBtn 	    = $("#editPostBtn");
         this.postRankArea 	    = $("#postRank");
         this.stars 			    = $(".ranking");
         this.postRankCount 	    = $("#postRankingAmount");
@@ -53,6 +53,12 @@ var displayPost = {
                 displayPost.postDescription.html(callback.description);
                 displayPost.postDialogImage.attr("src", "./uploads/"+callback.imagePath);
                 displayPost.postDialog.attr("postId", callback['id']);
+                if(callback.editPost){
+                    displayPost.editPostBtn.attr("href", "editPost.php?postId="+callback['id']);
+                    displayPost.editPostBtn.show();
+                }else{
+                    displayPost.editPostBtn.hide();
+                }
                 if(callback.favorite) {
                     displayPost.postFavBtn.removeClass("btn-gray");
                 }else{

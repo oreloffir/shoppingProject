@@ -18,6 +18,11 @@ $comments   = $storageManager->getPostComments($post['id'],0,10) ;
 foreach ($comments as &$comment){
     $comment['time'] = timeAgo($comment['time']);
 }
+if(isset($userId) && $post['publisherId'] == $userId){
+    $post['editPost'] = true;
+}else{
+    $post['editPost'] = false;
+}
 $post['comments']   = $comments;
 $post['time']       = timeAgo($post['time']);
 if(isset($userId))

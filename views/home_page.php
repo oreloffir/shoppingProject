@@ -19,11 +19,15 @@
                     <h2><?php if(isset($model['categoryName'])) echo $model['categoryName']; else echo "All Categories"; ?></h2>
                     <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            Sort by<span class="caret"></span>
+                            Sort by
+                            <?php if(isset($model['postsOrder'])){
+                                echo $model['postsOrder'];
+                            }?>
+                            <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li><a href="#">Most Recent</a></li>
-                            <li><a href="#">Most Popular</a></li>
+                            <li><a href="<?php echo $_SERVER["PHP_SELF"]?>?order=recent">Most Recent</a></li>
+                            <li><a href="<?php echo $_SERVER["PHP_SELF"]?>?order=popular">Most Popular</a></li>
                         </ul>
                     </div>
                 </div>
