@@ -6,22 +6,27 @@ include_once ("../inc/util.php");
 $errors = array();
 session_start();
 $pageImage      = $_FILES["postImg"];
-$postId         = $_POST["id"];
 $title 			= $_POST["title"];
 $description 	= $_POST["description"];
 $postURL 		= $_POST["URL"];
 $category 		= $_POST["category"];
 $couponCode		= $_POST["couponCode"];
-$time           = $_POST["postTime"];
-$userId 	= $_SESSION["userId"];
+$userId 	    = $_SESSION["userId"];
 
 $storageManager = new StorageManager();
 //chacking valid input
+if(isset($_POST['postId'])){
+    $postId = $_POST["postId"];
+    $time   = $_POST["postTime"];
+}else
+    $postId = 0;
+
 
 if($postId != 0){
     if($userId == $_POST["publisherId"]){ // check in storage too
         $post = new Post($postId, $title, $description, $postURL, $userId, "", $time, $category, $couponCode);
-        if(empty($pageImage)){
+        if(!(isset($pageImage) && !empty($pageImage['name']))){
+            echo "pageImage Empty :)";
             $imgPath = $storageManager->getPosts(0,1, array( "posts.id" => $post->id))[0]["imagePath"];
             $post->imagePath = $imgPath;
             $res = $storageManager->savePost($post);
@@ -39,13 +44,13 @@ if($postId != 0){
                 $post->imagePath = $imgPath;
                 $res = $storageManager->savePost($post);
                 if(is_array($res)){
-                    $errors[] = "cannot upload the post";
+                    $errors[] = "cannot upload the post 1";
                 }else{
                     echo json_encode("OK");
                     exit;
                 }
             }else{
-                $errors[] = "cannot upload the post";
+                $errors[] = "cannot upload the post 2";
             }
         }
     }else{
@@ -59,23 +64,23 @@ if($postId != 0){
         $post->imagePath = $imgPath;
         $res = $storageManager->savePost($post);
         if(is_array($res)){
-            $errors[] = "cannot upload the post";
+            $errors[] = "cannot upload the post 3";
         }else{
             echo json_encode("OK");
             exit;
         }
     }else{
-        $errors[] = "cannot upload the post";
+        $errors[] = "cannot upload the post 4";
     }
 }
 echo json_encode($errors);
 
 function saveImage($pageImage)
 {
+    $ext = null;
     // chacking img format
     if (isset($pageImage) && !empty($pageImage['name']) && empty($errors)) {
         $ext = substr($pageImage["name"], strrpos($pageImage["name"], '.') + 1);
-        $errors[] = "ext " . $ext;
         $file_type = $pageImage['type'];
         $file_size = $pageImage['size'];
         $file_error = $pageImage["error"];
@@ -89,7 +94,9 @@ function saveImage($pageImage)
         if ($file_size > 524288) {
             $errors[] = "File too large!";
         }
+
     }
+
 
     if (empty($errors)) {
         // Move it
