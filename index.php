@@ -1,5 +1,6 @@
 <?php
 include_once("inc/StorageManager.class.php");
+include_once("inc/consts.php");
 include_once("inc/util.php");
 $storageManager = new StorageManager();
 $model = array();
@@ -17,7 +18,22 @@ if(isset($_GET["category"])) {
     $where["posts.category"]    = $category;
     $model['categoryName']      = $categories[$category-1]['category'];
 }
-$posts = $storageManager->getPosts(0, 12, $where);
+
+if(isset($_GET['order'])){
+    switch($_GET['order']){
+        case ORDER_POPULAR:
+            $posts = $storageManager->getPopularPosts(0, POSTS_CHUNK, $where);
+            $model['postsOrder'] = ORDER_POPULAR;
+            break;
+        case ORDER_RECENT:
+            $posts = $storageManager->getPosts(0, POSTS_CHUNK, $where);
+            $model['postsOrder'] = ORDER_RECENT;
+            break;
+    }
+}else{
+    $posts = $storageManager->getPosts(0, POSTS_CHUNK, $where);
+}
+
 if(!empty($posts)) {
     foreach ($posts as $key => $post) {
         $posts[$key]['time'] = timeAgo($posts[$key]['time']);

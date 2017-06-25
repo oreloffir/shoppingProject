@@ -18,4 +18,8 @@ define("REPORT_TABLE", "reports");
 define("CATEGORIES_TABLE", "categories");
 
 define("EMAIL_TAKEN", "email is alredy taken");
+
+define("POSTS_CHUNK", 12);
+define("ORDER_POPULAR", "popular");
+define("ORDER_RECENT", "recent");
 ?>
