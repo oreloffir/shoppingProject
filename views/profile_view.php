@@ -13,7 +13,7 @@
 <body>
 <?php require_once("fragments/header.php"); ?>
 <div id="mainContent" class="max-width-1200-center">
-    <div class="page-header">
+    <div class="page-header no-margin">
         <div class="row no-margin">
             <div class="col-md-11 col-sm-11">
                 <h2><?php echo $model['displayUser']['displayName']; ?></h2>

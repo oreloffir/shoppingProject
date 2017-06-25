@@ -13,15 +13,10 @@
 <body>
 <?php require_once("fragments/header.php"); ?>
 <div id="mainContent" class="max-width-1200-center">
-    <div class="page-header">
+    <div class="page-header no-margin">
         <div class="row no-margin">
-            <div class="col-md-11 col-sm-11">
+            <div class="col-md-12 col-sm-12">
                 <h2>My Favorites</h2>
-            </div>
-            <div class="col-md-1 col-sm-1">
-                <div class="margin-top-40">
-
-                </div>
             </div>
         </div>
     </div>
