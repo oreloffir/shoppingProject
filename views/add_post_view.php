@@ -41,7 +41,7 @@
                 <div class="input-group col-md-8">
                     <span class="input-group-btn">
                         <span class="btn btn-default btn-file">
-                            Browse… <input type="file" name="postImg" id="file">
+                            Browse… <input type="file" name="postImg" id="file" required>
                         </span>
                     </span>
                     <input type="text" class="form-control" id="imagePath" readonly>

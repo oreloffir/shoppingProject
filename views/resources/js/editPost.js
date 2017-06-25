@@ -39,7 +39,8 @@ var editPostController = {
                     console.log(errorsString);
                     self.editPostErrors.html("<div class=\"col-md-offset-4 col-md-8 alert alert-danger text-align-left\" role=\"\" >"+errorsString+"</div>");
                 }else{
-                    window.location.replace("../index.php");
+                    console.log("ahoi");
+                    window.location.replace("./index.php");
                 }
             }
         });

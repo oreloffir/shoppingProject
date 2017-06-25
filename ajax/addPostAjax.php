@@ -2,83 +2,59 @@
 include_once("../inc/StorageManager.class.php");
 include_once("../model/entities/post.class.php");
 include_once ("../inc/util.php");
+include_once ("../inc/consts.php");
 
 $errors = array();
 session_start();
-$pageImage      = $_FILES["postImg"];
+$userId 	    = $_SESSION["userId"];
+$imagePage      = $_FILES["postImg"];
 $title 			= $_POST["title"];
 $description 	= $_POST["description"];
 $postURL 		= $_POST["URL"];
 $category 		= $_POST["category"];
 $couponCode		= $_POST["couponCode"];
-$userId 	    = $_SESSION["userId"];
 
 $storageManager = new StorageManager();
+
 //chacking valid input
+if(!validation($errors, $title, $description, $postURL, $category)){
+    echo json_encode($errors);
+    die();
+}
 if(isset($_POST['postId'])){
     $postId = $_POST["postId"];
-    $time   = $_POST["postTime"];
-}else
-    $postId = 0;
+    $time   = $_POST["postTime"];  // edit get from storage
+    $imagePath = $storageManager->getPosts(0,1, array( "posts.id" => $postId))[0]["imagePath"];
+    $postToSave = createEditedPost($errors, $postId, $title, $description, $postURL, $userId, $imagePage, $imagePath, $time, $category, $couponCode);
+}else {
+    $postId = NEW_POST;
+    $postToSave = createNewPost($errors, $userId, $title, $description, $postURL, $category, $imagePage, $couponCode);
+}
+/* if the res = false , something go wrong in add/edit post */
+if($postToSave){
+    if(empty($postToSave->couponCode))
+        $saveResult = $storageManager->savePost($postToSave);
+    else
+        $saveResult = $storageManager->saveCoupon($postToSave);
 
-
-if($postId != 0){
-    if($userId == $_POST["publisherId"]){ // check in storage too
-        $post = new Post($postId, $title, $description, $postURL, $userId, "", $time, $category, $couponCode);
-        if(!(isset($pageImage) && !empty($pageImage['name']))){
-            echo "pageImage Empty :)";
-            $imgPath = $storageManager->getPosts(0,1, array( "posts.id" => $post->id))[0]["imagePath"];
-            $post->imagePath = $imgPath;
-            $res = $storageManager->savePost($post);
-            if(is_array($res)){
-                $errors[] = "cannot upload the post";
-            }else{
-                echo json_encode("OK");
-                exit;
-            }
-        }else{
-            unlink("../uploads/".$storageManager->getPosts(0,1, array( "posts.id" => $post->id))[0]["imagePath"]);
-            $imgPath = saveImage($pageImage);
-            if($imgPath)
-            {
-                $post->imagePath = $imgPath;
-                $res = $storageManager->savePost($post);
-                if(is_array($res)){
-                    $errors[] = "cannot upload the post 1";
-                }else{
-                    echo json_encode("OK");
-                    exit;
-                }
-            }else{
-                $errors[] = "cannot upload the post 2";
-            }
-        }
+    if($saveResult) {
+        echo json_encode("Post has been saved");
+        die();
     }else{
-        $errors[] = "Post publisherId != currentUserId";
+        $errors[] = "Can't save the post";
+        echo json_encode($errors);
+        die();
     }
 }else{
-    $post = new Post(0, $title, $description, $postURL, $userId, "", time(), $category, $couponCode);
-    $imgPath = saveImage($pageImage);
-    if($imgPath)
-    {
-        $post->imagePath = $imgPath;
-        $res = $storageManager->savePost($post);
-        if(is_array($res)){
-            $errors[] = "cannot upload the post 3";
-        }else{
-            echo json_encode("OK");
-            exit;
-        }
-    }else{
-        $errors[] = "cannot upload the post 4";
-    }
+    echo json_encode($errors);
+    die();
 }
-echo json_encode($errors);
 
-function saveImage($pageImage)
+
+function saveImage(&$errors, $pageImage)
 {
     $ext = null;
-    // chacking img format
+    // checking img format
     if (isset($pageImage) && !empty($pageImage['name']) && empty($errors)) {
         $ext = substr($pageImage["name"], strrpos($pageImage["name"], '.') + 1);
         $file_type = $pageImage['type'];
@@ -110,6 +86,53 @@ function saveImage($pageImage)
             unlink("$dir/$newname.$ext");
             return $adjImgName . "." . $ext;
         }
+        return false;
+    }
+}
+
+function validation(&$errors, $title, $description, $postURL, $category){
+    if(empty($title))
+        $errors[] = "Please enter title";
+    if(empty($description))
+        $errors[] = "Please enter description";
+    if(empty($postURL))
+        $errors[] = "Please enter sale URL";
+    if(empty($category))
+        $errors[] = "Please choose category";
+
+    if(!empty($errors))
+        return false;
+
+    return true;
+
+}
+
+function createEditedPost(&$errors, $postId, $title, $description, $postURL, $userId, $imagePage, $imagePath, $time, $category, $couponCode){
+    if($userId == $_POST["publisherId"]){ // check in storage too
+        if($imagePage['error'] > 0){
+            return new Post($postId, $title, $description, $postURL, $userId, $imagePath, $time, $category, $couponCode);
+        }else{ // image changed
+            $newImagePath = saveImage($errors,$imagePage);
+            if($newImagePath){
+                unlink("../uploads/".$imagePath);
+                return new Post($postId, $title, $description, $postURL, $userId, $newImagePath, $time, $category, $couponCode);
+            }else{
+                $errors[] = "cannot upload the new image";
+            }
+        }
+    }else{
+        $errors[] = "You are not the publisher";
+        return false;
+    }
+}
+
+function createNewPost(&$errors, $userId, $title, $description, $postURL, $category, $imagePage, $couponCode){
+
+    $imgPath = saveImage($errors, $imagePage);
+    if($imgPath){
+        return new Post(NEW_POST,$title,$description,$postURL,$userId,$imgPath,time(),$category,$couponCode);
+    }else{
+        $errors[] = "cannot upload the image";
         return false;
     }
 }

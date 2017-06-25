@@ -70,7 +70,7 @@ class StorageManager
 	**/
 	public function saveCoupon($coupon)
 	{
-		if(!($coupon instanceof Coupon))
+		if(!($coupon instanceof Post))
 			return false;
 		if( !($this->checkUser($coupon->publisherId)) )
 			return false;

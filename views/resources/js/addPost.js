@@ -29,15 +29,19 @@ var addPostController = {
             processData: false,
             contentType: false,
             success: function(callback){
-                console.log(callback);
                 if (callback.constructor === Array){
+                    console.log("callback = errors");
                     errorsString = "";
-                    callback.forEach(function (error) { errorsString += error+" \n" });
-                    console.log(errorsString);
+                    callback.forEach(function (error) { errorsString += error+" <br\>" });
                     self.addPostErrors.html("<div class=\"col-md-8 alert alert-danger text-align-left\" role=\"\" >"+errorsString+"</div>");
                 }else{
-                    window.location.replace("../index.php");
+                    console.log("add post");
+                    window.location.replace("./index.php");
                 }
+                console.log("bye");
+            },
+            error: function (callback) {
+                console.log(callback);
             }
         });
     },

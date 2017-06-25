@@ -14,7 +14,7 @@ if(isset($_SESSION['userId'])){
     $userId = $_SESSION['userId'];
     $model['currentUser'] = $storageManager->getUserById($_SESSION['userId']);
     $post = $storageManager->getPosts(0,1,array( 'posts.id' => $_GET['postId']))[0];
-    if($userId != $post['id']){
+    if($userId != $post['publisherId']){
         header("Location: ./index.php");
         die();
     }
