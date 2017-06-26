@@ -10,7 +10,9 @@ var displayPost = {
         this.postTitle          = $("#postDialogTitle");
         this.postDescription    = $("#postDialogDescription");
         this.postDialogImage    = $("#postDialogImage");
+
         this.postFavBtn         = $("#favoriteBtn");
+
         this.postComments       = $("#postDialogComments");
         this.postSaleUrl        = $("#postDialogUrl");
         this.postCoupn          = $("#postDialogCouponCode");
