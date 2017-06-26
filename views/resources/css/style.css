@@ -1,4 +1,16 @@
-div[class^="col-"]{ padding:5px; }
+div[class^="col-"]{
+    padding:5px;
+    display: flex;
+    flex-direction: column;
+}
+.row{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display:         flex;
+    flex-wrap: wrap;
+}
+
 #mainContent{
     margin-bottom: 15px;
 }
@@ -173,11 +185,13 @@ div[class^="col-"]{ padding:5px; }
     /* POST DIALOG FAVORITES */
 #favoriteBtn{
     float: left;
+    max-width: 40px;
 }
 
 #editPostBtn{
     float: left;
     color:#ffffff;
+    max-width: 40px;
 }
 
 .btn-gray{

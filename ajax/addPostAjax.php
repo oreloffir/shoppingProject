@@ -23,7 +23,7 @@ if(!validation($errors, $title, $description, $postURL, $category)){
 }
 if(isset($_POST['postId'])){
     $postId = $_POST["postId"];
-    $time   = $_POST["postTime"];  // edit get from storage
+    $time   = $storageManager->getPosts(0,1, array( "posts.id" => $postId))[0]["time"];
     $imagePath = $storageManager->getPosts(0,1, array( "posts.id" => $postId))[0]["imagePath"];
     $postToSave = createEditedPost($errors, $postId, $title, $description, $postURL, $userId, $imagePage, $imagePath, $time, $category, $couponCode);
 }else {

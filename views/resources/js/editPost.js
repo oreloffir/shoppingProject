@@ -6,7 +6,8 @@ var editPostController = {
         this.editPostForm	 = $("#editPostForm");
         this.editPostErrors   = $("#editPostErrors");
         this.couponBox 		 = $("#couponBox");
-        this.couponCodeGroup = $("#couponCodeGroup");;
+        this.couponCodeGroup = $("#couponCodeGroup");
+        this.couponCodeField = $("#couponCodeField");
         this.bindEvent();
         $(document).ready(this.browseImage);
 
@@ -51,6 +52,8 @@ var editPostController = {
             editPostController.couponCodeGroup.removeClass("hide");
         }else{
             editPostController.couponCodeGroup.addClass("hide");
+            editPostController.couponCodeField.attr('value', '');
+
         }
 
     },

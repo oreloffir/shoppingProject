@@ -21,6 +21,8 @@ var displayPost = {
         this.postRankArea 	    = $("#postRank");
         this.stars 			    = $(".ranking");
         this.postRankCount 	    = $("#postRankingAmount");
+        
+        this.postsMiniMain      = $(".post-mini-main");
         this.bindEvent();
     },
     bindEvent: function (){
@@ -35,6 +37,19 @@ var displayPost = {
             $(this).on("touchstart click", displayPost.rankPost);
         });
         $(this.postRankArea).mouseleave(this.setStars);
+        $(this.postsMiniMain).each(function () {
+            var des = $(this).children(".post-mini-img-des");
+            des.hide();
+            var postImg = $(this).children(".post-mini-img").mouseenter(function () {
+                console.log("mouseenter");
+                des.show();
+            }).mouseleave(function () {
+                console.log("mouseleave");
+            });
+            des.mouseleave(function () {
+                des.hide();
+            })
+        });
     },
     getPost: function(e) {
         e.preventDefault();
