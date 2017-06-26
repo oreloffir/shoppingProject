@@ -32,13 +32,8 @@ if(isset($_GET['pageNumber'])){
     foreach ($posts as &$post)
         $post['time'] = timeAgo($post['time']);
 
-    if($posts){
-        echo json_encode($posts);
-        die;
-    }else{
-        echo json_encode("Can't get the post");
-        die;
-    }
+    echo json_encode($posts);
+    die();
 }else{
     echo json_encode(0);
     die();

@@ -21,7 +21,13 @@ var displayPost = {
         this.postRankArea 	    = $("#postRank");
         this.stars 			    = $(".ranking");
         this.postRankCount 	    = $("#postRankingAmount");
-        
+
+        // load more variables
+        this.loadRequest                = false;
+        this.loadMoreInfo               = $("#loadMoreInfo");
+        this.postsDisplayContainer      = $("#postsDisplayContainer");
+        this.loadRequest                = false;
+
         this.postsMiniMain      = $(".post-mini-main");
         this.bindEvent();
     },
@@ -49,6 +55,15 @@ var displayPost = {
             des.mouseleave(function () {
                 des.hide();
             })
+        });
+        $(document).scroll(function(){
+            var correctPosition = $(document).scrollTop();
+            //console.log("correctPosition:"+correctPosition);
+            //console.log("(document).height:"+$(document).height());
+            if((correctPosition > $(document).height()-1000) && !displayPost.loadRequest){
+                displayPost.loadRequest = true;
+                displayPost.ajaxMore();
+            }
         });
     },
     getPost: function(e) {
@@ -189,5 +204,66 @@ var displayPost = {
         $(errors).each(function () {
             displayPost.postErrors.append("<div class=\"alert alert-danger text-align-left\">"+this+"</div>")
         });
+    },
+    ajaxMore: function(){
+        dataString = "pageNumber="+displayPost.loadMoreInfo.attr("pageNumber");
+        if(displayPost.category)
+            dataString+= "category="+displayPost.loadMoreInfo.attr("category");
+        if(displayPost.sortby)
+            dataString+= "postsOrder="+displayPost.loadMoreInfo.attr("postsOrder");
+        console.log(dataString);
+        $.ajax({
+            url: "ajax/loadMoreAjax.php",
+            type: "GET",
+            data: dataString,
+            dataType: "json",
+            success: function(callback){
+                if(callback!="0"){
+                    console.log(" Ajax suc");
+                    displayPost.fetchResult(callback);
+                }
+            }
+        });
+    },
+    fetchResult: function(posts){
+        console.log("showMore fetch");
+        var htmlPostsString = "";
+        //create string to append
+        //rows = self.arrayChunk(posts, 4);
+        if(!(posts.length == 0)) {
+            console.log(posts.length);
+            for (var i = 0; i < posts.length; i += 4) {
+                var limit = i + 4;
+                htmlPostsString += "<div class=\"row\">";
+                for (i; i < limit; i++) {
+                    htmlPostsString += "<div class=\"col-xs-12 col-sm-6 col-md-3\">";
+                    htmlPostsString += "<div class=\"post-mini\">";
+                    htmlPostsString += "<div class=\"post-mini-top\">";
+                    htmlPostsString += "<a href=\"profile.php?id=" + posts[i]['publisherId'] + "\">" + posts[i]['displayName'] + "</a><span>" + posts[i]['time'] + "</span>";
+                    htmlPostsString += "</div>";
+                    htmlPostsString += "<div class=\"post-mini-title\">";
+                    htmlPostsString += "<a href=\"#\" class=\"postDialog\" postId=" + posts[i]['id'] + ">" + posts[i]['title'] + "</a>";
+                    htmlPostsString += "</div>";
+                    htmlPostsString += "<div class=\"post-mini-main\">";
+                    htmlPostsString += "<div class=\"post-mini-img\">";
+                    htmlPostsString += "<img src=\"./uploads/" + posts[i]['imagePath'] + "\" class=\"img-responsive postDialog\" postId=" + posts[i]['id'] + ">";
+                    htmlPostsString += "</div>";
+                    htmlPostsString += "<div class=\"post-mini-img-des\">";
+                    htmlPostsString += "<span>" + posts[i]['description'].substr(0, 200) + "..</span>";
+                    htmlPostsString += "</div>";
+                    htmlPostsString += "</div>";
+                    htmlPostsString += "</div>";
+                    htmlPostsString += "</div>";
+                }
+                htmlPostsString += "</div>";
+            }
+            displayPost.postsDisplayContainer.append(htmlPostsString);
+            displayPost.loadMoreInfo.attr("pageNumber", parseInt(displayPost.loadMoreInfo.attr("pageNumber")) + 1);
+            displayPost.loadRequest = false;
+            displayPost.init();
+        }else{
+            htmlPostsString += "<div class=\"row\"><div class=\"col-xs-12 col-sm-12 col-md-12\" style=\"text-align: center;\">No more results</div></div>";
+            displayPost.postsDisplayContainer.append(htmlPostsString);
+        }
     }
 }

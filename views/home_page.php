@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="./views/resources/css/style.css">
     <script src="./views/resources/js/login.js" type="text/javascript"></script>
     <script src="./views/resources/js/displayPost.js" type="text/javascript"></script>
-    <script src="./views/resources/js/showMore.js" type="text/javascript"></script>
 </head>
 <body>
     <?php require_once("fragments/header.php"); ?>
