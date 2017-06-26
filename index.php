@@ -17,6 +17,7 @@ if(isset($_GET["category"])) {
     $category = $_GET["category"];
     $where["posts.category"]    = $category;
     $model['categoryName']      = $categories[$category-1]['category'];
+    $model['categoryId']        = $category;
 }
 
 if(isset($_GET['order'])){

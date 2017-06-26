@@ -8,7 +8,36 @@
 include_once("../inc/StorageManager.class.php");
 include_once("../inc/util.php");
 $storageManager = new StorageManager();
-$postId = $_GET["id"];
+
+// if post id isset send specific post
+if(isset($_GET["id"])){
+    $postId = $_GET["id"];
+    $post = $storageManager->getPosts(0,1, array('posts.id' => $postId))[0];
+    if($post){
+        echo json_encode($post);
+        die;
+    }else{
+        echo json_encode("Can't get the post");
+        die;
+    }
+
+}
+
+// if page is set -> need to send back CHUNK posts of this page
+if(isset($_GET['page'])){
+    $pageNum = $_GET['page'];
+
+    $posts = $storageManager->getPopularPosts(POSTS_CHUNK, POSTS_CHUNK);
+    if($post){
+        echo json_encode($post);
+        die;
+    }else{
+        echo json_encode("Can't get the post");
+        die;
+    }
+
+}
+
 session_start();
 if(isset($_SESSION['userId'])) {
     $userId = $_SESSION['userId'];

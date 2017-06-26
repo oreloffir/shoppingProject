@@ -41,10 +41,10 @@ var displayPost = {
             var des = $(this).children(".post-mini-img-des");
             des.hide();
             var postImg = $(this).children(".post-mini-img").mouseenter(function () {
-                console.log("mouseenter");
+
                 des.show();
             }).mouseleave(function () {
-                console.log("mouseleave");
+
             });
             des.mouseleave(function () {
                 des.hide();

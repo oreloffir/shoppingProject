@@ -134,3 +134,12 @@ function timeAgo($timestamp,$output = 'less then a minute') {
     }
     return $output;
 }
+
+function addUrlParam($key, $value){
+    $base = basename($_SERVER['REQUEST_URI']);
+    if(strrpos ($base,"?"))
+        $base = $base."&";
+    else
+        $base = $base."?";
+    return $base.$key."=".$value;
+}

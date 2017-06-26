@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./views/resources/css/style.css">
     <script src="./views/resources/js/login.js" type="text/javascript"></script>
     <script src="./views/resources/js/displayPost.js" type="text/javascript"></script>
+    <script src="./views/resources/js/showMore.js" type="text/javascript"></script>
 </head>
 <body>
     <?php require_once("fragments/header.php"); ?>
@@ -26,8 +27,8 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li><a href="<?php echo $_SERVER["PHP_SELF"]?>?order=recent">Most Recent</a></li>
-                            <li><a href="<?php echo $_SERVER["PHP_SELF"]?>?order=popular">Most Popular</a></li>
+                            <li><a href="<?php echo addUrlParam("order", ORDER_RECENT); ?>">Most Recent</a></li>
+                            <li><a href="<?php echo addUrlParam("order", ORDER_POPULAR);?>">Most Popular</a></li>
                         </ul>
                     </div>
                 </div>

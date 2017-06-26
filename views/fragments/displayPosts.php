@@ -1,4 +1,4 @@
-    <div class="container-fluid max-width-1200-center">
+    <div class="container-fluid max-width-1200-center" id="postsDisplayContainer">
     <?php
     $count = 0;
     if(!empty($model['posts'])) {
@@ -25,9 +25,11 @@
     <?php
             }
             echo "</div>";
+
         }
     }?>
     </div>
+    <div id="loadMoreInfo" pageNumber="1" postsOrder="<?php if(isset($model['postsOrder']))echo $model['postsOrder'];?>" category="<?php if(isset($model['categoryId'])) echo $model['categoryId'];?>"></div>
 
     <div class="modal fade" id="displayPostModal" role="dialog" postid="">
         <div class="modal-dialog modal-lg">
@@ -95,4 +97,5 @@
     </div>
     <script>
         displayPost.init();
+        showMore.init();
     </script>
