@@ -4,9 +4,9 @@
     if(!empty($model['posts'])) {
         $rows = array_chunk($model['posts'], 4);
         foreach ($rows as $row) {
-            echo '<div class="row">';
+            echo "<div class=\"row\">";
             foreach ($row as $post) { ?>
-                <div class="col-sm-6 col-md-3">
+                <div class="col-xs-12 col-sm-6 col-md-3">
                     <div class="post-mini">
                         <div class="post-mini-top"><a
                                     href="profile.php?id=<?php echo $post['publisherId']; ?>"><?php echo $post['displayName']; ?></a><span><?php echo $post['time']; ?></span>
@@ -24,6 +24,7 @@
                 </div>
     <?php
             }
+            echo "</div>";
         }
     }?>
     </div>
