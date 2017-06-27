@@ -7,8 +7,12 @@
  */
 include_once("../inc/StorageManager.class.php");
 include_once("../inc/util.php");
-$storageManager = new StorageManager();
+session_start();
+if(isset($_SESSION[ADMIN])){
+    $adminPrivilege = $_SESSION[ADMIN];
+}
 
+$storageManager = new StorageManager();
 // if post id isset send specific post
 if(isset($_GET["id"])){
     $postId = $_GET["id"];
@@ -24,6 +28,10 @@ $post       = $storageManager->getPosts(0,1, array('posts.id' => $postId))[0];
 $comments   = $storageManager->getPostComments($post['id'],0,10) ;
 foreach ($comments as &$comment){
     $comment['time'] = timeAgo($comment['time']);
+    if($comment['publisherId'] == $userId || $adminPrivilege)
+        $comment['delete'] = true;
+    else
+        $comment['delete'] = false;
 }
 if(isset($userId) && $post['publisherId'] == $userId){
     $post['editPost'] = true;

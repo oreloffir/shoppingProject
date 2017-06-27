@@ -7,6 +7,7 @@
  */
 include_once ("../inc/StorageManager.class.php");
 include_once ("../model/entities/comment.class.php");
+include_once ("../inc/util.php");
 
 $errors = array();
 session_start();
@@ -29,6 +30,7 @@ if(empty($errors))
     $comment                = new Comment(0, $commentBody, $userId, $postId, time());
     $comment->id            = $storageManager->saveComment($comment);
     $comment->displayName   = $storageManager->getUserById($userId)['displayName'];
+    $comment->time          = timeAgo($comment->time);
     echo json_encode((array)$comment);
 }
 else{

@@ -9,6 +9,8 @@ include_once ("../inc/StorageManager.class.php");
 
 $errors = array();
 session_start();
+$storageManager = new StorageManager();
+
 if(isset($_SESSION[ADMIN])){
     $adminPrivilege = $_SESSION[ADMIN];
 }
@@ -16,7 +18,9 @@ if(isset($_SESSION[ADMIN])){
 $commentId  = $_POST['commentId'];
 if(!isset($commentId)) {
     $errors[] = "Invalid comment id";
-    echo json_encode($errors);
+    echo json_encode(array(
+        'errors' => $errors
+    ));
     die();
 }
 
@@ -31,9 +35,8 @@ if($adminPrivilege){
 
 if(empty($errors))
 {
-    $storageManager = new StorageManager();
     $delRes            = $storageManager->deleteComment($commentId, $userId);
-    echo json_encode((array)$comment);
+    echo json_encode($delRes);
 }
 else{
     echo json_encode(array(

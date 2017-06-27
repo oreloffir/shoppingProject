@@ -154,7 +154,9 @@ div[class^="col-"]{
 #img-upload{
     width: 100%;
 }
-
+.inline-block{
+    display: inline-block;
+}
 
 
 /* POST DIALOG */
@@ -249,6 +251,9 @@ div[class^="col-"]{
     border-color: #aaaaaa;
 }
 
+.remove-comment-btn{
+    padding: 5px;
+}
 
 
 /* GENERAL */
