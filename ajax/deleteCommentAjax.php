@@ -13,6 +13,8 @@ $storageManager = new StorageManager();
 
 if(isset($_SESSION[ADMIN])){
     $adminPrivilege = $_SESSION[ADMIN];
+}else{
+    $adminPrivilege = false;
 }
 
 $commentId  = $_POST['commentId'];

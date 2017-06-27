@@ -10,6 +10,8 @@ include_once("../inc/util.php");
 session_start();
 if(isset($_SESSION[ADMIN])){
     $adminPrivilege = $_SESSION[ADMIN];
+}else{
+    $adminPrivilege = false;
 }
 
 $storageManager = new StorageManager();
