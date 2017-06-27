@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
             </button>
         </div>
-        <div>
+        <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="./index.php">Home</a></li>
                 <li class="dropdown">

@@ -126,7 +126,7 @@ var displayPost = {
         displayPost.postDisplayName.html(callback.displayName);
         displayPost.postDisplayName.attr("href", "profile.php?id="+callback.publisherId);
         displayPost.postDialogTimeAgo.html(callback.time);
-        displayPost.postTitle.html("<a href=\"index.php?category="+callback.category+"\">"+callback.categoryName+"</a> \\ "+callback.title);
+        displayPost.postTitle.html("<a href=\"index.php?category="+callback.category+"\">"+callback.categoryName+"</a> \\ <span>"+callback.title+"</span>");
         displayPost.postDescription.html(callback.description);
         displayPost.postDialogImage.attr("src", "./uploads/"+callback.imagePath);
         displayPost.postDialog.attr("postId", callback['id']);
