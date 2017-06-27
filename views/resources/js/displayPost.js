@@ -10,7 +10,9 @@ var displayPost = {
         this.postTitle          = $("#postDialogTitle");
         this.postDescription    = $("#postDialogDescription");
         this.postDialogImage    = $("#postDialogImage");
+
         this.postFavBtn         = $("#favoriteBtn");
+
         this.postComments       = $("#postDialogComments");
         this.postSaleUrl        = $("#postDialogUrl");
         this.postCoupn          = $("#postDialogCouponCode");
@@ -28,7 +30,7 @@ var displayPost = {
         this.postsDisplayContainer      = $("#postsDisplayContainer");
         this.loadRequest                = false;
 
-        this.postsMiniMain      = $(".post-mini-main");
+        this.postMini                   = $(".post-mini");
         this.bindEvent();
     },
     bindEvent: function (){
@@ -43,18 +45,14 @@ var displayPost = {
             $(this).on("touchstart click", displayPost.rankPost);
         });
         $(this.postRankArea).mouseleave(this.setStars);
-        $(this.postsMiniMain).each(function () {
-            var des = $(this).children(".post-mini-img-des");
+        $(this.postMini).each(function () {
+            var des = $(this).children(".post-mini-main").children(".post-mini-img-des");
             des.hide();
-            var postImg = $(this).children(".post-mini-img").mouseenter(function () {
-
+            $(this).mouseenter(function () {
                 des.show();
             }).mouseleave(function () {
-
-            });
-            des.mouseleave(function () {
                 des.hide();
-            })
+            });
         });
         $(document).scroll(function(){
             var correctPosition = $(document).scrollTop();

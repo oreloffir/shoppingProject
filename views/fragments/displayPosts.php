@@ -80,7 +80,7 @@
                 <div class="modal-footer">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-2 col-xs-6">
+                            <div class="col-md-2 col-xs-6 post-dialog-fun-btns">
                                 <a class="btn btn-danger btn-gray" id ="favoriteBtn"><span class="glyphicon glyphicon-heart"></span></a>
                                 <a class="btn btn-gray" id="editPostBtn" href=""><span class="glyphicon glyphicon-pencil"></span></a>
                             </div>

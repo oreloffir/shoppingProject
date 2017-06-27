@@ -237,4 +237,8 @@ div[class^="col-"]{
     text-align: right;
 }
 
+.post-dialog-fun-btns{
+    display: inline !important;
+}
+
 

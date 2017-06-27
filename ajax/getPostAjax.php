@@ -12,15 +12,8 @@ $storageManager = new StorageManager();
 // if post id isset send specific post
 if(isset($_GET["id"])){
     $postId = $_GET["id"];
-    $post = $storageManager->getPosts(0,1, array('posts.id' => $postId))[0];
-    if($post){
-        echo json_encode($post);
-        die;
-    }else{
-        echo json_encode("Can't get the post");
-        die;
-    }
-
+}else{
+    die();
 }
 
 session_start();
