@@ -89,8 +89,40 @@ div[class^="col-"]{
     left: 0px;
     width: 100%;
 }
-
-
+.post-mini-img-price{
+    margin: 10px;
+    padding: 5px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    height: 50px;
+    border-radius: 200px;
+    background-color: darkred;
+    color: #dddddd;
+    font-weight: bold;
+}
+.post-dialog-price{
+    top:0px;
+    right:0px;
+    margin: 10px;
+    padding: 5px;
+    position: absolute;
+    height: 50px;
+    border-radius: 200px;
+    background-color: darkred;
+    color: #dddddd;
+    font-weight: bold;
+}
+.post-dialog-price > span{
+    display: block;
+    padding: 5px;
+    margin-top: 4px;
+}
+.post-mini-img-price span{
+    display: block;
+    padding: 5px;
+    margin-top: 4px;
+}
 /* ~~~~~~~~ add post view ~~~~~~~~*/
 .btn-file {
     position: relative;
@@ -239,6 +271,9 @@ div[class^="col-"]{
 
 .post-dialog-fun-btns{
     display: inline !important;
+}
+.hidden-xs{
+    display: none;
 }
 
 

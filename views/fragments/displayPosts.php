@@ -11,14 +11,13 @@
                         <div class="post-mini-top"><a
                                     href="profile.php?id=<?php echo $post['publisherId']; ?>"><?php echo $post['displayName']; ?></a><span><?php echo $post['time']; ?></span>
                         </div>
-                        <div class="post-mini-title"><a href="#" class="postDialog"
-                                                        postId="<?php echo $post['id']; ?>"><?php echo $post['title']; ?></a>
-                        </div>
+                        <div class="post-mini-title"><a href="#" class="postDialog" postId="<?php echo $post['id']; ?>"><?php echo $post['title']; ?></a></div>
                         <div class="post-mini-main">
                             <div class="post-mini-img"><img
                                         src="./uploads/<?php echo $post['imagePath']; ?>"
                                         class="img-responsive postDialog" postId="<?php echo $post['id']; ?>"></div>
                             <div class="post-mini-img-des"><span><?php echo substr($post['description'],0,200); ?>..</span></div>
+                            <div class="post-mini-img-price circle"><span>/<?php echo $post['price']; ?>$</span></div>
                         </div>
                     </div>
                 </div>
@@ -43,6 +42,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-8">
+                                <div class="post-dialog-price circle"><span id="postDialogPrice"></span></div>
                                 <div>
                                     <div><a href="" id="postDialogDisplayName"></a></div>
                                     <div id="postDialogTimeAgo"></div>
