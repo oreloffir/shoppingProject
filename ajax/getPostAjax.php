@@ -24,6 +24,8 @@ if(isset($_GET["id"])){
 
 if(isset($_SESSION['userId'])) {
     $userId = $_SESSION['userId'];
+}else{
+    $userId = 0;
 }
 $post       = $storageManager->getPosts(0,1, array('posts.id' => $postId))[0];
 $comments   = $storageManager->getPostComments($post['id'],0,10) ;

@@ -147,7 +147,7 @@ var displayPost = {
         $(callback.comments).each(function (){
             var commentHtml = "";
             commentHtml += "<div class=\"row post-dialog-comment\" id=\"comment"+this.id+"\">";
-            commentHtml +=      "<div class=\"post-dialog-comment-user col-md-3\">";
+            commentHtml +=      "<div class=\"post-dialog-comment-user col-md-3 col-xs-3\">";
             commentHtml +=          "<div class=\"inline-block\">";
             commentHtml +=              "<div><a href=\"#\">"+this.displayName+"</a></div>";
             commentHtml +=              "<div class=\"post-dialog-comment-time\"\">"+this.time+"</div>";
@@ -157,7 +157,7 @@ var displayPost = {
                 commentHtml +=              "<div class=\"close remove-comment-btn\" commentId=\""+this.id+"\">&times;</div>";
             commentHtml +=           "</div>";
             commentHtml +=      "</div>";
-            commentHtml +=      "<div class=\"post-dialog-comment-body col-md-9\">"+this.body+"</div>";
+            commentHtml +=      "<div class=\"post-dialog-comment-body col-md-9 col-xs-9\">"+this.body+"</div>";
             commentHtml += "</div>";
             displayPost.postComments.append(commentHtml);
         });
@@ -198,7 +198,7 @@ var displayPost = {
                 }else{
                     var commentHtml = "";
                     commentHtml += "<div class=\"row post-dialog-comment\" id=\"comment"+callback.id+"\">";
-                    commentHtml +=      "<div class=\"post-dialog-comment-user col-md-3\">";
+                    commentHtml +=      "<div class=\"post-dialog-comment-user col-md-3 col-xs-3\">";
                     commentHtml +=          "<div class=\"inline-block\">";
                     commentHtml +=              "<div><a href=\"#\">"+callback.displayName+"</a></div>";
                     commentHtml +=              "<div class=\"post-dialog-comment-time\"\">"+callback.time+"</div>";
@@ -207,7 +207,7 @@ var displayPost = {
                     commentHtml +=              "<div class=\"close remove-comment-btn\" commentId=\""+callback.id+"\">&times;</div>";
                     commentHtml +=           "</div>";
                     commentHtml +=      "</div>";
-                    commentHtml +=      "<div class=\"post-dialog-comment-body col-md-9\">"+callback.body+"</div>";
+                    commentHtml +=      "<div class=\"post-dialog-comment-body col-md-9 col-xs-9\">"+callback.body+"</div>";
                     commentHtml += "</div>";
                     displayPost.postComments.prepend(commentHtml);
                     $('.remove-comment-btn[commentId="'+callback.id+'"]').on("touchstart click", displayPost.removeComment);
