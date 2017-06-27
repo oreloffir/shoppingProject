@@ -9,7 +9,7 @@
         </div>
         <div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="index.php">Home</a></li>
+                <li class="active"><a href="./index.php">Home</a></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories <span class="caret"></span> </a>
                     <ul class="dropdown-menu">
@@ -29,7 +29,7 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin <span class="caret"></span> </a>
                         <ul class="dropdown-menu">
-                            <li><a href="index.php">Edit post</a></li>
+                            <li><a href="./admin/adminEditPost.php">Edit post</a></li>
                             <li><a href="index.php">Users</a></li>
                             <li><a href="index.php">Reports</a></li>
                         </ul>

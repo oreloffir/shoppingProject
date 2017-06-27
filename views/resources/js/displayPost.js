@@ -328,10 +328,10 @@ var displayPost = {
     * */
     ajaxMore: function(){
         dataString = "pageNumber="+displayPost.loadMoreInfo.attr("pageNumber");
-        if(displayPost.category)
-            dataString+= "category="+displayPost.loadMoreInfo.attr("category");
-        if(displayPost.sortby)
-            dataString+= "postsOrder="+displayPost.loadMoreInfo.attr("postsOrder");
+        if(displayPost.loadMoreInfo.attr("category"))
+            dataString+= "&category="+displayPost.loadMoreInfo.attr("category");
+        if(displayPost.loadMoreInfo.attr("postsOrder"))
+            dataString+= "&postsOrder="+displayPost.loadMoreInfo.attr("postsOrder");
         console.log(dataString);
         $.ajax({
             url: "ajax/loadMoreAjax.php",
@@ -357,25 +357,27 @@ var displayPost = {
                 var limit = i + 4;
                 htmlPostsString += "<div class=\"row\">";
                 for (i; i < limit; i++) {
-                    htmlPostsString += "<div class=\"col-xs-12 col-sm-6 col-md-3\">";
-                    htmlPostsString +=      "<div class=\"post-mini\">";
-                    htmlPostsString +=          "<div class=\"post-mini-top\">";
-                    htmlPostsString +=              "<a href=\"profile.php?id=" + posts[i]['publisherId'] + "\">" + posts[i]['displayName'] + "</a><span>" + posts[i]['time'] + "</span>";
-                    htmlPostsString +=          "</div>";
-                    htmlPostsString +=          "<div class=\"post-mini-title\">";
-                    htmlPostsString +=              "<a href=\"#\" class=\"postDialog\" postId=" + posts[i]['id'] + ">" + posts[i]['title'] + "</a>";
-                    htmlPostsString +=          "</div>";
-                    htmlPostsString +=          "<div class=\"post-mini-main\">";
-                    htmlPostsString +=              "<div class=\"post-mini-img\">";
-                    htmlPostsString +=                  "<img src=\"./uploads/" + posts[i]['imagePath'] + "\" class=\"img-responsive postDialog width-min-fluid\" postId=" + posts[i]['id'] + ">";
-                    htmlPostsString +=              "</div>";
-                    htmlPostsString +=              "<div class=\"post-mini-img-des\">";
-                    htmlPostsString +=                  "<span>" + posts[i]['description'].substr(0, 200) + "..</span>";
-                    htmlPostsString +=              "</div>";
-                    htmlPostsString +=              "<div class=\"post-mini-img-price circle\"><span>"+posts[i]['price']+"$</span></div>"
-                    htmlPostsString +=          "</div>";
-                    htmlPostsString +=       "</div>";
-                    htmlPostsString += "</div>";
+                    if (posts[i] != undefined) {
+                        htmlPostsString += "<div class=\"col-xs-12 col-sm-6 col-md-3\">";
+                        htmlPostsString += "<div class=\"post-mini\">";
+                        htmlPostsString += "<div class=\"post-mini-top\">";
+                        htmlPostsString += "<a href=\"profile.php?id=" + posts[i]['publisherId'] + "\">" + posts[i]['displayName'] + "</a><span>" + posts[i]['time'] + "</span>";
+                        htmlPostsString += "</div>";
+                        htmlPostsString += "<div class=\"post-mini-title\">";
+                        htmlPostsString += "<a href=\"#\" class=\"postDialog\" postId=" + posts[i]['id'] + ">" + posts[i]['title'] + "</a>";
+                        htmlPostsString += "</div>";
+                        htmlPostsString += "<div class=\"post-mini-main\">";
+                        htmlPostsString += "<div class=\"post-mini-img\">";
+                        htmlPostsString += "<img src=\"./uploads/" + posts[i]['imagePath'] + "\" class=\"img-responsive postDialog width-min-fluid\" postId=" + posts[i]['id'] + ">";
+                        htmlPostsString += "</div>";
+                        htmlPostsString += "<div class=\"post-mini-img-des\">";
+                        htmlPostsString += "<span>" + posts[i]['description'].substr(0, 200) + "..</span>";
+                        htmlPostsString += "</div>";
+                        htmlPostsString += "<div class=\"post-mini-img-price circle\"><span>" + posts[i]['price'] + "$</span></div>"
+                        htmlPostsString += "</div>";
+                        htmlPostsString += "</div>";
+                        htmlPostsString += "</div>";
+                    }
                 }
                 htmlPostsString += "</div>";
             }

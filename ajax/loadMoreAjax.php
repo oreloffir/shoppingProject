@@ -12,9 +12,9 @@ $storageManager = new StorageManager();
 $where = array();
 // if page is set -> need to send back CHUNK posts of this page
 if(isset($_GET['pageNumber'])){
-    $pageNum = $_GET['pageNumber'];
-    if(isset($_GET['categorty'])){
-        $where['categorty'] = $_GET['categorty'];
+    $pageNum = intval($_GET['pageNumber']);
+    if(isset($_GET['category'])){
+        $where['posts.category'] = intval($_GET['category']);
     }
     if(isset($_GET['postsOrder'])){
         switch($_GET['postsOrder']){
