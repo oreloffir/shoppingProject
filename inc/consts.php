@@ -29,4 +29,7 @@ define("COUPON_TYPE",1);
 define("POSTS_CHUNK", 12);
 define("ORDER_POPULAR", "popular");
 define("ORDER_RECENT", "recent");
+
+define("ADMIN", "admin");
+define("ADMIN_TYPE", 1);
 ?>

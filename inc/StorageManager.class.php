@@ -118,7 +118,7 @@ class StorageManager
 		$commentId = $this->_db->filter($commentId);
 		$result    = $this->_db->simpleSelectQuery(COMMENTS_TABLE, array('id' => $commentId) );
 
-		if((!empty($result)) && $result[0]['publisherId'] == $userId){
+		if((!empty($result)) && ($result[0]['publisherId'] == $userId)){
 			return $this->_db->deleteQuery(COMMENTS_TABLE,  array('id' => $commentId));
 		}
 		return false;
@@ -268,7 +268,7 @@ class StorageManager
 		);
 		$result  = $this->_db->simpleSelectQuery(USERS_TABLE, $userLoginInfo);
 		if(!empty($result))
-			return $result[0]['id'];
+			return $result[0];
 		return false;
 	}
 
@@ -382,6 +382,12 @@ class StorageManager
 		$where['postType'] = 0;
 		$this->getPosts($start, $count, $where, $orders);
 	}
+
+	public function getComments($where){
+	    $where = $this->_db->filter($where);
+	    return $this->_db->simpleSelectQuery(COMMENTS_TABLE, $where);
+    }
+
 
 	public function getPostComments($postId, $start, $count)
 	{

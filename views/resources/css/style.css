@@ -97,19 +97,18 @@ div[class^="col-"]{
     left: 0px;
     height: 50px;
     border-radius: 200px;
-    background-color: darkred;
+    background-color: darkorange;
     color: #dddddd;
     font-weight: bold;
 }
 .post-dialog-price{
     top:0px;
     right:0px;
-    margin: 10px;
     padding: 5px;
     position: absolute;
     height: 50px;
     border-radius: 200px;
-    background-color: darkred;
+    background-color: darkorange;
     color: #dddddd;
     font-weight: bold;
 }
@@ -117,11 +116,20 @@ div[class^="col-"]{
     display: block;
     padding: 5px;
     margin-top: 4px;
+    color: #ffffff;
 }
 .post-mini-img-price span{
     display: block;
     padding: 5px;
     margin-top: 4px;
+    color: #ffffff;
+}
+
+#postDialogImage{
+    min-height: 280px;
+}
+.width-min-fluid{
+    min-width: 100%;
 }
 /* ~~~~~~~~ add post view ~~~~~~~~*/
 .btn-file {

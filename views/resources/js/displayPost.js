@@ -316,11 +316,12 @@ var displayPost = {
                     htmlPostsString +=          "</div>";
                     htmlPostsString +=          "<div class=\"post-mini-main\">";
                     htmlPostsString +=              "<div class=\"post-mini-img\">";
-                    htmlPostsString +=                  "<img src=\"./uploads/" + posts[i]['imagePath'] + "\" class=\"img-responsive postDialog\" postId=" + posts[i]['id'] + ">";
+                    htmlPostsString +=                  "<img src=\"./uploads/" + posts[i]['imagePath'] + "\" class=\"img-responsive postDialog width-min-fluid\" postId=" + posts[i]['id'] + ">";
                     htmlPostsString +=              "</div>";
                     htmlPostsString +=              "<div class=\"post-mini-img-des\">";
                     htmlPostsString +=                  "<span>" + posts[i]['description'].substr(0, 200) + "..</span>";
                     htmlPostsString +=              "</div>";
+                    htmlPostsString +=              "<div class=\"post-mini-img-price circle\"><span>"+posts[i]['price']+"$</span></div>"
                     htmlPostsString +=          "</div>";
                     htmlPostsString +=       "</div>";
                     htmlPostsString += "</div>";
