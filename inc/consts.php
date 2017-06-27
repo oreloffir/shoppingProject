@@ -20,7 +20,7 @@ define("CATEGORIES_TABLE", "categories");
 
 define("EMAIL_TAKEN", "email is alredy taken");
 
-/*Add/Edit post constants*/
+/* Add/Edit post constants*/
 define("EDIT_POST",1);
 define("NEW_POST",0);
 define("SALE_TYPE",0);
@@ -30,6 +30,7 @@ define("POSTS_CHUNK", 12);
 define("ORDER_POPULAR", "popular");
 define("ORDER_RECENT", "recent");
 
+/* Admin constants */
 define("ADMIN", "admin");
 define("ADMIN_TYPE", 1);
 ?>

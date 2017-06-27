@@ -10,6 +10,7 @@ $userId 	    = $_SESSION["userId"];
 $imagePage      = $_FILES["postImg"];
 $title 			= $_POST["title"];
 $description 	= $_POST["description"];
+$price       	= $_POST["price"];
 $postURL 		= $_POST["URL"];
 $category 		= $_POST["category"];
 $couponCode		= $_POST["couponCode"];
@@ -25,10 +26,10 @@ if(isset($_POST['postId'])){
     $postId = $_POST["postId"];
     $time   = $storageManager->getPosts(0,1, array( "posts.id" => $postId))[0]["time"];
     $imagePath = $storageManager->getPosts(0,1, array( "posts.id" => $postId))[0]["imagePath"];
-    $postToSave = createEditedPost($errors, $postId, $title, $description, $postURL, $userId, $imagePage, $imagePath, $time, $category, $couponCode);
+    $postToSave = createEditedPost($errors, $postId, $title, $description, $price, $postURL, $userId, $imagePage, $imagePath, $time, $category, $couponCode);
 }else {
     $postId = NEW_POST;
-    $postToSave = createNewPost($errors, $userId, $title, $description, $postURL, $category, $imagePage, $couponCode);
+    $postToSave = createNewPost($errors, $userId, $title, $description, $price, $postURL, $category, $imagePage, $couponCode);
 }
 /* if the res = false , something go wrong in add/edit post */
 if($postToSave){
@@ -107,15 +108,15 @@ function validation(&$errors, $title, $description, $postURL, $category){
 
 }
 
-function createEditedPost(&$errors, $postId, $title, $description, $postURL, $userId, $imagePage, $imagePath, $time, $category, $couponCode){
+function createEditedPost(&$errors, $postId, $title, $description, $price, $postURL, $userId, $imagePage, $imagePath, $time, $category, $couponCode){
     if($userId == $_POST["publisherId"]){ // check in storage too
         if($imagePage['error'] > 0){
-            return new Post($postId, $title, $description, $postURL, $userId, $imagePath, $time, $category, $couponCode);
+            return new Post($postId, $title, $description, $price, $postURL, $userId, $imagePath, $time, $category, $couponCode);
         }else{ // image changed
             $newImagePath = saveImage($errors,$imagePage);
             if($newImagePath){
                 unlink("../uploads/".$imagePath);
-                return new Post($postId, $title, $description, $postURL, $userId, $newImagePath, $time, $category, $couponCode);
+                return new Post($postId, $title, $description, $price, $postURL, $userId, $newImagePath, $time, $category, $couponCode);
             }else{
                 $errors[] = "cannot upload the new image";
             }
@@ -126,11 +127,11 @@ function createEditedPost(&$errors, $postId, $title, $description, $postURL, $us
     }
 }
 
-function createNewPost(&$errors, $userId, $title, $description, $postURL, $category, $imagePage, $couponCode){
+function createNewPost(&$errors, $userId, $title, $description, $price, $postURL, $category, $imagePage, $couponCode){
 
     $imgPath = saveImage($errors, $imagePage);
     if($imgPath){
-        return new Post(NEW_POST,$title,$description,$postURL,$userId,$imgPath,time(),$category,$couponCode);
+        return new Post(NEW_POST,$title,$description,$price,$postURL,$userId,$imgPath,time(),$category,$couponCode);
     }else{
         $errors[] = "cannot upload the image";
         return false;

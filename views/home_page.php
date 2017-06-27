@@ -11,7 +11,10 @@
     <script src="./views/resources/js/displayPost.js" type="text/javascript"></script>
 </head>
 <body>
-    <?php require_once("fragments/header.php"); ?>
+    <?php if(isset($model['adminPrivilege']))
+            require_once("./views/fragments/header.php");
+        else
+            require_once("fragments/header.php"); ?>
     <div id="mainContent" class="max-width-1200-center">
         <div class="page-header no-margin">
             <div class="row no-margin">
@@ -40,6 +43,9 @@
         </div>
     </div>
 
-    <?php require_once("fragments/displayPosts.php"); ?>
+    <?php if(isset($model['adminPrivilege']))
+        require_once("../views/fragments/displayPosts.php");
+    else
+        require_once("fragments/displayPosts.php"); ?>
 </body>
 </html>

@@ -19,19 +19,25 @@
             <div class="form-group">
                 <label class="control-label col-md-4" for="title">Title:</label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" id="title_field" placeholder="Enter title" name="title">
+                    <input type="text" class="form-control" id="title_field" placeholder="Enter title" name="title" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-4" for="description">Description:</label>
                 <div class="col-md-8">
-                    <textarea  type="text" class="form-control" id="description_field" placeholder="Enter description" name="description"></textarea>
+                    <textarea  type="text" class="form-control" id="description_field" placeholder="Enter description" name="description" required></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4" for="description">Price:</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" id="price_field" placeholder="$" name="price" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-4" for="URL">Sale URL:</label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" id="URL_field" placeholder="Enter sale URL" name="URL">
+                    <input type="text" class="form-control" id="URL_field" placeholder="Enter sale URL" name="URL" required>
                 </div>
             </div>
 

@@ -38,7 +38,6 @@ var displayPost = {
         this.addCommentBtn      = $("#addCommentBtn");
         this.commentTA          = $("#postDialogCommentsTA");
         this.postComments       = $("#postDialogComments");
-
         // Post dialog favorite functionality
         this.postFavBtn         = $("#favoriteBtn");
 
@@ -146,8 +145,25 @@ var displayPost = {
         }
         displayPost.postComments.html("");
         $(callback.comments).each(function (){
-            displayPost.postComments.append("<div class=\"row post-dialog-comment\"><div class=\"post-dialog-comment-user col-md-2\"><div><a href=\"#\">"+this.displayName+"</a></div><div class=\"post-dialog-comment-time\"\">"+this.time+"</div></div><div class=\"post-dialog-comment-body col-md-10\">"+this.body+"</div></div>");
+            var commentHtml = "";
+            commentHtml += "<div class=\"row post-dialog-comment\" id=\"comment"+this.id+"\">";
+            commentHtml +=      "<div class=\"post-dialog-comment-user col-md-3\">";
+            commentHtml +=          "<div class=\"inline-block\">";
+            commentHtml +=              "<div><a href=\"#\">"+this.displayName+"</a></div>";
+            commentHtml +=              "<div class=\"post-dialog-comment-time\"\">"+this.time+"</div>";
+            commentHtml +=           "</div>";
+            commentHtml +=          "<div class=\"inline-block\">";
+            if(this.delete)
+                commentHtml +=              "<div class=\"close remove-comment-btn\" commentId=\""+this.id+"\">&times;</div>";
+            commentHtml +=           "</div>";
+            commentHtml +=      "</div>";
+            commentHtml +=      "<div class=\"post-dialog-comment-body col-md-9\">"+this.body+"</div>";
+            commentHtml += "</div>";
+            displayPost.postComments.append(commentHtml);
         });
+        $(".remove-comment-btn").each(function () {
+            $(this).on("touchstart click", displayPost.removeComment);
+        })
         displayPost.postSaleUrl.attr("href", callback.saleUrl);
         if(callback.couponCode)
             displayPost.postCoupn.html("<code>Coupon: "+callback.couponCode+"</code>")
@@ -180,8 +196,43 @@ var displayPost = {
                 if (typeof errors !== typeof undefined && errors !== false) {
                     displayPost.displayErrors(errors);
                 }else{
-                    displayPost.postComments.prepend("<div class=\"row post-dialog-comment\"><div class=\"post-dialog-comment-user col-md-3\"><div><a href=\"#\">"+callback.displayName+"</a></div><div class=\"post-dialog-comment-time\"\">less then a minute</div></div><div class=\"post-dialog-comment-body col-md-9\">"+callback.body+"</div></div>");
-                    displayPost.commentTA.val("");
+                    var commentHtml = "";
+                    commentHtml += "<div class=\"row post-dialog-comment\" id=\"comment"+callback.id+"\">";
+                    commentHtml +=      "<div class=\"post-dialog-comment-user col-md-3\">";
+                    commentHtml +=          "<div class=\"inline-block\">";
+                    commentHtml +=              "<div><a href=\"#\">"+callback.displayName+"</a></div>";
+                    commentHtml +=              "<div class=\"post-dialog-comment-time\"\">"+callback.time+"</div>";
+                    commentHtml +=           "</div>";
+                    commentHtml +=          "<div class=\"inline-block\">";
+                    commentHtml +=              "<div class=\"close remove-comment-btn\" commentId=\""+callback.id+"\">&times;</div>";
+                    commentHtml +=           "</div>";
+                    commentHtml +=      "</div>";
+                    commentHtml +=      "<div class=\"post-dialog-comment-body col-md-9\">"+callback.body+"</div>";
+                    commentHtml += "</div>";
+                    displayPost.postComments.prepend(commentHtml);
+                    $('.remove-comment-btn[commentId="'+callback.id+'"]').on("touchstart click", displayPost.removeComment);
+                }
+                displayPost.commentTA.val("");
+            }
+        });
+    },
+    removeComment: function (e) {
+        var commentId  = $(this).attr("commentId");
+        var dataString = "commentId="+commentId;
+        $.ajax({
+            url: "./ajax/deleteCommentAjax.php",
+            type: "POST",
+            data: dataString,
+            dataType: "json",
+            success: function (callback){
+                var errors = callback.errors;
+                console.log(callback);
+                if (typeof errors !== typeof undefined && errors !== false) {
+                    displayPost.displayErrors(errors);
+                }else if(callback == false){
+                    displayPost.displayErrors(["Cannot delete comment"]);
+                }else{
+                    $("#comment"+commentId).remove();
                 }
             }
         });
@@ -316,12 +367,11 @@ var displayPost = {
                     htmlPostsString +=          "</div>";
                     htmlPostsString +=          "<div class=\"post-mini-main\">";
                     htmlPostsString +=              "<div class=\"post-mini-img\">";
-                    htmlPostsString +=                  "<img src=\"./uploads/" + posts[i]['imagePath'] + "\" class=\"img-responsive postDialog width-min-fluid\" postId=" + posts[i]['id'] + ">";
+                    htmlPostsString +=                  "<img src=\"./uploads/" + posts[i]['imagePath'] + "\" class=\"img-responsive postDialog\" postId=" + posts[i]['id'] + ">";
                     htmlPostsString +=              "</div>";
                     htmlPostsString +=              "<div class=\"post-mini-img-des\">";
                     htmlPostsString +=                  "<span>" + posts[i]['description'].substr(0, 200) + "..</span>";
                     htmlPostsString +=              "</div>";
-                    htmlPostsString +=              "<div class=\"post-mini-img-price circle\"><span>"+posts[i]['price']+"$</span></div>"
                     htmlPostsString +=          "</div>";
                     htmlPostsString +=       "</div>";
                     htmlPostsString += "</div>";

@@ -20,7 +20,6 @@ if(isset($_GET["id"])){
     die();
 }
 
-session_start();
 if(isset($_SESSION['userId'])) {
     $userId = $_SESSION['userId'];
 }

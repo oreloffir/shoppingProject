@@ -6,6 +6,13 @@ $storageManager = new StorageManager();
 $model = array();
 session_start();
 
+if(isset($_SESSION[ADMIN])){
+    $adminPrivilege = $_SESSION[ADMIN];
+    $model[ADMIN] = $adminPrivilege;
+}else{
+    $model[ADMIN] = false;
+}
+
 if(isset($_SESSION['userId'])){
     $userId = $_SESSION['userId'];
     $model['currentUser'] = $storageManager->getUserById($_SESSION['userId']);
@@ -46,7 +53,6 @@ if(!empty($posts)) {
 
 $model['posts'] = $posts;
 $model['categories'] = $categories;
-
 
 
 require_once("views/home_page.php");

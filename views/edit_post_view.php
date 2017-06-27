@@ -29,21 +29,28 @@
         <div class="form-group">
             <label class="control-label col-md-3" for="title">Title:</label>
             <div class="col-md-9">
-                <input type="text" class="form-control" id="titleField" placeholder="Enter title" name="title" value="<?php echo $model['currentPost']['title']; ?>">
+                <input type="text" class="form-control" id="titleField" placeholder="Enter title" name="title" value="<?php echo $model['currentPost']['title']; ?>" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-4" for="description">Price:</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control" id="price_field" placeholder="$" name="price"  value="<?php echo $model['currentPost']['price']; ?>" required>
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-md-3" for="description">Description:</label>
             <div class="col-md-9">
-                <textarea  type="text" class="form-control" id="descriptionField" placeholder="Enter description" name="description" ><?php echo $model['currentPost']['description']; ?></textarea>
+                <textarea  type="text" class="form-control" id="descriptionField" placeholder="Enter description" name="description" required><?php echo $model['currentPost']['description']; ?></textarea>
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-md-3" for="URL">Sale URL:</label>
             <div class="col-md-9">
-                <input type="text" class="form-control" id="urlField" placeholder="Enter sale URL" name="URL" value="<?php echo $model['currentPost']['saleUrl']; ?>">
+                <input type="text" class="form-control" id="urlField" placeholder="Enter sale URL" name="URL" value="<?php echo $model['currentPost']['saleUrl']; ?>" required>
             </div>
         </div>
 

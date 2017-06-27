@@ -1,0 +1,279 @@
+div[class^="col-"]{
+    padding:5px;
+    display: flex;
+    flex-direction: column;
+}
+.row{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display:         flex;
+    flex-wrap: wrap;
+}
+
+#mainContent{
+    margin-bottom: 15px;
+}
+
+.max-width-1200-center{
+    max-width: 1200px;
+    margin:0 auto;
+}
+.page-header{
+    background-color: #f1f1f1;
+    box-shadow: inset 0px -10px 15px -10px rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid #d0d0d0;
+}
+
+/*   POST MINI DISPLAY     */
+.post-mini{
+    width: 100%;
+    border:1px solid #dddddd;
+    border-radius: 2px;
+    float: left;
+    display: block;
+}
+
+.post-mini-title{
+    width: 100%;
+    text-align: left;
+    float: left;
+}
+
+.post-mini-title a{
+    padding: 3px;
+    text-decoration: none;
+}
+
+.post-mini-top{
+    width: 100%;
+    float: left;
+    display: block;
+}
+
+.post-mini-top a{
+    float: left;
+    padding: 5px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.post-mini-top span{
+    float:right;
+    padding: 5px;
+    text-decoration: none;
+    font-size: 12px;
+    color: #666666;
+}
+
+.post-mini-main{
+    width: 100%;
+    text-align: left;
+    position: relative;
+    float: left;
+}
+
+.post-mini-img{
+    position: relative;
+}
+
+.post-mini-img-des{
+    margin: 0px;
+    padding: 5px;
+    position: absolute;
+    background-color: rgba(0,0,0,0.7);
+    color:#ffffff;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+}
+.post-mini-img-price{
+    margin: 10px;
+    padding: 5px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    height: 50px;
+    border-radius: 200px;
+    background-color: darkred;
+    color: #dddddd;
+    font-weight: bold;
+}
+.post-dialog-price{
+    top:0px;
+    right:0px;
+    margin: 10px;
+    padding: 5px;
+    position: absolute;
+    height: 50px;
+    border-radius: 200px;
+    background-color: darkred;
+    color: #dddddd;
+    font-weight: bold;
+}
+.post-dialog-price > span{
+    display: block;
+    padding: 5px;
+    margin-top: 4px;
+}
+.post-mini-img-price span{
+    display: block;
+    padding: 5px;
+    margin-top: 4px;
+}
+/* ~~~~~~~~ add post view ~~~~~~~~*/
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+#img-upload{
+    width: 100%;
+}
+
+
+
+/* POST DIALOG */
+#postDialogCommentsTA{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#postDialogDisplayName{
+    font-weight: bold;
+    margin-left:8px;
+}
+#postDialogDescription{
+    padding: 8px;
+}
+#postDialogTimeAgo {
+    font-size: 11px;
+    margin-left: 8px;
+}
+
+    /* POST DIALOG RANKING */
+#postRankContainer{
+    text-align: center;
+}
+#postRank{
+    display: inline;
+}
+#postRank span{
+    display: inline;
+    padding: 1px;
+}
+#postRank span{
+    font-size: 22px;
+    color: #dddddd;
+}
+.gold{
+    color: gold !important;
+}
+#postRank span:hover{
+    color: gold !important;
+}
+
+    /* POST DIALOG COMMENTS */
+.post-dialog-comment{
+    border-bottom:1px solid #dddddd;
+    padding-bottom: 3px;
+    padding-top: 3px;
+}
+
+#postDialogComments{
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+.post-dialog-comment-time{
+    font-size: 9px;
+
+}
+
+.post-dialog-comment-user{
+    padding:0px !important;
+}
+
+.post-dialog-comment-body{
+    padding:5px !important;
+    background-color: #f3f3f3;
+}
+
+    /* POST DIALOG FAVORITES */
+#favoriteBtn{
+    float: left;
+    max-width: 40px;
+}
+
+#editPostBtn{
+    float: left;
+    color:#ffffff;
+    max-width: 40px;
+}
+
+.btn-gray{
+    background: #aaaaaa;
+    border-color: #aaaaaa;
+}
+
+.btn-gray:hover{
+    background: #999999;
+    border-color: #aaaaaa;
+}
+
+.btn-gray:focus{
+    background: #aaaaaa;
+    border-color: #aaaaaa;
+}
+
+
+
+/* GENERAL */
+@media(min-width:768px){
+    .margin-top-40{
+        margin-top:40px;
+    }
+}
+
+.center-title-underline{
+    width: 100%;
+    border-bottom:1px solid #dddddd;
+    text-align: center;
+    font-size:13px;
+    margin-top:10px;
+}
+
+.no-margin {
+    margin: 0px !important;
+}
+
+.text-align-left{
+    text-align: left;
+}
+.text-align-right{
+    text-align: right;
+}
+
+.post-dialog-fun-btns{
+    display: inline !important;
+}
+.hidden-xs{
+    display: none;
+}
+
+

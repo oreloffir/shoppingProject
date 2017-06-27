@@ -5,6 +5,7 @@ class Post
 	public $id;
 	public $title;
 	public $description;
+	public $price;
 	public $saleUrl;
 	public $publisherId;
 	public $imagePath;
@@ -13,11 +14,12 @@ class Post
     public $postType;
     public $couponCode;
 
-	public function __construct($id = 0, $title, $des, $saleUrl, $publisherId, $imagePath="", $time, $category, $couponCode = "")
+	public function __construct($id = 0, $title, $des, $price, $saleUrl, $publisherId, $imagePath="", $time, $category, $couponCode = "")
     {
     	$this->id 			= $id;
     	$this->title 		= $title;
     	$this->description 	= $des;
+    	$this->price        = $price;
     	$this->saleUrl 		= $saleUrl;
     	$this->publisherId 	= $publisherId;
     	$this->imagePath	= $imagePath;

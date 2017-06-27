@@ -12,7 +12,7 @@ if(!empty($userMail) || !empty($userPassword)){
         $_SESSION["userId"] = $user['id'];
         if($user['type'] == ADMIN_TYPE)
             $_SESSION[ADMIN] = true;
-        echo json_encode($storageManager->getUserById($userId));
+        echo json_encode($user);
     }
 }else{
     echo json_encode(array(

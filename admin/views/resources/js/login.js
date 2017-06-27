@@ -5,11 +5,9 @@ var loginController = {
         this.emailField         = $("#emailField");
         this.passwordField      = $("#passwordField");
 
-
 		if(isHeader){
 			this.isHeader 			= isHeader;
-            this.addionalUserNavBar = $("#addionalUserNavBar"); // Favorites , Admin panel(if needed).
-            this.userNavBar 		= $("#userNavBar"); // Logout / Login , Sign Up.
+            this.userNavBar 		= $("#userNavBar");
             this.popUpLogin     	= $("#popUpWindow");
             this.logoutBtn			= $("#logoutBtn");
             this.favoritesNavBar 	= $("#navbarFavorites");
@@ -24,8 +22,10 @@ var loginController = {
 	},
 	doLogin: function(e){
         e.preventDefault();
-	    if(loginController.validation()){
-            var dataString = loginController.loginForm.serialize();
+	    if(!loginController.validation());
+        else {
+            var self = loginController;
+            var dataString = self.loginForm.serialize();
             $.ajax({
                 url: "./ajax/loginAjax.php",
                 type: "POST",
@@ -33,18 +33,6 @@ var loginController = {
                 dataType: "json",
                 success: function (callback) {
                     if (!callback.errors && loginController.isHeader) {
-                        userAreaString = "<li id=\"navbarFavorites\"><a href=\"favorites.php\">Favorites</a></li>";
-                        if(callback['type'] == 1) {
-                            userAreaString += "<li class=\"dropdown\">";
-                            userAreaString +=       "<a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">Admin <span class=\"caret\"></span></a>";
-                            userAreaString +=       "<ul class=\"dropdown-menu\">";
-                            userAreaString +=           "<li><a href=\"index.php\">Edit post</a></li>"
-                            userAreaString +=           "<li><a href=\"index.php\">Users</a></li>";
-                            userAreaString +=           "<li><a href=\"index.php\">Reports</a></li>";
-                            userAreaString += "</ul></li>";
-                        }
-                        loginController.addionalUserNavBar.html(userAreaString);
-
                         loginController.userNavBar.html("<li><a href=\"profile.php\"><span class=\"glyphicon glyphicon-user\"></span>" + callback['displayName'] + "</a></li>" +
                             "<li><a href=\"#\" id=\"logoutBtn\">Logout <span class=\"glyphicon glyphicon-log-out\"></span></a></li>");
                         loginController.logoutBtn = $("#logoutBtn");
@@ -76,7 +64,7 @@ var loginController = {
                 if(callback){
                     loginController.userNavBar.html("<li><a href=\"./views/sign_up_view.php\">Sign up <span class=\"glyphicon glyphicon-user\"></span></a></li>"+
 						"<li><a href=\"#\" data-toggle=\"modal\" data-target=\"#popUpWindow\">Login <span class=\"glyphicon glyphicon-log-in\"></span></a></li>");
-                    loginController.addionalUserNavBar.html("");
+                    loginController.favoritesNavBar.hide();
                 }
 			}
         });
