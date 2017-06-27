@@ -54,10 +54,10 @@
                         <div class="modal-header">
                             <form role="form" id="login_form">
                                 <div class="form-group">
-                                    <input type="email" class="form-control" placeholder="Email" name="email">
+                                    <input type="email" class="form-control" placeholder="Email" name="email" id="emailField" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Password" name="password">
+                                    <input type="password" class="form-control" placeholder="Password" name="password" id="passwordField" required>
                                 </div>
 
                                 <div class="modal-header">

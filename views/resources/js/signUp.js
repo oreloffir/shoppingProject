@@ -4,7 +4,7 @@
 var SignUpController = {
     init:function () {
         this.signUpForm	= $("#sign_up_form");
-        this.signUpErrors    = $("#signUpErrors")
+        this.signUpErrors    = $("#signUpErrors");
         this.bindEvent();
     },
 
@@ -31,5 +31,26 @@ var SignUpController = {
                     window.location.replace("../index.php");
             }
         });
-    }
+    },
+
+/*    validation: function (){
+        var inputs = $('#myForm').serialize();
+        errors = {};
+        $.each(inputs, function(i, field) {
+            if(true){
+                errors.push("Please enter "+field.name);
+            }
+
+        });
+
+        if(errors.length != 0){
+            errorsString = "";
+            $.each(errors, function( index, error ) {
+                errorsString += error +"<br/>";
+            });
+            SignUpController.signUpErrors.html("<div class=\"alert alert-danger text-align-left\" role=\"\" >"+errorsString+"</div>");
+            return false;
+        }
+        return true;
+    }*/
 }

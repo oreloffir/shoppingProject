@@ -16,19 +16,19 @@
         <div class="form-group">
             <label class="control-label col-sm-4" for="email">Email:</label>
             <div class="col-sm-8">
-                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-4" for="pwd">Password:</label>
             <div class="col-sm-8">
-                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" required>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-4" for="name">Name:</label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" id="displayName" placeholder="Enter your name" name="displayName">
+                <input type="text" class="form-control" id="displayName" placeholder="Enter your name" name="displayName" required>
             </div>
         </div>
         <div class="form-group">
