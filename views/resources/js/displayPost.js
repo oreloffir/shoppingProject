@@ -87,6 +87,7 @@ var displayPost = {
             this.postFavBtn.on('touchstart click', this.addToFavorites);
             // report click listener
             this.reportPostBtn.on('touchstart click', this.setReportUI)
+
             // rank functionality post listener
             $(this.stars).each(function () {
                 $(this).mouseenter(displayPost.goldenStars);
@@ -308,6 +309,7 @@ var displayPost = {
         var postId 		= displayPost.postDialog.attr("postId");
         var rank 		= $(displayPost.stars).index(this) + 1;
         var dataString 	= "postid="+postId+"&postrank="+rank;
+
         $.ajax({
             url: displayPost.ajaxPrefix+"./ajax/rankPostAjax.php",
             type: "POST",

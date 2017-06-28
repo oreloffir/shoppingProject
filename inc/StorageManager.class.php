@@ -295,6 +295,8 @@ class StorageManager
 		}
 	}
 
+    //------------------------------------- ADMIN METHODS ------------------------------------------//
+
     public function getCategories(){
 	    $fields = array(
             CATEGORIES_TABLE => array("*")
@@ -324,18 +326,49 @@ class StorageManager
 
     public function getUsers(){
         $fields = array(
-            USERS_TABLE  => array("id"),
-            USERS_TABLE  => array("displayName"),
-            USERS_TABLE  => array("email"),
-            USERS_TABLE  => array("startTime"),
-            USERS_TABLE  => array("lastKnownIp"),
-            USERS_TABLE  => array("type")
+            USERS_TABLE  => array("id","displayName", "email", "startTime", "lastKnownIp", "type"),
+            BANS_TABLE   => array("startTime", "endTime", "reason")
         );
         $sql = new SqlSelectStatement("SELECT");
         $sql->addSelectFields($fields)
-            ->addTableName(USERS_TABLE);
+            ->addTableName(USERS_TABLE)
+            ->addToBody("LEFT JOIN banlist ON ( users.id = banlist.userId )");
 
         return $this->_db->selectQuery($sql->getSqlStatement());
+    }
+
+    /**
+     * Add a ban
+     * @param userId , startTime, endTime, reason
+     * @return banId, otherwise array of errors
+     * @access public
+     **/
+    public function addBanToUser($userId, $startTime, $endTime, $reason )
+    {
+        $errors = array();
+        $banInputs = array(
+            "userId"    => $userId,
+            "startTime" => $startTime,
+            "endTime"   => $endTime,
+            "reason"    => $reason
+        );
+        $banInputs = $this->_db->filter($banInputs);
+
+        $result    = $this->_db->insertQuery(BANS_TABLE, $banInputs);
+
+    }
+
+    /**
+     * Remove ban
+     * @param userId
+     * @return true if remove success, otherwise false
+     * @access public
+     **/
+    public function removeBan($userId)
+    {
+        $banInputs = $this->_db->filter($userId);
+
+        return $this->_db->deleteQuery(BANS_TABLE, array('userId' => $userId));
     }
 
 	//------------------------------------- POSTS METHODS ------------------------------------------//
@@ -489,7 +522,6 @@ class StorageManager
 		}
 		return true;
 	}
-
 
 }
 

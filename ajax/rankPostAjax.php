@@ -27,7 +27,7 @@ if(isset($_SESSION['userId'])){
         echo json_encode($result);
     }else{
         echo json_encode(array(
-            'errors' => array("Error while ranking post number "+$postId)
+            'errors' => array("Error while ranking post number ".$postId)
         ));
     }
 }else{

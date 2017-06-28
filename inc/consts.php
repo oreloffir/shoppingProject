@@ -34,4 +34,5 @@ define("FAVORITES_POSTS", "favorites");
 /* Admin constants */
 define("ADMIN", "admin");
 define("ADMIN_TYPE", 1);
+
 ?>
