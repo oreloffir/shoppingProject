@@ -23,6 +23,7 @@
                 <?php
                 if(!empty($model['currentUser'])) { ?>
                     <li><a href="favorites.php" id="navbarFavorites">Favorites</a></li>
+                    <li><a href="addPost.php" id="navbarAddPost" class="btn btn-primary">Add Post</a></li>
                 <?php } ?>
                 <?php
                 if($model[ADMIN]) { ?>

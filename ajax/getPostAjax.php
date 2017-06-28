@@ -36,7 +36,7 @@ foreach ($comments as &$comment){
     else
         $comment['delete'] = false;
 }
-if(isset($userId) && $post['publisherId'] == $userId){
+if((isset($userId) && $post['publisherId'] == $userId) || $adminPrivilege){
     $post['editPost'] = true;
 }else{
     $post['editPost'] = false;
