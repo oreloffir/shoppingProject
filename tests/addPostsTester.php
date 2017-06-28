@@ -7,8 +7,8 @@
  */
 include_once("./inc/StorageManager.class.php");
 include_once("./model/entities/post.class.php");
-include_once ("./inc/util.php");
-include_once ("./inc/consts.php");
+include_once("./inc/util.php");
+include_once("./inc/consts.php");
 $storageManager = new StorageManager();
 $imagePathArray = array("image_1498159789.jpg",
                         "image_1498421139.jpg",

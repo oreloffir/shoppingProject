@@ -38,9 +38,9 @@ var loginController = {
                             userAreaString += "<li class=\"dropdown\">";
                             userAreaString +=       "<a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">Admin <span class=\"caret\"></span></a>";
                             userAreaString +=       "<ul class=\"dropdown-menu\">";
-                            userAreaString +=           "<li><a href=\"index.php\">Edit post</a></li>"
-                            userAreaString +=           "<li><a href=\"index.php\">Users</a></li>";
-                            userAreaString +=           "<li><a href=\"index.php\">Reports</a></li>";
+                            userAreaString +=           "<li><a href=\"./admin/adminEditPost.php\">Edit post</a></li>"
+                            userAreaString +=           "<li><a href=\"./admin/adminUsers.php\">Users</a></li>";
+                            userAreaString +=           "<li><a href=\"./admin/adminReports.php\">Reports</a></li>";
                             userAreaString += "</ul></li>";
                         }
                         loginController.addionalUserNavBar.html(userAreaString);

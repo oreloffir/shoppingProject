@@ -14,6 +14,8 @@ $where = array();
 if(isset($_GET['pageNumber'])){
     $pageNum = intval($_GET['pageNumber']);
     if(isset($_GET['category'])){
+        if($_GET['category'] == FAVORITES_POSTS){
+        }
         $where['posts.category'] = intval($_GET['category']);
     }
     if(isset($_GET['postsOrder'])){

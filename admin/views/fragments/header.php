@@ -9,12 +9,12 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="./index.php">Home</a></li>
+                <li class="active"><a href="../index.php">HomeAdmin</a></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories <span class="caret"></span> </a>
                     <ul class="dropdown-menu">
                         <?php foreach($model['categories'] as $category){?>
-                            <li><a href="index.php?category=<?php echo $category['id'];?>"><?php echo $category['category']; ?></a></li>
+                            <li><a href="../index.php?category=<?php echo $category['id'];?>"><?php echo $category['category']; ?></a></li>
                         <?php }?>
                     </ul>
                 </li>
@@ -22,16 +22,16 @@
             <ul class="nav navbar-nav" id="addionalUserNavBar">
                 <?php
                 if(!empty($model['currentUser'])) { ?>
-                    <li><a href="favorites.php" id="navbarFavorites">Favorites</a></li>
+                    <li><a href="../favorites.php" id="navbarFavorites">Favorites</a></li>
                 <?php } ?>
                 <?php
                 if($model[ADMIN]) { ?>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin <span class="caret"></span> </a>
                         <ul class="dropdown-menu">
-                            <li><a href="./admin/adminEditPost.php">Edit post</a></li>
-                            <li><a href="./admin/adminUsers.php">Users</a></li>
-                            <li><a href="./admin/adminReports.php">Reports</a></li>
+                            <li><a href="./adminEditPost.php">Edit post</a></li>
+                            <li><a href="./adminUsers.php">Users</a></li>
+                            <li><a href="./adminReports.php">Reports</a></li>
                         </ul>
                     </li>
                 <?php } ?>

@@ -16,6 +16,10 @@ if(isset($_SESSION[ADMIN])){
 }else{
     $model[ADMIN] = false;
 }
+if(isset($_SESSION['userId'])){
+    $userId = $_SESSION['userId'];
+    $model['currentUser'] = $storageManager->getUserById($_SESSION['userId']);
+}
 
 $model['categories'] = $storageManager->getCategories();
 require_once("./views/admin_edit_post_view.php");

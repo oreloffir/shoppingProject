@@ -135,7 +135,7 @@ class StorageManager
 		if(!($report instanceof Report))
 			return false;
 		if($this->checkTableRowById(POSTS_TABLE, $report->relativeId) && $this->checkUser($report->userId))
-			return $this->saveObjectWithId(REPORTS_TABLE, $reportArr);
+			return $this->saveObjectWithId(REPORT_TABLE, $report);
 		
 		return false;
 	}
@@ -302,6 +302,35 @@ class StorageManager
         $sql = new SqlSelectStatement("SELECT");
         $sql->addSelectFields($fields)
             ->addTableName(CATEGORIES_TABLE);
+
+        return $this->_db->selectQuery($sql->getSqlStatement());
+    }
+
+    public function getReports(){
+        $fields = array(
+            REPORT_TABLE => array("*"),
+            USERS_TABLE  => array("displayName")
+        );
+        $sql = new SqlSelectStatement("SELECT");
+        $sql->addSelectFields($fields)
+            ->addTableName(REPORT_TABLE)
+            ->addToBody("JOIN ".USERS_TABLE." ON(".REPORT_TABLE.".userId = ".USERS_TABLE.".id)");
+
+        return $this->_db->selectQuery($sql->getSqlStatement());
+    }
+
+    public function getUsers(){
+        $fields = array(
+            USERS_TABLE  => array("id"),
+            USERS_TABLE  => array("displayName"),
+            USERS_TABLE  => array("email"),
+            USERS_TABLE  => array("startTime"),
+            USERS_TABLE  => array("lastKnownIp"),
+            USERS_TABLE  => array("type")
+        );
+        $sql = new SqlSelectStatement("SELECT");
+        $sql->addSelectFields($fields)
+            ->addTableName(USERS_TABLE);
 
         return $this->_db->selectQuery($sql->getSqlStatement());
     }

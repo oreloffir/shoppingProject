@@ -122,13 +122,17 @@ var displayPost = {
     /*
     * Build post dialog from getPost callback
     * */
-    buildPostDialog: function (callback) {
+    buildPostDialog: function (callback ,admin = false) {
+        console.log(callback);
         displayPost.postDisplayName.html(callback.displayName);
         displayPost.postDisplayName.attr("href", "profile.php?id="+callback.publisherId);
         displayPost.postDialogTimeAgo.html(callback.time);
         displayPost.postTitle.html("<a href=\"index.php?category="+callback.category+"\">"+callback.categoryName+"</a> \\ <span>"+callback.title+"</span>");
         displayPost.postDescription.html(callback.description);
-        displayPost.postDialogImage.attr("src", "./uploads/"+callback.imagePath);
+        if(admin)
+            displayPost.postDialogImage.attr("src", "../uploads/"+callback.imagePath);
+        else
+            displayPost.postDialogImage.attr("src", "./uploads/"+callback.imagePath);
         displayPost.postDialog.attr("postId", callback['id']);
         displayPost.postDialogPrice.html(callback.price+"$");
         if(callback.editPost){
@@ -174,7 +178,9 @@ var displayPost = {
         displayPost.postRankArea.attr("postrank",postRank);
         displayPost.setStars(postRank);
         displayPost.postRankCount.html(callback.rankCount);
-        displayPost.postDialog.modal('show');
+        displayPost.postDialog.modal({
+            show: 'false'
+        });
         console.log(callback);
     },
     /*

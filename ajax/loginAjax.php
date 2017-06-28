@@ -10,6 +10,7 @@ if(!empty($userMail) || !empty($userPassword)){
     if($user != false) {
         session_start();
         $_SESSION["userId"] = $user['id'];
+
         if($user['type'] == ADMIN_TYPE)
             $_SESSION[ADMIN] = true;
         echo json_encode($user);

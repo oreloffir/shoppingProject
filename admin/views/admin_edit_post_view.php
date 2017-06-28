@@ -15,20 +15,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./views/resources/css/style.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-    <script src="./views/resources/js/editPost.js" type="text/javascript"></script>
-    <script src="./views/resources/js/login.js" type="text/javascript"></script>
+    <script src="./views/resources/js/adminShowPost.js" type="text/javascript"></script>
+    <script src="../views/resources/js/displayPost.js" type="text/javascript"></script>
+    <script src="../views/resources/js/login.js" type="text/javascript"></script>
 </head>
 <body>
-<?php require_once("../views/fragments/header.php"); ?>
+<?php require_once("fragments/header.php"); ?>
 <div class="container" style="margin:0 auto; max-width: 700px;">
     <h2 class="col-md-12" >Choose Post To Edit:</h2>
     <form action="../editPost.php" class="form-horizontal" role="form" id="editPostForm" enctype="multipart/form-data" method="get">
 
         <div class="form-group">
-            <label class="control-label col-md-3" for="title">Post Id:</label>
+            <label class="control-label col-md-3" for="postIdField">Post Id:</label>
             <div class="col-md-9">
-                <input type="text" class="form-control" id="titleField" placeholder="Enter post id to edit" name="postId" required>
+                <input type="text" class="form-control" id="postIdField" placeholder="Enter post id to edit" name="postId" required>
             </div>
 
             <div class="container-fluid">
@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="col-md-2">
-                    <button type="action" class="btn btn-default">Show</button>
+                    <button type="button" class="btn btn-default displayPostDialogBtn">Show</button>
                 </div>
             </div>
             <div class="col-md-10" id="editPostErrors" name="editPostErrors"></div>
@@ -46,6 +46,12 @@
     </form>
 
 </div>
+<?php
+require_once("../views/fragments/postModal.php");
+?>
+<script>
+    adminShowPost.init();
+</script>
 
 </body>
 </html>
