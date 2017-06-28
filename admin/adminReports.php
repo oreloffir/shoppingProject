@@ -23,7 +23,7 @@ if(isset($_SESSION['userId'])){
 }
 
 $model['categories'] = $storageManager->getCategories();
-$model['reports'] = $storageManager->getReports();
+$model['reports'] = $storageManager->getReports(0, 20);
 require_once("./views/admin_reports_view.php");
 
 ?>

@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="./views/resources/css/style.css">
+    <link rel="stylesheet" href="../views/resources/css/style.css">
     <script src="./views/resources/js/adminShowPost.js" type="text/javascript"></script>
     <script src="../views/resources/js/displayPost.js" type="text/javascript"></script>
     <script src="../views/resources/js/login.js" type="text/javascript"></script>
@@ -56,6 +56,7 @@ require_once("../views/fragments/postModal.php");
 ?>
 <script>
     adminShowPost.init();
+    displayPost.ajaxPrefix = "../";
 </script>
 
 </body>

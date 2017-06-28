@@ -306,16 +306,19 @@ class StorageManager
         return $this->_db->selectQuery($sql->getSqlStatement());
     }
 
-    public function getReports(){
+    public function getReports($start, $count, $where = array(), $orders = array('reports.id' => 'DESC')){
         $fields = array(
             REPORT_TABLE => array("*"),
             USERS_TABLE  => array("displayName")
         );
+        $where = $this->_db->filter($where);
         $sql = new SqlSelectStatement("SELECT");
         $sql->addSelectFields($fields)
             ->addTableName(REPORT_TABLE)
-            ->addToBody("JOIN ".USERS_TABLE." ON(".REPORT_TABLE.".userId = ".USERS_TABLE.".id)");
-
+            ->addToBody("JOIN ".USERS_TABLE." ON(".REPORT_TABLE.".userId = ".USERS_TABLE.".id)")
+            ->addWhere($where)
+            ->addOrderBy($orders)
+            ->addLimit($start, $count);
         return $this->_db->selectQuery($sql->getSqlStatement());
     }
 

@@ -60,8 +60,9 @@
                         <div class="col-md-2 col-xs-6 post-dialog-fun-btns">
                             <a class="btn btn-danger btn-gray" id ="favoriteBtn"><span class="glyphicon glyphicon-heart"></span></a>
                             <a class="btn btn-gray" id="editPostBtn" href=""><span class="glyphicon glyphicon-pencil"></span></a>
+                            <a class="btn btn-gray" id="reportPostBtn" href=""><span class="glyphicon glyphicon-flag"></span></a>
                         </div>
-                        <div class="col-md-9 hidden-xs"></div>
+                        <div class="col-md-9 col-xs-12" id="reportPostDisplayBlock"></div>
                         <div class="col-md-1 col-xs-6"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div>
                     </div>
                     <div class="row">

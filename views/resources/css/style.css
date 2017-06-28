@@ -11,6 +11,10 @@ div[class^="col-"]{
     flex-wrap: wrap;
 }
 
+.float-left{
+    float:left !important;
+}
+
 .modal-header{
     display: block;
     background-color: #f3f3f3;
@@ -259,6 +263,21 @@ div[class^="col-"]{
     float: left;
     color:#ffffff;
     max-width: 40px;
+}
+#reportPostBtn{
+    float: left;
+    color:#ffffff;
+    max-width: 40px;
+}
+#reportDescription{
+    max-width: 80%;
+}
+
+#reportPostDisplayBlock{
+    display: inline-block;
+}
+#sendReportBtn{
+    margin-left: 10px;
 }
 
 .btn-gray{

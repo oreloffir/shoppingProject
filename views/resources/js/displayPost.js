@@ -9,6 +9,7 @@ var displayPost = {
     * - Show description preview
     * */
     init: function (){
+        this.ajaxPrefix         = "";
         // External functionality
             // class .postDialog objects on click will show post dialog MUST HAVE postId attribute
         this.postButtons        = $(".postDialog");
@@ -38,9 +39,12 @@ var displayPost = {
         this.addCommentBtn      = $("#addCommentBtn");
         this.commentTA          = $("#postDialogCommentsTA");
         this.postComments       = $("#postDialogComments");
-        // Post dialog favorite functionality
-        this.postFavBtn         = $("#favoriteBtn");
 
+        // Post dialog favorite button
+        this.postFavBtn         = $("#favoriteBtn");
+        // Post dialog report button
+        this.reportPostBtn      = $("#reportPostBtn");
+        this.reportBlock        = $("#reportPostDisplayBlock");
         // Post dialog Ranking functionality
         this.postRankArea 	    = $("#postRank");
         this.stars 			    = $(".ranking");
@@ -73,20 +77,22 @@ var displayPost = {
         $(this.postButtons).each(function (){
             $(this).off('click').on("click", displayPost.getPost);
         });
-
         // This part have to bind events only once!
         // this.postDialogBind = false; at init()
         // after binding event this.postDialogBind will set to true
         if(!this.postDialogBind) {
-            // add comment listener
+            // add comment click listener
             this.addCommentBtn.on("touchstart click", this.addComment);
-            // add to favorite listener
+            // favorite click listener
             this.postFavBtn.on('touchstart click', this.addToFavorites);
-            // rank post listener
+            // report click listener
+            this.reportPostBtn.on('touchstart click', this.setReportUI)
+            // rank functionality post listener
             $(this.stars).each(function () {
                 $(this).mouseenter(displayPost.goldenStars);
                 $(this).on("touchstart click", displayPost.rankPost);
             });
+            // Set Stars after mouseleave
             $(this.postRankArea).mouseleave(this.setStars);
 
             // load more scroll listener
@@ -192,7 +198,7 @@ var displayPost = {
         var commentBody = displayPost.commentTA.val();
         var dataString  = "postid="+postId+"&commentbody="+commentBody;
         $.ajax({
-            url: "./ajax/addCommentAjax.php",
+            url:  displayPost.ajaxPrefix+"./ajax/addCommentAjax.php",
             type: "POST",
             data: dataString,
             dataType: "json",
@@ -226,7 +232,7 @@ var displayPost = {
         var commentId  = $(this).attr("commentId");
         var dataString = "commentId="+commentId;
         $.ajax({
-            url: "./ajax/deleteCommentAjax.php",
+            url: displayPost.ajaxPrefix+"./ajax/deleteCommentAjax.php",
             type: "POST",
             data: dataString,
             dataType: "json",
@@ -251,7 +257,7 @@ var displayPost = {
         console.log("add postId="+postId+" to fav\n");
         var dataString = "postid="+postId;
         $.ajax({
-            url: "./ajax/addFavoriteAjax.php",
+            url: displayPost.ajaxPrefix+"./ajax/addFavoriteAjax.php",
             type: "POST",
             data: dataString,
             dataType: "json",
@@ -301,7 +307,7 @@ var displayPost = {
         var rank 		= $(displayPost.stars).index(this) + 1;
         var dataString 	= "postid="+postId+"&postrank="+rank;
         $.ajax({
-            url: "./ajax/rankPostAjax.php",
+            url: displayPost.ajaxPrefix+"./ajax/rankPostAjax.php",
             type: "POST",
             data: dataString,
             dataType: "json",
@@ -340,7 +346,7 @@ var displayPost = {
             dataString+= "&postsOrder="+displayPost.loadMoreInfo.attr("postsOrder");
         console.log(dataString);
         $.ajax({
-            url: "ajax/loadMoreAjax.php",
+            url: displayPost.ajaxPrefix+"ajax/loadMoreAjax.php",
             type: "GET",
             data: dataString,
             dataType: "json",
@@ -395,5 +401,29 @@ var displayPost = {
             htmlPostsString += "<div class=\"row\"><div class=\"col-xs-12 col-sm-12 col-md-12\" style=\"text-align: center;\">No more results</div></div>";
             displayPost.postsDisplayContainer.append(htmlPostsString);
         }
+    },
+    setReportUI: function (e) {
+        e.preventDefault();
+        displayPost.reportBlock.html("<input type=\"text\" id=\"reportDescription\" class=\"form-control float-left\" placeholder=\"Please enter a reason...\"><div class=\"btn btn-primary float-left\" value= id=\"reportDescription\" id=\"sendReportBtn\"'>Send</div>");
+        $("#sendReportBtn").on("click", function () {
+            var reasonInput = $("#reportDescription").val();
+            var postId      = displayPost.postDialog.attr("postId");
+            var dataString  = "postId="+postId+"&reason="+reasonInput;
+            $.ajax({
+                url: displayPost.ajaxPrefix+"ajax/addRepostAjax.php",
+                type: "POST",
+                data: dataString,
+                dataType: "json",
+                success: function(callback){
+                    if(callback=="1"){
+                        $("#reportDescription").attr("placeholder","Thank you, we will review your report in 24 hours.");
+                        $("#reportDescription").val("");
+                    }
+                    if (typeof callback !== typeof undefined && callback !== false)
+                        displayPost.displayErrors(callback);
+                }
+            });
+
+        })
     }
 }
