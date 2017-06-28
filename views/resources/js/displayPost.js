@@ -180,6 +180,8 @@ var displayPost = {
         else
             displayPost.postCoupn.html("");
         displayPost.postErrors.html("");
+        displayPost.reportBlock.html("");
+        displayPost.reportPostBtn.removeClass("btn-danger").addClass("btn-gray");
         var postRank = Math.round(callback.rank);
         displayPost.postRankArea.attr("postrank",postRank);
         displayPost.setStars(postRank);
@@ -404,7 +406,10 @@ var displayPost = {
     },
     setReportUI: function (e) {
         e.preventDefault();
-        displayPost.reportBlock.html("<input type=\"text\" id=\"reportDescription\" class=\"form-control float-left\" placeholder=\"Please enter a reason...\"><div class=\"btn btn-primary float-left\" value= id=\"reportDescription\" id=\"sendReportBtn\"'>Send</div>");
+        displayPost.reportBlock.html("<input type=\"text\" id=\"reportDescription\" class=\"form-control float-left\" placeholder=\"Please enter a reason...\"><div class=\"btn btn-primary float-left\" id=\"sendReportBtn\"'>Send</div>");
+        displayPost.reportPostBtn.removeClass("btn-gray");
+        displayPost.reportPostBtn.addClass("btn-danger");
+
         $("#sendReportBtn").on("click", function () {
             var reasonInput = $("#reportDescription").val();
             var postId      = displayPost.postDialog.attr("postId");
@@ -418,6 +423,9 @@ var displayPost = {
                     if(callback=="1"){
                         $("#reportDescription").attr("placeholder","Thank you, we will review your report in 24 hours.");
                         $("#reportDescription").val("");
+                        displayPost.reportPostBtn.removeClass("btn-danger");
+                        $("#sendReportBtn").hide();
+                        $("#reportDescription").prop('disabled', true);
                     }
                     if (typeof callback !== typeof undefined && callback !== false)
                         displayPost.displayErrors(callback);

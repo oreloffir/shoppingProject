@@ -270,14 +270,19 @@ div[class^="col-"]{
     max-width: 40px;
 }
 #reportDescription{
-    max-width: 80%;
+    max-width: 70%;
+}
+@media(min-width:768px){
+    #reportDescription{
+        max-width: 80%;
+    }
+}
+#sendReportBtn{
+    margin-left: 10px;
 }
 
 #reportPostDisplayBlock{
     display: inline-block;
-}
-#sendReportBtn{
-    margin-left: 10px;
 }
 
 .btn-gray{
