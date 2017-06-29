@@ -30,6 +30,8 @@ define("POSTS_CHUNK", 12);
 define("ORDER_POPULAR", "popular");
 define("ORDER_RECENT", "recent");
 define("FAVORITES_POSTS", "favorites");
+define("PROFILE_POSTS", "profile");
+
 
 /* Admin constants */
 define("ADMIN", "admin");

@@ -28,9 +28,19 @@
         }
     }?>
     </div>
-    <div id="loadMoreInfo" pageNumber="1" postsOrder="<?php if(isset($model['postsOrder']))echo $model['postsOrder'];?>" category="<?php if(isset($model['categoryId'])) echo $model['categoryId'];?>"></div>
-<?php
-require_once("./views/fragments/postModal.php");
+    <?php
+        echo "<div id=\"loadMoreInfo\" page-number=\"1\"";
+            if(isset($model['postsOrder']))
+                echo "posts-order=\"".$model['postsOrder']."\"";
+            if(isset($model['pageType']))
+                echo "page-type=\"".$model['pageType']."\"";
+            if(isset($model['pageType']))
+                echo "profile-id=\"".$model['profileId']."\"";
+            if(isset($model['categoryId']))
+                echo "category=\"".$model['categoryId']."\"";
+            echo "></div>";
+
+    require_once("./views/fragments/postModal.php");
 ?>
     <script>
         displayPost.init();

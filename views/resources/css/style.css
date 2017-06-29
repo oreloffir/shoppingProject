@@ -333,6 +333,7 @@ div[class^="col-"]{
 
 .post-dialog-fun-btns{
     display: inline !important;
+    margin-top: 3px;
 }
 .hidden-xs{
     display: none;
