@@ -55,6 +55,7 @@ var loginController = {
                         if (!callback.errors && !loginController.isHeader) {
                             window.location.replace("./index.php");
                         } else {
+                            console.log("Errors");
                             errorsString = "";
                             callback.errors.forEach(function (error) {
                                 errorsString += error

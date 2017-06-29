@@ -81,7 +81,7 @@
 require_once("../views/fragments/postModal.php");
 ?>
 <script>
-    adminShowPost.init();
+    adminEditPost.init();
     adminBanUser.init();
     displayPost.ajaxPrefix = "../";
 </script>

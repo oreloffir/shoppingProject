@@ -14,10 +14,14 @@ if(!empty($userMail) || !empty($userPassword)){
         if($user['type'] == ADMIN_TYPE)
             $_SESSION[ADMIN] = true;
         echo json_encode($user);
+    }else{
+        echo json_encode(array(
+            'errors' => array("Incorrect email or password")
+        ));
     }
 }else{
     echo json_encode(array(
-        'errors' => array("Incorrect email or password")
+        'errors' => array("Empty email or password")
     ));
 }
 ?>
