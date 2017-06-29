@@ -51,8 +51,8 @@ if(!empty($posts)) {
     }
 }
 
-$model['posts'] = $posts;
-$model['categories'] = $categories;
+$model['posts']         = $posts;
+$model['categories']    = $categories;
 
 
 require_once("views/home_page.php");

@@ -38,11 +38,11 @@ if($displayUser) {
         foreach ($posts as $key => $post) {
             $posts[$key]['time'] = timeAgo($posts[$key]['time']);
         }
-    $model['displayUser'] = $displayUser;
-    $model['posts'] = $posts;
-    $model['categories'] = $categories;
-
-    $model['category'] = "favorites";
+    $model['displayUser']   = $displayUser;
+    $model['posts']         = $posts;
+    $model['categories']    = $categories;
+    $model['profileId']     = $displayUserId;
+    $model['pageType']      = PROFILE_POSTS;
     require_once("views/profile_view.php");
 }else{
     header("Location: ./index.php");

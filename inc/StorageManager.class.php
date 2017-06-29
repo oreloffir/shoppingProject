@@ -365,14 +365,14 @@ class StorageManager
 		return $this->_db->selectQuery($sql->getSqlStatement());
 	}
 
-	public function getPopularPosts($start, $count){
+	public function getPopularPosts($start, $count, $where = array()){
 		$start  		= $this->_db->filter( $start );
 		$count  		= $this->_db->filter( $count );
 		$orders = array(
 			'rank' 		=> "DESC",
 			'rankCount' => "DESC"
 		);
-		return $this->getPosts($start, $count, null, $orders);
+		return $this->getPosts($start, $count, $where, $orders);
 	}
 
 	public function getFavoritesPosts($userId, $start, $count, $orders = array('posts.id' => 'DESC')){

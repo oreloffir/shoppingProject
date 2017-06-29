@@ -10,6 +10,7 @@ include_once("../inc/util.php");
 $storageManager = new StorageManager();
 
 $where = array();
+$orders = array();
 // if page is set -> need to send back CHUNK posts of this page
 if(isset($_GET['pageNumber'])){
     $pageNum = intval($_GET['pageNumber']);
@@ -18,21 +19,31 @@ if(isset($_GET['pageNumber'])){
         }
         $where['posts.category'] = intval($_GET['category']);
     }
-    if(isset($_GET['postsOrder'])){
-        switch($_GET['postsOrder']){
+    if(isset($_GET['postsOrder'])) {
+        switch ($_GET['postsOrder']) {
             case ORDER_POPULAR:
-                $posts = $storageManager->getPopularPosts($pageNum * POSTS_CHUNK, POSTS_CHUNK, $where);
-                break;
-            case ORDER_RECENT:
-                $posts = $storageManager->getPosts($pageNum * POSTS_CHUNK, POSTS_CHUNK, $where);
+                $orders['rank']         = "DESC";
+                $orders['rankCount']    = "DESC";
                 break;
         }
-    }else{
-        $posts = $storageManager->getPosts($pageNum * POSTS_CHUNK, POSTS_CHUNK, $where);
     }
-
-    foreach ($posts as &$post)
-        $post['time'] = timeAgo($post['time']);
+    if(isset($_GET['pageType'])) {
+        switch ($_GET['pageType']) {
+            case FAVORITES_POSTS:
+                $profileId = $_GET['profileId'];
+                $posts = $storageManager->getFavoritesPosts($profileId, $pageNum * POSTS_CHUNK, POSTS_CHUNK, $where, $orders);
+                break;
+            case PROFILE_POSTS:
+                $profileId = $_GET['profileId'];
+                $where['posts.publisherId'] = $profileId;
+                break;
+        }
+    }
+    if(!isset($posts))
+        $posts = $storageManager->getPosts($pageNum * POSTS_CHUNK, POSTS_CHUNK, $where, $orders);
+    if(!empty($posts))
+        foreach ($posts as &$post)
+            $post['time'] = timeAgo($post['time']);
 
     echo json_encode($posts);
     die();

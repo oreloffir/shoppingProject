@@ -32,6 +32,11 @@ if(!empty($posts)) {
         $posts[$key]['time'] = timeAgo($posts[$key]['time']);
     }
 }
+// Load more model
+$model['categoryId']    = $category;
+$model['pageType']      = FAVORITES_POSTS;
+$model['profileId']     = $userId;
+
 $model['posts']         = $posts;
 $model['categories']    = $categories;
 

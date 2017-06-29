@@ -341,11 +341,15 @@ var displayPost = {
     * based on displayPost.loadMoreInfo parameters
     * */
     ajaxMore: function(){
-        dataString = "pageNumber="+displayPost.loadMoreInfo.attr("pageNumber");
+        dataString = "pageNumber="+displayPost.loadMoreInfo.attr("page-number");
         if(displayPost.loadMoreInfo.attr("category"))
             dataString+= "&category="+displayPost.loadMoreInfo.attr("category");
-        if(displayPost.loadMoreInfo.attr("postsOrder"))
-            dataString+= "&postsOrder="+displayPost.loadMoreInfo.attr("postsOrder");
+        if(displayPost.loadMoreInfo.attr("posts-order"))
+            dataString+= "&postsOrder="+displayPost.loadMoreInfo.attr("posts-order");
+        if(displayPost.loadMoreInfo.attr("page-type"))
+            dataString+= "&pageType="+displayPost.loadMoreInfo.attr("page-type");
+        if(displayPost.loadMoreInfo.attr("profile-id"))
+            dataString+= "&profileId="+displayPost.loadMoreInfo.attr("profile-id");
         console.log(dataString);
         $.ajax({
             url: displayPost.ajaxPrefix+"ajax/loadMoreAjax.php",
@@ -396,7 +400,7 @@ var displayPost = {
                 htmlPostsString += "</div>";
             }
             displayPost.postsDisplayContainer.append(htmlPostsString);
-            displayPost.loadMoreInfo.attr("pageNumber", parseInt(displayPost.loadMoreInfo.attr("pageNumber")) + 1);
+            displayPost.loadMoreInfo.attr("page-number", parseInt(displayPost.loadMoreInfo.attr("page-number")) + 1);
             displayPost.loadRequest = false;
             displayPost.init();
         }else{
