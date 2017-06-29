@@ -338,5 +338,8 @@ div[class^="col-"]{
 .hidden-xs{
     display: none;
 }
+.hidden{
+    display: none;
+}
 
 

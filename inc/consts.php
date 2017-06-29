@@ -36,4 +36,5 @@ define("PROFILE_POSTS", "profile");
 /* Admin constants */
 define("ADMIN", "admin");
 define("ADMIN_TYPE", 1);
+
 ?>
