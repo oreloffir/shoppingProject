@@ -14,35 +14,35 @@
 <?php require_once("fragments/header.php"); ?>
 
 <div class="container" style="margin:0 auto; max-width: 800px;">
-    <h2 class="col-sm-offset-4" >Add Post</h2>
+    <h2 class="col-sm-offset-4" ><?php echo lang('ADD_POST_TITLE'); ?></h2>
     <form class="form-horizontal" role="form" id="add_post_form" enctype="multipart/form-data" method="post">
             <div class="form-group">
-                <label class="control-label col-md-4" for="title">Title:</label>
+                <label class="control-label col-md-4" for="title"><?php echo lang('TITLE'); ?></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" id="title_field" placeholder="Enter title" name="title" required>
+                    <input type="text" class="form-control" id="title_field" placeholder="<?php echo lang('ENTER_TITLE'); ?>" name="title" required>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-md-4" for="description">Description:</label>
+                <label class="control-label col-md-4" for="description"><?php echo lang('DESCRIPTION'); ?></label>
                 <div class="col-md-8">
-                    <textarea  type="text" class="form-control" id="description_field" placeholder="Enter description" name="description" required></textarea>
+                    <textarea  type="text" class="form-control" id="description_field" placeholder="<?php echo lang('ENTER_DESCRIPTION'); ?>" name="description" required></textarea>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-md-4" for="description">Price:</label>
+                <label class="control-label col-md-4" for="description"><?php echo lang('PRICE'); ?></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" id="price_field" placeholder="$" name="price" required>
+                    <input type="text" class="form-control" id="price_field" placeholder="<?php echo lang('CURRENCY'); ?>" name="price" required>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-md-4" for="URL">Sale URL:</label>
+                <label class="control-label col-md-4" for="URL"><?php echo lang('SALE_URL'); ?></label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" id="URL_field" placeholder="Enter sale URL" name="URL" required>
+                    <input type="text" class="form-control" id="URL_field" placeholder="<?php echo lang('ENTER_SALE_URL'); ?>" name="URL" required>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4">Upload Image:</label>
+                <label class="control-label col-md-4"><?php echo lang('UPLOAD_IMAGE'); ?></label>
                 <div class="input-group col-md-8">
                     <span class="input-group-btn">
                         <span class="btn btn-default btn-file">
@@ -55,7 +55,7 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4" for="Category">Category:</label>
+                <label class="control-label col-md-4" for="Category"><?php echo lang('CATEGORY'); ?></label>
                 <div class="col-md-8">
                         <select class="form-control" id="category" name="category">
                             <?php foreach($model['categories'] as $category){?>
@@ -67,18 +67,18 @@
 
             <div class="form-group">
                 <div class="checkbox col-md-offset-4 col-md-8">
-                    <label><input type="checkbox" value="coupon" name="couponBox" id="couponBox">Coupon</label>
+                    <label><input type="checkbox" value="coupon" name="couponBox" id="couponBox"><?php echo lang('COUPON'); ?></label>
                 </div>
             </div>
             <div class="form-group hide" id="couponCodeGroup">
-                <label class="control-label col-md-4" for="image">Coupon code:</label>
+                <label class="control-label col-md-4" for="image"><?php echo lang('COUPON_CODE'); ?></label>
                 <div class="col-md-8">
                     <input type="text" class="form-control " id="coupon_field" name="couponCode">
                 </div>
             </div>
             <div class="form-group" >
                 <div class="col-md-offset-4 col-md-8">
-                    <button type="submit" class="btn btn-default">Submit</button>
+                    <button type="submit" class="btn btn-default"><?php echo lang('SUBMIT_ADD'); ?></button>
                 </div>
             </div>
             <div class="form-group">

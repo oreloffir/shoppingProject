@@ -7,7 +7,13 @@
  */
 
 include_once("../inc/StorageManager.class.php");
-$postId = $_POST["postid"];
+include_once("../language/en.php");
+$errors;
+if(isset($_POST["postid"]))
+    $postId = $_POST["postid"];
+else
+    $errors[] = lang("INVALID_POST_ID");
+
 $storageManager = new StorageManager();
 
 session_start();
@@ -20,8 +26,9 @@ if(isset($_SESSION['userId'])){
     }
 
 }else{
+    $errors[] = lang("NEED_LOGIN");
     echo json_encode(array(
-        'errors' => array("You need to Login!")
+        'errors' => $errors
     ));
 }
 

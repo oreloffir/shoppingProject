@@ -94,41 +94,39 @@ function createThumb($imgloc,$imgname,$ext,$quality=0.8){
     return "tmb_".$imgname;
 }
 
-function timeAgo($timestamp,$output = 'less then a minute') {
+function timeAgo($timestamp,$output = null) {
+    if($output == null)
+        $output = lang('LESS_THEN_MIN');
     $timegot=$timestamp;
     $timestamp = time() - $timestamp;
-    $units = array(604800=>'week',86400=>'day',3600=>'hour',60=>'minute');
+    $units = array(604800=>lang('WEEK'),86400=>lang('DAY'),3600=>lang('HOUR'),60=>lang('MINUTE'));
     foreach($units as $seconds => $unit) {
         if ($seconds<=$timestamp) {
             $value = floor($timestamp/$seconds);
             if($value > 1){
                 switch ($unit){
-                    case 'week':
-                        $unit='weeks';
+                    case lang('WEEK'):
+                        $unit=lang('WEEKS');
                         break;
-                    case 'day':
-                        $unit='days';
+                    case lang('DAY'):
+                        $unit=lang('DAYS');
                         break;
-                    case 'hour':
-                        $unit='hours';
+                    case lang('HOUR'):
+                        $unit=lang('HOURS');
                         break;
-                    case 'minute':
-                        $unit='minutes';
+                    case lang('MINUTES'):
+                        $unit=lang('MINUTES');
                         break;
                 }
             }
             if($value == '1'){
                 $value=null;
-                if($unit == 'day'){
-                    $output = 'yesterday at'.' '.date("H:i" ,$timegot);
+                if($unit == lang('DAY')){
+                    $output = lang('YESTERDAY_AT').' '.date("H:i" ,$timegot);
                     break;
                 }
             }
-            if($value == '2' and $unit == 'hour'){
-                $output = 'two hours ago';
-                break;
-            }
-            $output = $value.' '.$unit.' ago';
+            $output = $value.' '.$unit.' '.lang('AGO');
             break;
         }
     }

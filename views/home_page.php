@@ -19,18 +19,18 @@
         <div class="page-header no-margin">
             <div class="row no-margin">
                 <div class="col-md-11 col-sm-11">
-                    <h2><?php if(isset($model['categoryName'])) echo $model['categoryName']; else echo "All Categories"; ?></h2>
+                    <h2><?php if(isset($model['categoryName'])) echo $model['categoryName']; else echo lang('ALL_CATEGORIES'); ?></h2>
                     <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            Sort by
+                            <? echo lang('SORT_BY'); ?>
                             <?php if(isset($model['postsOrder'])){
                                 echo $model['postsOrder'];
                             }?>
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li><a href="<?php echo addUrlParam("order", ORDER_RECENT); ?>">Most Recent</a></li>
-                            <li><a href="<?php echo addUrlParam("order", ORDER_POPULAR);?>">Most Popular</a></li>
+                            <li><a href="<?php echo addUrlParam("order", ORDER_RECENT); ?>"><? echo lang('SORT_BY_MOST_RECENT'); ?></a></li>
+                            <li><a href="<?php echo addUrlParam("order", ORDER_POPULAR);?>"><? echo lang('SORT_BY_MOST_POPULAR'); ?></a></li>
                         </ul>
                     </div>
                 </div>

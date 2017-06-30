@@ -1,24 +1,46 @@
 <?php
-include_once("../inc/StorageManager.class.php");
-include_once("../model/entities/post.class.php");
+include_once ("../inc/StorageManager.class.php");
+include_once ("../model/entities/post.class.php");
+include_once ("../language/en.php");
 include_once ("../inc/util.php");
 include_once ("../inc/consts.php");
 
+
 $errors = array();
+
 session_start();
-$userId 	    = $_SESSION["userId"];
-$imagePage      = $_FILES["postImg"];
-$title 			= $_POST["title"];
-$description 	= $_POST["description"];
-$price       	= $_POST["price"];
-$postURL 		= $_POST["URL"];
-$category 		= $_POST["category"];
+if(isset($_SESSION["userId"]))
+    $userId     = $_SESSION["userId"];
+else
+    $errors[]   = lang("NEED_LOGIN");
+
+if(isset($_POST["title"]))
+    $title 			= $_POST["title"];
+else
+    $errors[]   = lang("INVALID_POST_TITLE");
+if(isset($_POST["description"]))
+    $description 	= $_POST["description"];
+else
+    $errors[]   = lang("INVALID_POST_DESCRIPTION");
+if(isset($_POST["price"]))
+    $price 	= $_POST["price"];
+else
+    $errors[]   = lang("INVALID_POST_PRICE");
+if(isset($_POST["URL"]))
+    $postURL 	= $_POST["URL"];
+else
+    $errors[]   = lang("INVALID_POST_URL");
+if(isset($_POST["category"]))
+    $category 	= $_POST["category"];
+else
+    $errors[]   = lang("INVALID_POST_CATEGORY");
+
 $couponCode		= $_POST["couponCode"];
+$imagePage      = $_FILES["postImg"];
 
 $storageManager = new StorageManager();
 
-//chacking valid input
-if(!validation($errors, $title, $description, $postURL, $category)){
+if(!validation($title, $description, $postURL, $category, $price)){
     echo json_encode($errors);
     die();
 }
@@ -26,10 +48,10 @@ if(isset($_POST['postId'])){
     $postId = $_POST["postId"];
     $time   = $storageManager->getPosts(0,1, array( "posts.id" => $postId))[0]["time"];
     $imagePath = $storageManager->getPosts(0,1, array( "posts.id" => $postId))[0]["imagePath"];
-    $postToSave = createEditedPost($errors, $postId, $title, $description, $price, $postURL, $userId, $imagePage, $imagePath, $time, $category, $couponCode);
+    $postToSave = createEditedPost($postId, $title, $description, $price, $postURL, $userId, $imagePage, $imagePath, $time, $category, $couponCode);
 }else {
     $postId = NEW_POST;
-    $postToSave = createNewPost($errors, $userId, $title, $description, $price, $postURL, $category, $imagePage, $couponCode);
+    $postToSave = createNewPost($userId, $title, $description, $price, $postURL, $category, $imagePage, $couponCode);
 }
 /* if the res = false , something go wrong in add/edit post */
 if($postToSave){
@@ -39,10 +61,10 @@ if($postToSave){
         $saveResult = $storageManager->saveCoupon($postToSave);
 
     if($saveResult) {
-        echo json_encode("Post has been saved");
+        echo json_encode(lang("POST_SAVE_SUCCESS"));
         die();
     }else{
-        $errors[] = "Can't save the post";
+        $errors[] = lang('ERROR_SAVE_POST');
         echo json_encode($errors);
         die();
     }
@@ -63,13 +85,13 @@ function saveImage(&$errors, $pageImage)
         $file_error = $pageImage["error"];
 
         if ($file_error > 0) {
-            $errors[] = "Invalid file!";
+            $errors[] = lang("INVALID_FILE");
         }
         if (!(($ext == "png" || $ext == "PNG" && $file_type == "image/png") || ($ext == "jpg" && $file_type == "image/jpeg") || ($ext == "jpeg" && $file_type == "image/jpeg"))) {
-            $errors[] = "Invalid format!";
+            $errors[] = lang("INVALID_FILE_FORMAT");
         }
         if ($file_size > 524288) {
-            $errors[] = "File too large!";
+            $errors[] = lang("FILE_TOO_LARGE");
         }
 
     }
@@ -91,15 +113,18 @@ function saveImage(&$errors, $pageImage)
     }
 }
 
-function validation(&$errors, $title, $description, $postURL, $category){
-    if(empty($title))
-        $errors[] = "Please enter title";
-    if(empty($description))
-        $errors[] = "Please enter description";
-    if(empty($postURL))
-        $errors[] = "Please enter sale URL";
-    if(empty($category))
-        $errors[] = "Please choose category";
+function validation($title, $description, $postURL, $category, $price){
+    global $errors;
+    if(strlen($title) < MINIMUM_TITLE_LEN)
+        $errors[] = lang("INVALID_POST_TITLE");
+    if(strlen($description) < MINIMUM_DESCRIPTION_LEN)
+        $errors[] = lang("INVALID_POST_DESCRIPTION");
+    if(!filter_var($postURL, FILTER_VALIDATE_URL))
+        $errors[] = lang("INVALID_POST_URL");
+    if(!ctype_digit($category))
+        $errors[] = lang("INVALID_POST_CATEGORY");
+    if(!is_numeric($price))
+        $errors[] = lang("INVALID_POST_PRICE");
 
     if(!empty($errors))
         return false;
@@ -108,7 +133,8 @@ function validation(&$errors, $title, $description, $postURL, $category){
 
 }
 
-function createEditedPost(&$errors, $postId, $title, $description, $price, $postURL, $userId, $imagePage, $imagePath, $time, $category, $couponCode){
+function createEditedPost($postId, $title, $description, $price, $postURL, $userId, $imagePage, $imagePath, $time, $category, $couponCode){
+    global $errors;
     if($userId == $_POST["publisherId"]){ // check in storage too
         if($imagePage['error'] > 0){
             return new Post($postId, $title, $description, $price, $postURL, $userId, $imagePath, $time, $category, $couponCode);
@@ -118,22 +144,22 @@ function createEditedPost(&$errors, $postId, $title, $description, $price, $post
                 unlink("../uploads/".$imagePath);
                 return new Post($postId, $title, $description, $price, $postURL, $userId, $newImagePath, $time, $category, $couponCode);
             }else{
-                $errors[] = "cannot upload the new image";
+                $errors[] = lang("ERROR_UPLOAD_IMAGE");
             }
         }
     }else{
-        $errors[] = "You are not the publisher";
+        $errors[] = lang("PUBLISHER_ID_NOT_MATCH");
         return false;
     }
 }
 
-function createNewPost(&$errors, $userId, $title, $description, $price, $postURL, $category, $imagePage, $couponCode){
-
+function createNewPost($userId, $title, $description, $price, $postURL, $category, $imagePage, $couponCode){
+    global $errors;
     $imgPath = saveImage($errors, $imagePage);
     if($imgPath){
         return new Post(NEW_POST,$title,$description,$price,$postURL,$userId,$imgPath,time(),$category,$couponCode);
     }else{
-        $errors[] = "cannot upload the image";
+        $errors[] = lang("ERROR_UPLOAD_IMAGE");
         return false;
     }
 }

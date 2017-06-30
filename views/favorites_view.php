@@ -16,7 +16,7 @@
     <div class="page-header no-margin">
         <div class="row no-margin">
             <div class="col-md-12 col-sm-12">
-                <h2>My Favorites</h2>
+                <h2><?php echo lang('MY_FAVORITES'); ?></h2>
             </div>
         </div>
     </div>

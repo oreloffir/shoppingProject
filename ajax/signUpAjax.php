@@ -8,6 +8,7 @@
 
 include_once("../inc/StorageManager.class.php");
 include_once("../model/entities/user.class.php");
+include_once("../language/en.php");
 $userMail 		 = $_POST["email"];
 $userPassword 	 = $_POST["pwd"];
 $userDisplayName = $_POST["displayName"];
@@ -34,7 +35,7 @@ echo json_encode($errors);
 function validation (&$errors , $userMail){
 
     if (!filter_var($userMail, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Invalid email format";
+        $errors[] = lang('INVALID_EMAIL_FORMAT');
     }
 
     if(!empty($errors)){

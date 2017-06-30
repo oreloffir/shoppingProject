@@ -373,12 +373,15 @@ class StorageManager
 
 	//------------------------------------- POSTS METHODS ------------------------------------------//
 
-	public function getPosts($start, $count, $where = array(), $orders = array('posts.id' => 'DESC'))
+	public function getPosts($start, $count, $where = array(), $orders = array('posts.id' => 'DESC'), $like = array())
 	{
+	    if($orders == null)
+            $orders = array('posts.id' => 'DESC');
 		$start  	= $this->_db->filter( $start );
 		$count  	= $this->_db->filter( $count );
 		$where  	= $this->_db->filter( $where );
 		$orders  	= $this->_db->filter( $orders );
+		$like       = $this->_db->filter( $like );
 
 		$sql = new SqlSelectStatement("
 			SELECT 
@@ -392,6 +395,7 @@ class StorageManager
 			->addToBody("LEFT JOIN ranking ON (posts.id = ranking.relativeId)")
             ->addToBody("JOIN categories ON (posts.category = categories.id)")
 			->addWhere($where)
+            ->addLike($like)
 			->addToBody("GROUP BY(case when relativeId is null then posts.id else relativeId end)")
 			->addOrderBy($orders)
 			->addLimit($start, $count);
@@ -453,7 +457,6 @@ class StorageManager
 	    return $this->_db->simpleSelectQuery(COMMENTS_TABLE, $where);
     }
 
-
 	public function getPostComments($postId, $start, $count)
 	{
 		$selectedFields = array(
@@ -490,7 +493,7 @@ class StorageManager
 	        return true;
 	    return false;
     }
-	
+
 	// --------------------------------   VALIDATION METHODS  ------------------------------------- //
 	private function checkTableRowById($tableName, $objectId)
 	{
@@ -523,6 +526,10 @@ class StorageManager
 		return true;
 	}
 
+	public function checkTableRecordsByTime($tableName, $userId, $time){
+        $sql = "SELECT * FROM ".$tableName ." WHERE publisherId = $userId AND time > $time";
+        return $this->_db->numRows($sql);
+    }
 }
 
 ?>

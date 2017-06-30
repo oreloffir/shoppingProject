@@ -8,23 +8,24 @@
 include_once("../inc/StorageManager.class.php");
 include_once("../model/entities/report.class.php");
 include_once ("../inc/consts.php");
+include_once ("../language/en.php");
 
 $errors = array();
 session_start();
 if(isset($_SESSION["userId"])) {
     $userId = $_SESSION["userId"];
 }else{
-    $errors[] = "You need to login!";
+    $errors[] = lang('NEED_LOGIN');
 }
 if(isset($_POST['postId'])) {
     $postId = $_POST['postId'];
 }else{
-    $errors[] = "No post id";
+    $errors[] = lang('INVALID_POST_ID');
 }
 if(isset($_POST['reason']) && $_POST['reason'] != "") {
     $reason = $_POST['reason'];
 }else{
-    $errors[] = "You have to give a reason";
+    $errors[] = lang('NO_REASON_FOR_REPORT');
 }
 
 if(empty($errors)){
@@ -41,7 +42,7 @@ if(empty($errors)){
         echo json_encode("1");
         die();
     }else{
-        $errors[] = "ERROR: Cannot send report";
+        $errors[] = lang('ERROR_SAVE_REPORT');
         echo json_encode($errors);
         die();
     }

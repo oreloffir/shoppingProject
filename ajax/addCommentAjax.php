@@ -8,6 +8,7 @@
 include_once ("../inc/StorageManager.class.php");
 include_once ("../model/entities/comment.class.php");
 include_once ("../inc/util.php");
+include_once ("../language/en.php");
 
 $errors = array();
 session_start();
@@ -17,12 +18,12 @@ $commentBody    = $_POST['commentbody'];
 if(isset($_SESSION['userId']))
     $userId = $_SESSION['userId'];
 else
-    $errors[] = "You need to Login";
+    $errors[] = lang("NEED_LOGIN");
 
 if(!isset($postId))
-    $errors[] = "Invalid post id";
+    $errors[] = lang("INVALID_POST_ID");
 if(!isset($commentBody) || $commentBody == "")
-    $errors[] = "Invalid comment";
+    $errors[] = lang("INVALID_COMMENT");
 
 if(empty($errors))
 {

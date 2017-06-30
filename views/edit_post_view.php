@@ -14,7 +14,7 @@
 <body>
 <?php require_once("fragments/header.php"); ?>
 <div class="container" style="margin:0 auto; max-width: 700px;">
-    <h2 class="col-md-12" >Edit Post</h2>
+    <h2 class="col-md-12" ><?php echo lang('EDIT_POST_TITLE'); ?></h2>
     <form class="form-horizontal" role="form" id="editPostForm" enctype="multipart/form-data" method="post">
 
         <div class="form-group">
@@ -27,35 +27,35 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-3" for="title">Title:</label>
+            <label class="control-label col-md-3" for="title"><?php echo lang('TITLE'); ?></label>
             <div class="col-md-9">
-                <input type="text" class="form-control" id="titleField" placeholder="Enter title" name="title" value="<?php echo $model['currentPost']['title']; ?>" required>
+                <input type="text" class="form-control" id="titleField" placeholder="<?php echo lang('ENTER_TITLE'); ?>" name="title" value="<?php echo $model['currentPost']['title']; ?>" required>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-4" for="description">Price:</label>
+            <label class="control-label col-md-3" for="description"><?php echo lang('DESCRIPTION'); ?></label>
+            <div class="col-md-9">
+                <textarea  type="text" class="form-control" id="descriptionField" placeholder="<?php echo lang('ENTER_DESCRIPTION'); ?>" name="description" required><?php echo $model['currentPost']['description']; ?></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-4" for="description"><?php echo lang('PRICE'); ?></label>
             <div class="col-md-8">
-                <input type="text" class="form-control" id="price_field" placeholder="$" name="price"  value="<?php echo $model['currentPost']['price']; ?>" required>
+                <input type="text" class="form-control" id="price_field" placeholder="<?php echo lang('CURRENCY'); ?>" name="price"  value="<?php echo $model['currentPost']['price']; ?>" required>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-3" for="description">Description:</label>
+            <label class="control-label col-md-3" for="URL"><?php echo lang('SALE_URL'); ?></label>
             <div class="col-md-9">
-                <textarea  type="text" class="form-control" id="descriptionField" placeholder="Enter description" name="description" required><?php echo $model['currentPost']['description']; ?></textarea>
+                <input type="text" class="form-control" id="urlField" placeholder="<?php echo lang('ENTER_SALE_URL'); ?>" name="URL" value="<?php echo $model['currentPost']['saleUrl']; ?>" required>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-3" for="URL">Sale URL:</label>
-            <div class="col-md-9">
-                <input type="text" class="form-control" id="urlField" placeholder="Enter sale URL" name="URL" value="<?php echo $model['currentPost']['saleUrl']; ?>" required>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-3">Upload Image:</label>
+            <label class="control-label col-md-3"><?php echo lang('UPLOAD_IMAGE'); ?></label>
             <div class="input-group col-md-9">
                     <span class="input-group-btn">
                         <span class="btn btn-default btn-file">
@@ -68,7 +68,7 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-3" for="Category">Category:</label>
+            <label class="control-label col-md-3" for="Category"><?php echo lang('CATEGORY'); ?></label>
             <div class="col-md-9">
                 <select class="form-control" id="category" name="category">
                     <?php foreach($model['categories'] as $category){?>
@@ -80,18 +80,18 @@
 
         <div class="form-group">
             <div class="checkbox col-md-offset-3">
-                <label><input type="checkbox" value="coupon" name="couponBox" id="couponBox" <?php if($model['currentPost']['postType'] == 1) echo "checked=\"checked\""; ?>>Coupon</label>
+                <label><input type="checkbox" value="coupon" name="couponBox" id="couponBox" <?php if($model['currentPost']['postType'] == 1) echo "checked=\"checked\""; ?>><?php echo lang('COUPON'); ?></label>
             </div>
         </div>
         <div class="form-group hide" id="couponCodeGroup">
-            <label class="control-label col-md-3">Coupon code:</label>
+            <label class="control-label col-md-3"><?php echo lang('COUPON_CODE'); ?></label>
             <div class="col-md-9">
                 <input type="text" class="form-control " id="couponCodeField" name="couponCode" value="<?php if($model['currentPost']['postType'] == 1) echo $model['currentPost']['couponCode']; ?>">
             </div>
         </div>
         <div class="form-group" >
             <div class="col-md-offset-10">
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-default"><?php echo lang('SUBMIT_EDIT'); ?></button>
             </div>
         </div>
         <div class="form-group">

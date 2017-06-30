@@ -6,6 +6,7 @@
  * Time: 9:47 PM
  */
 include_once("inc/StorageManager.class.php");
+include_once("language/en.php");
 $storageManager = new StorageManager();
 $model = array();
 session_start();

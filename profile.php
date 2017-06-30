@@ -41,6 +41,7 @@ if($displayUser) {
     $model['displayUser']   = $displayUser;
     $model['posts']         = $posts;
     $model['categories']    = $categories;
+
     $model['profileId']     = $displayUserId;
     $model['pageType']      = PROFILE_POSTS;
     require_once("views/profile_view.php");

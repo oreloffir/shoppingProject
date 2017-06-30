@@ -7,6 +7,7 @@
  */
 include_once("../inc/StorageManager.class.php");
 include_once("../inc/util.php");
+include_once ("../language/en.php");
 session_start();
 if(isset($_SESSION[ADMIN])){
     $adminPrivilege = $_SESSION[ADMIN];

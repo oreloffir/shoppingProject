@@ -25,6 +25,8 @@ define("EDIT_POST",1);
 define("NEW_POST",0);
 define("SALE_TYPE",0);
 define("COUPON_TYPE",1);
+define("MINIMUM_TITLE_LEN", 5);
+define("MINIMUM_DESCRIPTION_LEN", 10);
 
 define("POSTS_CHUNK", 12);
 define("ORDER_POPULAR", "popular");

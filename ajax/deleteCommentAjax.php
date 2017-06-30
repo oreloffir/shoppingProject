@@ -6,6 +6,7 @@
  * Time: 3:49 PM
  */
 include_once ("../inc/StorageManager.class.php");
+include_once ("../language/en.php");
 
 $errors = array();
 session_start();
@@ -19,7 +20,7 @@ if(isset($_SESSION[ADMIN])){
 
 $commentId  = $_POST['commentId'];
 if(!isset($commentId)) {
-    $errors[] = "Invalid comment id";
+    $errors[] = lang('INVALID_COMMENT');
     echo json_encode(array(
         'errors' => $errors
     ));
@@ -29,7 +30,7 @@ if(!isset($commentId)) {
 if(isset($_SESSION['userId']) || $adminPrivilege)
     $userId = $_SESSION['userId'];
 else
-    $errors[] = "You need to Login";
+    $errors[] = lang('NEED_LOGIN');
 
 if($adminPrivilege){
     $userId = $storageManager->getComments(array( 'id' => $commentId))[0]['publisherId'];

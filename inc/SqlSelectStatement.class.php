@@ -2,6 +2,7 @@
 class SqlSelectStatement
 {
 	private $_sqlStatement;
+    private $whereSet = false;
 
 	public function __construct($sqlStart)
 	{
@@ -46,10 +47,31 @@ class SqlSelectStatement
                     $clause[] = "$field = '$value'";
                 }
             }
-            $this->_sqlStatement .= " WHERE ". implode(' AND ', $clause);
+            if(!$this->whereSet)
+                $this->_sqlStatement .= " WHERE ". implode(' AND ', $clause);
+            else
+                $this->_sqlStatement .= " AND ". implode(' AND ', $clause);
+
+            $this->whereSet = true;
         }
         return $this;
 	}
+
+	public function addLike($like = array()){
+        $clause = array();
+        if(!empty($like))
+        {
+            foreach($like as $field => $value)
+                $clause[] = "$field LIKE '%$value%'";
+
+            if(!$this->whereSet)
+                $this->_sqlStatement .= " WHERE ". implode(' AND ', $clause);
+            else
+                $this->_sqlStatement .= " AND ". implode(' AND ', $clause);
+            $this->whereSet = true;
+        }
+        return $this;
+    }
 
 	public function addOrderBy($orders)
 	{

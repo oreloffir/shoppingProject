@@ -34,7 +34,7 @@
                 echo "posts-order=\"".$model['postsOrder']."\"";
             if(isset($model['pageType']))
                 echo "page-type=\"".$model['pageType']."\"";
-            if(isset($model['pageType']))
+            if(isset($model['profileId']))
                 echo "profile-id=\"".$model['profileId']."\"";
             if(isset($model['categoryId']))
                 echo "category=\"".$model['categoryId']."\"";
