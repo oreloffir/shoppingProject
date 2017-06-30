@@ -371,6 +371,19 @@ class StorageManager
         return $this->_db->deleteQuery(BANS_TABLE, array('userId' => $userId));
     }
 
+    /**
+     * Remove report
+     * @param reportId
+     * @return true if remove success, otherwise false
+     * @access public
+     **/
+    public function removeReport($reportId)
+    {
+        $banInputs = $this->_db->filter($reportId);
+
+        return $this->_db->deleteQuery(REPORT_TABLE, array('id' => $reportId));
+    }
+
 	//------------------------------------- POSTS METHODS ------------------------------------------//
 
 	public function getPosts($start, $count, $where = array(), $orders = array('posts.id' => 'DESC'), $like = array())
