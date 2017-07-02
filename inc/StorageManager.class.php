@@ -412,6 +412,7 @@ class StorageManager
 			->addToBody("GROUP BY(case when relativeId is null then posts.id else relativeId end)")
 			->addOrderBy($orders)
 			->addLimit($start, $count);
+		//echo "<b>".$sql->getSqlStatement()."</b><br>";
 		return $this->_db->selectQuery($sql->getSqlStatement());
 	}
 

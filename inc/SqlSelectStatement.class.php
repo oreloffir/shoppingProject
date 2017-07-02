@@ -65,9 +65,9 @@ class SqlSelectStatement
                 $clause[] = "$field LIKE '%$value%'";
 
             if(!$this->whereSet)
-                $this->_sqlStatement .= " WHERE ". implode(' AND ', $clause);
+                $this->_sqlStatement .= " WHERE ". implode(' OR ', $clause);
             else
-                $this->_sqlStatement .= " AND ". implode(' AND ', $clause);
+                $this->_sqlStatement .= " AND ". implode(' OR ', $clause);
             $this->whereSet = true;
         }
         return $this;

@@ -17,7 +17,7 @@
             <div class="modal-body">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-4" id="postDialogSide">
+                        <div class="col-md-4 col-xs-12" id="postDialogSide">
                             <div id="postRankContainer">
                                 <div id="postRank" postrank="">
                                     <span class="ranking glyphicon glyphicon-star"></span>
@@ -34,7 +34,7 @@
                             <code id="postDialogCouponCode"></code>
                         </div>
 
-                        <div class="col-md-8">
+                        <div class="col-md-8 col-xs-12">
                             <div>
                                 <div><a href="" id="postDialogDisplayName"></a></div>
                                 <div id="postDialogTimeAgo"></div>
@@ -57,13 +57,13 @@
             <div class="modal-footer">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-2 col-xs-6 post-dialog-fun-btns">
+                        <div class="col-md-2 col-xs-12 post-dialog-fun-btns">
                             <a class="btn btn-danger btn-gray" id ="favoriteBtn"><span class="glyphicon glyphicon-heart"></span></a>
                             <a class="btn btn-gray" id="editPostBtn" href=""><span class="glyphicon glyphicon-pencil"></span></a>
                             <a class="btn btn-gray" id="reportPostBtn" href=""><span class="glyphicon glyphicon-flag"></span></a>
                         </div>
                         <div class="col-md-9 col-xs-12" id="reportPostDisplayBlock"></div>
-                        <div class="col-md-1 col-xs-6"><button type="button" class="btn btn-default" data-dismiss="modal"><?php echo lang('POST_DIALOG_CLOSE'); ?></button></div>
+                        <div class="col-md-1 col-xs-12"><button type="button" class="btn btn-default" data-dismiss="modal"><?php echo lang('POST_DIALOG_CLOSE'); ?></button></div>
                     </div>
                     <div class="row">
                         <div id="postDialogErrors" class="col-md-12"></div>

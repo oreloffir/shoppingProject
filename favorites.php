@@ -27,7 +27,7 @@ if(isset($_SESSION['userId'])){
     die();
 }
 $categories = $storageManager->getCategories();
-$posts      = $storageManager->getFavoritesPosts($userId, 0,20);
+$posts      = $storageManager->getFavoritesPosts($userId, 0, POSTS_CHUNK);
 if(!empty($posts)) {
     foreach ($posts as $key => $post) {
         $posts[$key]['time'] = timeAgo($posts[$key]['time']);

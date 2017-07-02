@@ -33,6 +33,8 @@ define("ORDER_POPULAR", "popular");
 define("ORDER_RECENT", "recent");
 define("FAVORITES_POSTS", "favorites");
 define("PROFILE_POSTS", "profile");
+define("SEARCH_POSTS", "search");
+
 
 
 /* Admin constants */

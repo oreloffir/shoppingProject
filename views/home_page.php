@@ -19,7 +19,18 @@
         <div class="page-header no-margin">
             <div class="row no-margin">
                 <div class="col-md-11 col-sm-11">
-                    <h2><?php if(isset($model['categoryName'])) echo $model['categoryName']; else echo lang('ALL_CATEGORIES'); ?></h2>
+                    <h2>
+                        <?php
+                        if(isset($model['categoryName'])){
+                            echo $model['categoryName'];
+                        }
+                        else{
+                            if(isset($model['searchValue']))
+                                echo "Search ".$model['searchValue'];
+                            else
+                                echo lang('ALL_CATEGORIES');
+                        }
+                                  ?></h2>
                     <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             <? echo lang('SORT_BY'); ?>

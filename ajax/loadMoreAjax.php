@@ -10,8 +10,9 @@ include_once("../inc/util.php");
 include_once ("../language/en.php");
 $storageManager = new StorageManager();
 
-$where = array();
+$where  = array();
 $orders = array();
+$like   = array();
 // if page is set -> need to send back CHUNK posts of this page
 if(isset($_GET['pageNumber'])){
     $pageNum = intval($_GET['pageNumber']);
@@ -36,10 +37,17 @@ if(isset($_GET['pageNumber'])){
                 $profileId = $_GET['profileId'];
                 $where['posts.publisherId'] = $profileId;
                 break;
+            case SEARCH_POSTS:
+                $searchTitle = $_GET['searchValue'];
+                $like = array(
+                    'posts.title'       => $searchTitle,
+                    'posts.description' => $searchTitle
+                );
+                break;
         }
     }
     if(!isset($posts))
-        $posts = $storageManager->getPosts($pageNum * POSTS_CHUNK, POSTS_CHUNK, $where, $orders);
+        $posts = $storageManager->getPosts($pageNum * POSTS_CHUNK, POSTS_CHUNK, $where, $orders, $like);
     if(!empty($posts))
         foreach ($posts as &$post)
             $post['time'] = timeAgo($post['time']);

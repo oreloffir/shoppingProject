@@ -10,6 +10,10 @@ var displayPost = {
     * */
     init: function (){
         this.ajaxPrefix         = "";
+        this.postsBlockSize     = 4;
+
+        // Search Input
+        this.searchInput        = $("#searchInput");
         // External functionality
             // class .postDialog objects on click will show post dialog MUST HAVE postId attribute
         this.postButtons        = $(".postDialog");
@@ -88,6 +92,20 @@ var displayPost = {
             // report click listener
             this.reportPostBtn.on('touchstart click', this.setReportUI)
 
+            this.searchInput.focusin(function () {
+                $(this).keypress(function (e) {
+                    var key = e.which;
+                    if (key == 13)  // the enter key code
+                    {
+                        if($(this).val().trim() != "") {
+                            window.location.replace("search.php?s=" + $(this).val());
+                            return false;
+                        }else{
+                            $(this).css("border-color", "red");
+                        }
+                    }
+                });
+            });
             // rank functionality post listener
             $(this.stars).each(function () {
                 $(this).mouseenter(displayPost.goldenStars);
@@ -158,7 +176,7 @@ var displayPost = {
         $(callback.comments).each(function (){
             var commentHtml = "";
             commentHtml += "<div class=\"row post-dialog-comment\" id=\"comment"+this.id+"\">";
-            commentHtml +=      "<div class=\"post-dialog-comment-user col-md-3\">";
+            commentHtml +=      "<div class=\"post-dialog-comment-user col-md-3 col-xs-3\">";
             commentHtml +=          "<div class=\"inline-block\">";
             commentHtml +=              "<div><a href=\"#\">"+this.displayName+"</a></div>";
             commentHtml +=              "<div class=\"post-dialog-comment-time\"\">"+this.time+"</div>";
@@ -168,7 +186,7 @@ var displayPost = {
                 commentHtml +=              "<div class=\"close remove-comment-btn\" commentId=\""+this.id+"\">&times;</div>";
             commentHtml +=           "</div>";
             commentHtml +=      "</div>";
-            commentHtml +=      "<div class=\"post-dialog-comment-body col-md-9\">"+this.body+"</div>";
+            commentHtml +=      "<div class=\"post-dialog-comment-body col-md-9 col-xs-9\">"+this.body+"</div>";
             commentHtml += "</div>";
             displayPost.postComments.append(commentHtml);
         });
@@ -213,7 +231,7 @@ var displayPost = {
                 }else{
                     var commentHtml = "";
                     commentHtml += "<div class=\"row post-dialog-comment\" id=\"comment"+callback.id+"\">";
-                    commentHtml +=      "<div class=\"post-dialog-comment-user col-md-3 col-xs-3\">";
+                    commentHtml +=      "<div class=\"post-dialog-comment-user col-xs-3 col-md-3\">";
                     commentHtml +=          "<div class=\"inline-block\">";
                     commentHtml +=              "<div><a href=\"#\">"+callback.displayName+"</a></div>";
                     commentHtml +=              "<div class=\"post-dialog-comment-time\"\">"+callback.time+"</div>";
@@ -222,7 +240,7 @@ var displayPost = {
                     commentHtml +=              "<div class=\"close remove-comment-btn\" commentId=\""+callback.id+"\">&times;</div>";
                     commentHtml +=           "</div>";
                     commentHtml +=      "</div>";
-                    commentHtml +=      "<div class=\"post-dialog-comment-body col-md-9 col-xs-9\">"+callback.body+"</div>";
+                    commentHtml +=      "<div class=\"post-dialog-comment-body col-xs-9 col-md-9\">"+callback.body+"</div>";
                     commentHtml += "</div>";
                     displayPost.postComments.prepend(commentHtml);
                     $('.remove-comment-btn[commentId="'+callback.id+'"]').on("touchstart click", displayPost.removeComment);
@@ -352,6 +370,8 @@ var displayPost = {
             dataString+= "&pageType="+displayPost.loadMoreInfo.attr("page-type");
         if(displayPost.loadMoreInfo.attr("profile-id"))
             dataString+= "&profileId="+displayPost.loadMoreInfo.attr("profile-id");
+        if(displayPost.loadMoreInfo.attr("search-value"))
+            dataString+= "&searchValue="+displayPost.loadMoreInfo.attr("search-value");
         console.log(dataString);
         $.ajax({
             url: displayPost.ajaxPrefix+"ajax/loadMoreAjax.php",
@@ -371,29 +391,33 @@ var displayPost = {
     * and build append the ui elements into displayPost.postsDisplayContainer
     * */
     loadMorefetchResult: function(posts){
-        var htmlPostsString = "";
-        if(!(posts.length == 0)) {
-            for (var i = 0; i < posts.length; i += 4) {
-                var limit = i + 4;
+        var htmlPostsString = "", postBlockSize = displayPost.postsBlockSize;
+        if(!(posts.length == 0)){
+            console.log(posts.length);
+            for (var i = 0; i < posts.length + postBlockSize; i += postBlockSize) {
+                console.log("--------------------"+i+"----------------------");
+                var limit = i + postBlockSize;
+                var j = i;
                 htmlPostsString += "<div class=\"row\">";
-                for (i; i < limit; i++) {
-                    if (posts[i] != undefined) {
+                for (j; j < limit && j < posts.length; j++) {
+                    console.log(j);
+                    if (posts[j] != undefined) {
                         htmlPostsString += "<div class=\"col-xs-12 col-sm-6 col-md-3\">";
                         htmlPostsString += "<div class=\"post-mini\">";
                         htmlPostsString += "<div class=\"post-mini-top\">";
-                        htmlPostsString += "<a href=\"profile.php?id=" + posts[i]['publisherId'] + "\">" + posts[i]['displayName'] + "</a><span>" + posts[i]['time'] + "</span>";
+                        htmlPostsString += "<a href=\"profile.php?id=" + posts[j]['publisherId'] + "\">" + posts[j]['displayName'] + "</a><span>" + posts[j]['time'] + "</span>";
                         htmlPostsString += "</div>";
                         htmlPostsString += "<div class=\"post-mini-title\">";
-                        htmlPostsString += "<a href=\"#\" class=\"postDialog\" postId=" + posts[i]['id'] + ">" + posts[i]['title'] + "</a>";
+                        htmlPostsString += "<a href=\"#\" class=\"postDialog\" postId=" + posts[j]['id'] + ">" + posts[j]['title'] + "</a>";
                         htmlPostsString += "</div>";
                         htmlPostsString += "<div class=\"post-mini-main\">";
                         htmlPostsString += "<div class=\"post-mini-img\">";
-                        htmlPostsString += "<img src=\"./uploads/" + posts[i]['imagePath'] + "\" class=\"img-responsive postDialog width-min-fluid\" postId=" + posts[i]['id'] + ">";
+                        htmlPostsString += "<img src=\"./uploads/" + posts[j]['imagePath'] + "\" class=\"img-responsive postDialog width-min-fluid\" postId=" + posts[j]['id'] + ">";
                         htmlPostsString += "</div>";
                         htmlPostsString += "<div class=\"post-mini-img-des\">";
-                        htmlPostsString += "<span>" + posts[i]['description'].substr(0, 200) + "..</span>";
+                        htmlPostsString += "<span>" + posts[j]['description'].substr(0, 200) + "..</span>";
                         htmlPostsString += "</div>";
-                        htmlPostsString += "<div class=\"post-mini-img-price circle\"><span>" + posts[i]['price'] + "$</span></div>"
+                        htmlPostsString += "<div class=\"post-mini-img-price circle\"><span>" + posts[j]['price'] + "$</span></div>"
                         htmlPostsString += "</div>";
                         htmlPostsString += "</div>";
                         htmlPostsString += "</div>";

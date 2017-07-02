@@ -22,6 +22,10 @@ div[class^="col-"]{
     box-shadow: inset 0px -10px 15px -10px rgba(0, 0, 0, 0.2);
     margin-bottom: 5px;
 }
+
+#searchInput{
+    margin-top: 8px
+}
 #navbarAddPost{
     color: #ffffff !important;
 }
@@ -341,5 +345,6 @@ div[class^="col-"]{
 .hidden{
     display: none;
 }
+
 
 

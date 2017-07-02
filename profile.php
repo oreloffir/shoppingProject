@@ -33,7 +33,7 @@ if(isset($_GET['id'])){
 }
 $displayUser   = $storageManager->getUserById($displayUserId);
 if($displayUser) {
-    $posts = $storageManager->getPosts(0, 20, array("posts.publisherId" => $displayUserId));
+    $posts = $storageManager->getPosts(0, POSTS_CHUNK, array("posts.publisherId" => $displayUserId));
     if (!empty($posts))
         foreach ($posts as $key => $post) {
             $posts[$key]['time'] = timeAgo($posts[$key]['time']);

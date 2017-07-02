@@ -38,6 +38,8 @@
                 echo "profile-id=\"".$model['profileId']."\"";
             if(isset($model['categoryId']))
                 echo "category=\"".$model['categoryId']."\"";
+            if(isset($model['searchValue']))
+                echo "search-value=\"".$model['searchValue']."\"";
             echo "></div>";
 
     require_once("./views/fragments/postModal.php");
