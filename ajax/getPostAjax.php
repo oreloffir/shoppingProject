@@ -22,13 +22,17 @@ if(isset($_GET["id"])){
 }else{
     die();
 }
+$posts       = $storageManager->getPosts(0,1, array('posts.id' => $postId));
+if(!empty($posts))
+    $post = $posts[0];
+else
+    die();
 
 if(isset($_SESSION['userId'])) {
     $userId = $_SESSION['userId'];
 }else{
     $userId = 0;
 }
-$post       = $storageManager->getPosts(0,1, array('posts.id' => $postId))[0];
 $comments   = $storageManager->getPostComments($post['id'],0,10) ;
 foreach ($comments as &$comment){
     $comment['time'] = timeAgo($comment['time']);

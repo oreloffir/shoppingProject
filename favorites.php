@@ -34,7 +34,6 @@ if(!empty($posts)) {
     }
 }
 // Load more model
-$model['categoryId']    = $category;
 $model['pageType']      = FAVORITES_POSTS;
 $model['profileId']     = $userId;
 

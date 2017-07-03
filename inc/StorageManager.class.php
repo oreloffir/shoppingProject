@@ -220,28 +220,45 @@ class StorageManager
 		return false;
 	}
 
-	/**
-	* Add a user
-	* @param User user
-	* @return userId, otherwise array of errors
-	* @access public
-	**/
-	public function addUser($user)
+    /**
+     * Save User object to database.
+     * To write a new user set user->id to 0
+     * To update a User set user->id to the userId you would like to edit.
+     * @param User object to write
+     * @return the new user id if succeed, otherwise false
+     * @access public
+     **/
+	public function saveUser($user)
 	{
 		$errors = array();
 		if(!($user instanceof User))
 			return false;
-		$userEmail = $this->_db->filter($user->email);
-		$result    = $this->_db->simpleSelectQuery(USERS_TABLE, array('email' => $userEmail));
-		if(empty($result))
-		{
-			$user->password = openssl_digest($user->password, 'sha512');
-			return $this->saveObjectWithId(USERS_TABLE, $user);
-		}else
-		{
-			$errors[] = EMAIL_TAKEN;
-		}
-		return $errors;
+        $userEmail  = $this->_db->filter($user->email);
+
+		if($user->id == 0) {
+            $result     = $this->_db->simpleSelectQuery(USERS_TABLE, array('email' => $userEmail));
+            if (empty($result)) {
+                $user->password = openssl_digest($user->password, 'sha512');
+                return $this->saveObjectWithId(USERS_TABLE, $user);
+            } else {
+                $errors[] = EMAIL_TAKEN;
+            }
+            return $errors;
+        }else{
+            $dbUser = $this->_db->simpleSelectQuery(USERS_TABLE, array('id' => $user->id))[0];
+            if($user->email != $dbUser['email']) {
+                $result = $this->_db->simpleSelectQuery(USERS_TABLE, array('email' => $userEmail));
+                if (!empty($result)) {
+                    $errors[] = EMAIL_TAKEN;
+                    return $errors;
+                }
+            }
+            if(!($user->password == ''))
+                $user->password = openssl_digest($user->password, 'sha512');
+            else
+                unset($user->password);
+            return $this->saveObjectWithId(USERS_TABLE, $user);
+        }
 	}
 
 	public function getUserById($userId){
@@ -267,8 +284,11 @@ class StorageManager
 			'password' 	=> openssl_digest($pass, 'sha512')
 		);
 		$result  = $this->_db->simpleSelectQuery(USERS_TABLE, $userLoginInfo);
-		if(!empty($result))
-			return $result[0];
+		if(!empty($result)){
+		    unset($result[0]['password']);
+            return $result[0];
+        }
+
 		return false;
 	}
 
@@ -286,7 +306,9 @@ class StorageManager
 		{
 			$where = array('id' => $objMap['id']);
 			unset($objMap['id']);
-			return $this->_db->updateQuery($tableName, $objMap, $where);
+			if($this->_db->updateQuery($tableName, $objMap, $where))
+			    return $where['id'];
+			return false;
 		}
 		// This is a new post, we need to insert
 		else{

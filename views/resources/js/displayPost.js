@@ -148,7 +148,6 @@ var displayPost = {
     * Build post dialog from getPost callback
     * */
     buildPostDialog: function (callback ,admin = false) {
-        console.log(callback);
         displayPost.postDisplayName.html(callback.displayName);
         displayPost.postDisplayName.attr("href", "profile.php?id="+callback.publisherId);
         displayPost.postDialogTimeAgo.html(callback.time);

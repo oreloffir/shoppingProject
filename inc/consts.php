@@ -40,5 +40,20 @@ define("SEARCH_POSTS", "search");
 /* Admin constants */
 define("ADMIN", "admin");
 define("ADMIN_TYPE", 1);
+define("REGULAR_TYPE", 0);
+
+/* Limits constants */
+define("COMMENTS_TIME_LIMIT", "- 30 seconds");
+define("COMMENTS_NUM_LIMIT", 1);
+
+define("POSTS_TIME_LIMIT", "- 3 minutes");
+define("POSTS_NUM_LIMIT", 1);
+
+define("MINIMUM_PASSWORD_LEN", 6);
+define("MINIMUM_DISPLAY_NAME_LEN", 5);
+define("MAXIMUM_DISPLAY_NAME_LEN", 18);
+
+
+
 
 ?>

@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: Orel
- * Date: 6/27/2017
- * Time: 6:49 PM
+ * Date: 6/30/2017
+ * Time: 12:02 AM
  */
 
 include_once("../inc/StorageManager.class.php");
@@ -25,7 +25,12 @@ if(isset($_SESSION['userId'])){
     $model['currentUser'] = $storageManager->getUserById($_SESSION['userId']);
 }
 
-$model['categories'] = $storageManager->getCategories();
-require_once("./views/admin_edit_post_view.php");
+$editUserId = '7';
+$model['user'] = $storageManager->getUserById($editUserId);
+$model['userType'] = array(
+                            REGULAR_TYPE => "Regular User",
+                            ADMIN_TYPE => "Admin"
+                        );
+require_once("./views/admin_edit_user_view.php");
 
 ?>

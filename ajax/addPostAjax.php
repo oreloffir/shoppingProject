@@ -7,72 +7,67 @@ include_once ("../inc/consts.php");
 
 
 $errors = array();
-
 session_start();
-if(isset($_SESSION["userId"]))
-    $userId     = $_SESSION["userId"];
-else
-    $errors[]   = lang("NEED_LOGIN");
-
-if(isset($_POST["title"]))
-    $title 			= $_POST["title"];
-else
-    $errors[]   = lang("INVALID_POST_TITLE");
-if(isset($_POST["description"]))
-    $description 	= $_POST["description"];
-else
-    $errors[]   = lang("INVALID_POST_DESCRIPTION");
-if(isset($_POST["price"]))
-    $price 	= $_POST["price"];
-else
-    $errors[]   = lang("INVALID_POST_PRICE");
-if(isset($_POST["URL"]))
-    $postURL 	= $_POST["URL"];
-else
-    $errors[]   = lang("INVALID_POST_URL");
-if(isset($_POST["category"]))
-    $category 	= $_POST["category"];
-else
-    $errors[]   = lang("INVALID_POST_CATEGORY");
 
 $couponCode		= $_POST["couponCode"];
-$imagePage      = $_FILES["postImg"];
+if(isset($_FILES["postImg"]))
+    $imagePage      = $_FILES["postImg"];
+else
+    $imagePage['error'] = 1;
 
-$storageManager = new StorageManager();
+if(isset($_POST["postId"]))
+    $postId     = $_POST["postId"];
 
-if(!validation($title, $description, $postURL, $category, $price)){
-    echo json_encode($errors);
+if(isset($_SESSION[ADMIN])){
+    $adminPrivilege = $_SESSION[ADMIN];
+}else{
+    $adminPrivilege = false;
+}
+if(isset($_SESSION['userId']))
+    $userId = $_SESSION['userId'];
+else{
+    $erros[] = lang("NEED_LOGIN");
+    echo json_encode(array('errors' => $errors));
     die();
 }
-if(isset($_POST['postId'])){
-    $postId = $_POST["postId"];
-    $time   = $storageManager->getPosts(0,1, array( "posts.id" => $postId))[0]["time"];
-    $imagePath = $storageManager->getPosts(0,1, array( "posts.id" => $postId))[0]["imagePath"];
+
+$storageManager = new StorageManager();
+if(!empty($postId)) {
+    $currentPost = $storageManager->getPosts(0, 1, array("posts.id" => $postId))[0];
+    if($adminPrivilege)
+        $userId  = $currentPost['publisherId'];
+}
+
+if (!validation($title, $description, $price, $postURL, $category)) {
+    echo json_encode(array('errors' => $errors));
+    die();
+}
+
+if (!empty($postId)) {
+    $time       = $currentPost["time"];
+    $imagePath  = $currentPost["imagePath"];
     $postToSave = createEditedPost($postId, $title, $description, $price, $postURL, $userId, $imagePage, $imagePath, $time, $category, $couponCode);
-}else {
-    $postId = NEW_POST;
+} else {
     $postToSave = createNewPost($userId, $title, $description, $price, $postURL, $category, $imagePage, $couponCode);
 }
 /* if the res = false , something go wrong in add/edit post */
-if($postToSave){
-    if(empty($postToSave->couponCode))
+if ($postToSave) {
+    if (empty($postToSave->couponCode))
         $saveResult = $storageManager->savePost($postToSave);
     else
         $saveResult = $storageManager->saveCoupon($postToSave);
-
-    if($saveResult) {
-        echo json_encode(lang("POST_SAVE_SUCCESS"));
+    if ($saveResult) {
+        echo json_encode($storageManager->getPosts(0,1, array('posts.id' => $saveResult))[0]);
         die();
-    }else{
+    } else {
         $errors[] = lang('ERROR_SAVE_POST');
-        echo json_encode($errors);
+        echo json_encode(array('errors' => $errors));
         die();
     }
-}else{
-    echo json_encode($errors);
+} else {
+    echo json_encode(array('errors' => $errors));
     die();
 }
-
 
 function saveImage(&$errors, $pageImage)
 {
@@ -113,29 +108,60 @@ function saveImage(&$errors, $pageImage)
     }
 }
 
-function validation($title, $description, $postURL, $category, $price){
-    global $errors;
-    if(strlen($title) < MINIMUM_TITLE_LEN)
+function validation(&$title ,&$description ,&$price ,&$postURL ,&$category ){
+    global $errors, $userId, $adminPrivilege;
+
+    if (isset($_POST["title"]))
+        $title = $_POST["title"];
+    else
         $errors[] = lang("INVALID_POST_TITLE");
-    if(strlen($description) < MINIMUM_DESCRIPTION_LEN)
+
+    if (isset($_POST["description"]))
+        $description = $_POST["description"];
+    else
         $errors[] = lang("INVALID_POST_DESCRIPTION");
-    if(!filter_var($postURL, FILTER_VALIDATE_URL))
-        $errors[] = lang("INVALID_POST_URL");
-    if(!ctype_digit($category))
-        $errors[] = lang("INVALID_POST_CATEGORY");
-    if(!is_numeric($price))
+
+    if (isset($_POST["price"]))
+        $price = $_POST["price"];
+    else
         $errors[] = lang("INVALID_POST_PRICE");
 
-    if(!empty($errors))
-        return false;
+    if (isset($_POST["URL"]))
+        $postURL = $_POST["URL"];
+    else
+        $errors[] = lang("INVALID_POST_URL");
 
-    return true;
+    if (isset($_POST["category"]))
+        $category = $_POST["category"];
+    else
+        $errors[] = lang("INVALID_POST_CATEGORY");
 
+    if (strlen($title) < MINIMUM_TITLE_LEN)
+        $errors[] = lang("INVALID_POST_TITLE");
+    if (strlen($description) < MINIMUM_DESCRIPTION_LEN)
+        $errors[] = lang("INVALID_POST_DESCRIPTION");
+    if (!filter_var($postURL, FILTER_VALIDATE_URL))
+        $errors[] = lang("INVALID_POST_URL");
+    if (!ctype_digit($category))
+        $errors[] = lang("INVALID_POST_CATEGORY");
+    if (!is_numeric($price))
+        $errors[] = lang("INVALID_POST_PRICE");
+
+    $storageManager = new StorageManager();
+    $res = $storageManager->checkTableRecordsByTime(POSTS_TABLE, $userId, strtotime(POSTS_TIME_LIMIT, time()));
+
+    if ($res >= POSTS_NUM_LIMIT && !$adminPrivilege) {
+        $errors[] = lang("POSTS_LIMIT_ERROR");
+    }
+    if (empty($errors))
+        return true;
+
+    return false;
 }
 
 function createEditedPost($postId, $title, $description, $price, $postURL, $userId, $imagePage, $imagePath, $time, $category, $couponCode){
-    global $errors;
-    if($userId == $_POST["publisherId"]){ // check in storage too
+    global $errors, $userId, $currentPost;
+    if($userId == $currentPost['publisherId']){ // check in storage too
         if($imagePage['error'] > 0){
             return new Post($postId, $title, $description, $price, $postURL, $userId, $imagePath, $time, $category, $couponCode);
         }else{ // image changed
@@ -154,10 +180,14 @@ function createEditedPost($postId, $title, $description, $price, $postURL, $user
 }
 
 function createNewPost($userId, $title, $description, $price, $postURL, $category, $imagePage, $couponCode){
-    global $errors;
-    $imgPath = saveImage($errors, $imagePage);
+    global $errors, $userId, $adminPrivilege;
+    if(!($imagePage['error'] > 0)){
+        $imgPath = saveImage($errors, $imagePage);
+    }else{
+        $imgPath = "demo";
+    }
     if($imgPath){
-        return new Post(NEW_POST,$title,$description,$price,$postURL,$userId,$imgPath,time(),$category,$couponCode);
+        return new Post(NEW_POST, $title, $description, $price, $postURL, $userId, $imgPath, time(), $category, $couponCode);
     }else{
         $errors[] = lang("ERROR_UPLOAD_IMAGE");
         return false;

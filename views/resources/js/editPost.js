@@ -15,12 +15,12 @@ var editPostController = {
     },
 
     bindEvent: function(){
-        this.editPostForm.submit(this.addPost);
+        this.editPostForm.submit(this.editPost);
         this.couponBox.change(this.changeCouponBox);
         this.changeCouponBox();
     },
 
-    addPost: function(e){
+    editPost: function(e){
         e.preventDefault();
         var self = editPostController;
         var dataString = self.editPostForm.serialize();

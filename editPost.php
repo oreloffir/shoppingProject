@@ -18,10 +18,15 @@ if(isset($_SESSION[ADMIN])){
     $model[ADMIN] = false;
 }
 
+$posts = $storageManager->getPosts(0,1,array( 'posts.id' => $_GET['postId']));
+if(!empty($posts))
+    $post = $posts[0];
+else
+    header("Location: ./index.php");
+
 if(isset($_SESSION['userId'])){
     $userId = $_SESSION['userId'];
     $model['currentUser'] = $storageManager->getUserById($_SESSION['userId']);
-    $post = $storageManager->getPosts(0,1,array( 'posts.id' => $_GET['postId']))[0];
     if(($userId != $post['publisherId']) && !$adminPrivilege){
         header("Location: ./index.php");
         die();

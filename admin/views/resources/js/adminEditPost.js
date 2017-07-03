@@ -58,8 +58,6 @@ var adminEditPost = {
                 }else{
                     adminEditPost.editPostErrors.html("<div class=\"col-md-10 alert alert-danger\" id=\"editPostErrors\">"+callback.errors+"</div>")
                 }
-
-
             }
         });
     },
@@ -76,6 +74,9 @@ var adminEditPost = {
             success: function(callback){
                 console.log("callback = "+ callback);
                 displayPost.buildPostDialog(callback , true);
+            },
+            error: function () {
+                adminEditPost.editPostErrors.html("<div class=\"col-md-10 alert alert-danger\" id=\"editPostErrors\">Invalid post id</div>")
             }
         });
     }

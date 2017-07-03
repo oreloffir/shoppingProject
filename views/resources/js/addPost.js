@@ -29,10 +29,10 @@ var addPostController = {
             processData: false,
             contentType: false,
             success: function(callback){
-                if (callback.constructor === Array){
+                if (callback.errors.constructor === Array){
                     console.log("callback = errors");
                     errorsString = "";
-                    callback.forEach(function (error) { errorsString += error+" <br\>" });
+                    callback.errors.forEach(function (error) { errorsString += error+" <br\>" });
                     self.addPostErrors.html("<div class=\"col-md-8 alert alert-danger text-align-left\" role=\"\" >"+errorsString+"</div>");
                 }else{
                     console.log("add post");

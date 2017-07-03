@@ -6,14 +6,16 @@
  * Time: 7:30 PM
  */
 include_once("inc/StorageManager.class.php");
+include_once("inc/consts.php");
 include_once("inc/util.php");
+include_once("language/en.php");
 $storageManager = new StorageManager();
 $model = array();
 session_start();
 
 if(isset($_SESSION[ADMIN])){
     $adminPrivilege = $_SESSION[ADMIN];
-    $model[ADMIN] = $adminPrivilege;
+    $model[ADMIN]   = $adminPrivilege;
 }else{
     $model[ADMIN] = false;
 }

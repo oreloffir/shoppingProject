@@ -13,6 +13,15 @@ $reason 		 = $_POST["reason"];
 $banTime     	 = strtotime('+ 1 week', time());
 $storageManager  = new StorageManager();
 
+session_start();
+if(isset($_SESSION[ADMIN])){
+    $adminPrivilege = $_SESSION[ADMIN];
+}else{
+    $adminPrivilege = false;
+}
+
+
+
 $result = $storageManager->addBanToUser($userId, time(), $banTime, $reason);
 
 if(is_array($result)){

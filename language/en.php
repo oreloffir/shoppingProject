@@ -102,7 +102,17 @@ function lang($phrase){
         'MINUTES'       => 'minutes',
         'YESTERDAY_AT'  => 'yesterday at',
         'AGO'           => 'ago',
-        'LESS_THEN_MIN' => 'less then a minute'
+        'LESS_THEN_MIN' => 'less then a minute',
+
+        // Limit Errors
+        'COMMENTS_LIMIT_ERROR' => "you can comment every 30 sec",
+        'POSTS_LIMIT_ERROR' => "you can add post every 30 minutes",
+        'INVALID_USER_EMAIL' => "Invalid email format",
+        'INVALID_USER_PASSWORD' => "Invalid password format",
+        'INVALID_USER_DISPLAY_NAME' => "Invalid display name format",
+        'INVALID_USER_PASSWORD_LEN' => 'Please enter password (min 6 chars)',
+        'INVALID_USER_DISPLAY_NAME_LEN' => 'Please enter display name (min 2 chars , max 18 chars)'
+
     );
     return (!array_key_exists($phrase,$_L)) ? $phrase : $_L[$phrase];
 }

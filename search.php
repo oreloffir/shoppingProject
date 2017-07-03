@@ -10,18 +10,46 @@ include_once("inc/consts.php");
 include_once("inc/util.php");
 include_once("language/en.php");
 $searchTitle = $_GET['s'];
-$model       = array();
 session_start();
-
-$storageManager = new StorageManager();
-
-$like = array(
+$model  = array();
+$where  = array();
+$orders = array();
+$like   = array(
     'posts.title'       => $searchTitle,
     'posts.description' => $searchTitle
 );
-$where = array();
+if(isset($_SESSION[ADMIN])){
+    $adminPrivilege = $_SESSION[ADMIN];
+    $model[ADMIN]   = $adminPrivilege;
+}else{
+    $model[ADMIN] = false;
+}
+$storageManager = new StorageManager();
+$categories     = $storageManager->getCategories();
 
-$posts = $storageManager->getPosts(0, POSTS_CHUNK, $where, null, $like);
+if(isset($_GET["category"])) {
+    $category = $_GET["category"];
+    $where["posts.category"]    = $category;
+    $model['categoryName']      = $categories[$category-1]['category'];
+    $model['categoryId']        = $category;
+}
+
+if(isset($_GET['order'])) {
+    switch ($_GET['order']) {
+        case ORDER_POPULAR:
+            $orders['rank']         = "DESC";
+            $orders['rankCount']    = "DESC";
+            $orders['posts.id']     = "DESC";
+            $model['postsOrder']    = ORDER_POPULAR;
+            break;
+        default:
+            $orders['posts.id']     = "DESC";
+            $model['postsOrder']    = ORDER_RECENT;
+            break;
+    }
+}
+
+$posts = $storageManager->getPosts(0, POSTS_CHUNK, $where, $orders, $like);
 if(!empty($posts)) {
     foreach ($posts as $key => $post) {
         $posts[$key]['time'] = timeAgo($posts[$key]['time']);
@@ -34,7 +62,7 @@ if(isset($_SESSION['userId'])){
 }
 
 $model['posts']         = $posts;
-$model['categories']    = $storageManager->getCategories();
+$model['categories']    = $categories;
 $model['searchValue']   = $searchTitle;
 $model['pageType']      = "search";
 

@@ -33,15 +33,15 @@
                                   ?></h2>
                     <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <? echo lang('SORT_BY'); ?>
+                            <?php echo lang('SORT_BY'); ?>
                             <?php if(isset($model['postsOrder'])){
                                 echo $model['postsOrder'];
                             }?>
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li><a href="<?php echo addUrlParam("order", ORDER_RECENT); ?>"><? echo lang('SORT_BY_MOST_RECENT'); ?></a></li>
-                            <li><a href="<?php echo addUrlParam("order", ORDER_POPULAR);?>"><? echo lang('SORT_BY_MOST_POPULAR'); ?></a></li>
+                            <li><a href="<?php echo addUrlParam("order", ORDER_RECENT); ?>"><?php echo lang('SORT_BY_MOST_RECENT'); ?></a></li>
+                            <li><a href="<?php echo addUrlParam("order", ORDER_POPULAR);?>"><?php echo lang('SORT_BY_MOST_POPULAR'); ?></a></li>
                         </ul>
                     </div>
                 </div>

@@ -15,8 +15,8 @@ $userDisplayName = $_POST["displayName"];
 $storageManager  = new StorageManager();
 $errors          = array();
 
-if(validation($errors, $userMail)){
-    $result = $storageManager->addUser(new User(0, $userDisplayName, $userPassword, $userMail, time(), $_SERVER['REMOTE_ADDR']));
+if(validation($userMail, $userPassword ,$userDisplayName)){
+    $result = $storageManager->saveUser(new User(0, $userDisplayName, $userPassword, $userMail, time(), $_SERVER['REMOTE_ADDR']));
 
     if(is_array($result)){
         echo json_encode($result);
@@ -24,24 +24,45 @@ if(validation($errors, $userMail)){
         session_start();
         $userId = $result;
         $_SESSION["userId"] = $userId;
-        echo json_encode($storageManager->getUserById($userId));
+        echo json_encode($userId);
     }
+}else{
+    echo json_encode($errors);
 }
 
-echo json_encode($errors);
+function validation (&$userMail, &$userPassword , &$userDisplayName){
+    global $errors;
 
+    if(isset($_POST["email"]))
+        $userMail = $_POST["email"];
+    else
+        $errors[]   = lang("INVALID_USER_EMAIL");
+    if(isset($_POST["pwd"]))
+        $userPassword = $_POST["pwd"];
+    else
+        $errors[]   = lang("INVALID_USER_PASSWORD");
+    if(isset($_POST["displayName"]))
+        $displayName 	= $_POST["displayName"];
+    else
+        $errors[]   = lang("INVALID_USER_DISPLAY_NAME");
 
+    if(!filter_var($userMail, FILTER_VALIDATE_EMAIL))
+        $errors[] = lang('INVALID_USER_EMAIL');
+    if(strlen($userPassword) < MINIMUM_PASSWORD_LEN)
+        $errors[] = lang('INVALID_USER_PASSWORD_LEN');
+    if((strlen($userDisplayName) < MINIMUM_DISPLAY_NAME_LEN) || (strlen($userDisplayName) >  MAXIMUM_DISPLAY_NAME_LEN))
+        $errors[] = lang('INVALID_USER_DISPLAY_NAME_LEN');
 
-function validation (&$errors , $userMail){
+    /*$storageManager         = new StorageManager();
+    $res = $storageManager->checkTableRecordsByTime(POSTS_TABLE,$userId,strtotime(POSTS_TIME_LIMIT,time()));
 
-    if (!filter_var($userMail, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = lang('INVALID_EMAIL_FORMAT');
-    }
+    if($res >= USERS_NUM_LIMIT){
+        $errors[] = lang("POSTS_LIMIT_ERROR");
+    }*/
+    if(empty($errors))
+        return true;
 
-    if(!empty($errors)){
-        return false;
-    }
-    return true;
+    return false;
 }
 
 ?>

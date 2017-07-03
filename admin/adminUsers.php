@@ -5,9 +5,11 @@
  * Date: 6/27/2017
  * Time: 7:06 PM
  */
-
 include_once("../inc/StorageManager.class.php");
+include_once("../inc/consts.php");
 include_once("../inc/util.php");
+include_once("../language/en.php");
+
 $storageManager = new StorageManager();
 $model = array();
 session_start();

@@ -5,10 +5,10 @@
  * Date: 6/26/2017
  * Time: 1:46 PM
  */
-include_once("./inc/StorageManager.class.php");
-include_once("./model/entities/post.class.php");
-include_once("./inc/util.php");
-include_once("./inc/consts.php");
+include_once("../inc/StorageManager.class.php");
+include_once("../model/entities/post.class.php");
+include_once("../inc/util.php");
+include_once("../inc/consts.php");
 $storageManager = new StorageManager();
 $imagePathArray = array("image_1498159789.jpg",
                         "image_1498421139.jpg",
@@ -34,7 +34,7 @@ for ($i = 1; $i <=100; $i++) {
     $couponCode     ="";
     if($i % 2 == 0)
         $couponCode		= unique_coupon(8);
-    $post = new Post(0,$title,$description,$price,$postURL,$userId,$imagePath,time()-rand(1000,1000000),$category,$couponCode);
+    $post = new Post(0, $title, $description, $price, $postURL, $userId, $imagePath, time(), $category, $couponCode);
     if(empty($couponCode)){
         $res = $storageManager->savePost($post);
     }else{
