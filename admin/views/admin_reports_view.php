@@ -16,7 +16,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../views/resources/css/style.css">
-    <script src="./views/resources/js/adminShowPost.js" type="text/javascript"></script>
     <script src="./views/resources/js/adminReport.js" type="text/javascript"></script>
     <script src="../views/resources/js/displayPost.js" type="text/javascript"></script>
     <script src="../views/resources/js/login.js" type="text/javascript"></script>
@@ -43,7 +42,7 @@
                 <tr id=<?php echo "\"reportId".$report['id']."\"";?>>
                     <td><?php echo $report['id'];?></td>
                     <td><a href="../profile.php?id=<?php echo $report['userId'];?>"><?php echo $report['displayName'];?></a></td>
-                    <td><a href="#" class="displayPostDialogBtn" postId="<?php echo $report['relativeId'];?>"><?php echo $report['relativeId'];?></a></td>
+                    <td><a href="#" class="postDialog" postId="<?php echo $report['relativeId'];?>"><?php echo $report['relativeId'];?></a></td>
                     <td><?php echo $report['description'];?></td>
                     <td><?php echo timeAgo($report['time']);?></td>
                     <td><button class="removeReportsBtns" reportId="<?php echo $report['id'];?>">&times;</button></td>
@@ -54,12 +53,10 @@
     </table>
 </div>
 
-<?php
-require_once("../views/fragments/postModal.php");
-?>
+<?php  require_once("../views/fragments/postModal.php");  ?>
 <script>
-    adminEditPost.init();
     adminReport.init();
+    displayPost.init();
     displayPost.ajaxPrefix = "../";
 </script>
 

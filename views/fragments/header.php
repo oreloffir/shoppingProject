@@ -26,7 +26,7 @@
                     <li><a href="addPost.php" id="navbarAddPost" class="btn btn-primary"><?php echo lang('HEADER_ADD_POST'); ?></a></li>
                 <?php } ?>
                 <?php
-                if(isset($model[ADMIN])) { ?>
+                if($model[ADMIN]) { ?>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo lang('HEADER_ADMIN'); ?> <span class="caret"></span> </a>
                         <ul class="dropdown-menu">
@@ -54,6 +54,5 @@
 
         </div>
     </div>
-
-<?php require_once ("loginModal.php");?>
 </nav>
+<?php require_once ("loginModal.php");?>

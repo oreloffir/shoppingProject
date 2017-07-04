@@ -17,7 +17,8 @@ if(isset($_SESSION[ADMIN])){
     $adminPrivilege = $_SESSION[ADMIN];
     $model[ADMIN]   = $adminPrivilege;
 }else{
-    $model[ADMIN]   = false;
+    header("Location:../login.php");
+    die();
 }
 if(isset($_SESSION['userId'])){
     $userId                 = $_SESSION['userId'];
@@ -34,6 +35,8 @@ foreach ($users as &$user){
 
 }
 $model['users'] = $users;
+$categories = $storageManager->getCategories();
+$model['categories']    = $categories;
 require_once("./views/admin_users_view.php");
 
 ?>

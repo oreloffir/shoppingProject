@@ -27,7 +27,6 @@ var adminEditPost = {
                 }
             })
         })
-        displayPost.init();
 
         /*--- Delete Post Bind Event--- */
         $(this.deleteBtn).on('click',function () {

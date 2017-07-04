@@ -67,11 +67,10 @@
     </div>
 
 </div>
-<?php
-require_once("../views/fragments/postModal.php");
-?>
+<?php  require_once("../views/fragments/postModal.php");  ?>
 <script>
     adminEditPost.init();
+    displayPost.init();
     displayPost.ajaxPrefix = "../";
 </script>
 

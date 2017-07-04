@@ -16,7 +16,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../views/resources/css/style.css">
-    <script src="./views/resources/js/adminShowPost.js" type="text/javascript"></script>
     <script src="./views/resources/js/adminBanUser.js" type="text/javascript"></script>
     <script src="../views/resources/js/displayPost.js" type="text/javascript"></script>
     <script src="../views/resources/js/login.js" type="text/javascript"></script>
@@ -46,6 +45,7 @@
             <tr>
                 <td><?php echo $user['id'];?></td>
                 <td><a href="../profile.php?id=<?php echo $user['id'];?>"><?php echo $user['displayName'];?></a></td>
+                <td><a href="./adminEditUser.php?userId=<?php echo $user['id'];?>">(edit)</a></td>
                 <td><?php echo $user['email'];?></a></td>
                 <td><?php echo timeAgo($user['startTime']);?></td>
                 <td><?php echo $user['lastKnownIp'];?></td>
@@ -77,13 +77,8 @@
     </table>
 </div>
 
-<?php
-require_once("../views/fragments/postModal.php");
-?>
 <script>
-    adminEditPost.init();
     adminBanUser.init();
-    displayPost.ajaxPrefix = "../";
 </script>
 
 </body>

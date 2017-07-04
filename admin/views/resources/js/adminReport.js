@@ -13,12 +13,12 @@ var adminReport = {
         $(this.removeReportsBtns).each(function () {
             $(this).on('click',function () {
                 console.log("click!");
-                adminReport.removeBan($(this).attr('reportId'));
+                adminReport.removeReport($(this).attr('reportId'));
             })
         })
     },
 
-    removeBan: function($reportId) {
+    removeReport: function($reportId) {
         var reportId = $reportId;
         var dataString = "reportId="+reportId;
         console.log(dataString);

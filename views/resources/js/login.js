@@ -1,5 +1,6 @@
 var loginController = {
 	init: function(isHeader = true) {
+        this.ajaxPrefix         = "";
 		this.loginForm			= $("#login_form");
         this.loginErrors    	= $("#loginErrors");
         this.emailField         = $("#emailField");
@@ -27,7 +28,7 @@ var loginController = {
 	    if(loginController.validation()){
             var dataString = loginController.loginForm.serialize();
             $.ajax({
-                url: "./ajax/loginAjax.php",
+                url: loginController.ajaxPrefix+"./ajax/loginAjax.php",
                 type: "POST",
                 data: dataString,
                 dataType: "json",
@@ -70,7 +71,7 @@ var loginController = {
 	doLogout: function (e){
         e.preventDefault();
         $.ajax({
-            url: "./ajax/logoutAjax.php",
+            url: loginController.ajaxPrefix+"./ajax/logoutAjax.php",
             type: "GET",
             dataType: "json",
             success: function(callback){

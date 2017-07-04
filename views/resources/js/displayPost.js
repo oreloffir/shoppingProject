@@ -135,7 +135,7 @@ var displayPost = {
         var postId = $(this).attr("postId");
         var dataString = "id="+postId;
         $.ajax({
-            url: "./ajax/getPostAjax.php",
+            url: displayPost.ajaxPrefix+"./ajax/getPostAjax.php",
             type: "GET",
             data: dataString,
             dataType: "json",

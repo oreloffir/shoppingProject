@@ -109,8 +109,7 @@
 </div>
 
 <script>
-    adminEditPost.init();
-    displayPost.ajaxPrefix = "../";
+    adminEditUser.init();
 </script>
 
 </body>

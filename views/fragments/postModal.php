@@ -43,10 +43,8 @@
                             <div id="postDialogCommentsArea">
                                 <div class="center-title-underline"><?php echo lang('POST_DIALOG_COMMENTS'); ?></div>
                                 <div class="container-fluid" id="postDialogComments"></div>
-                                    <div>
-                                        <textarea class="form-control" rows="5" id="postDialogCommentsTA"></textarea>
-                                    </div>
-                                    <div><a href="#" class="btn btn-primary" id="addCommentBtn"><?php echo lang('POST_DIALOG_ADD_COMMENT'); ?></a></div>
+                                <div><textarea class="form-control" rows="5" id="postDialogCommentsTA"></textarea></div>
+                                <div><a href="#" class="btn btn-primary" id="addCommentBtn"><?php echo lang('POST_DIALOG_ADD_COMMENT'); ?></a></div>
                             </div>
                         </div>
                     </div>

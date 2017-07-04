@@ -17,14 +17,16 @@ if(isset($_SESSION[ADMIN])){
     $adminPrivilege = $_SESSION[ADMIN];
     $model[ADMIN] = $adminPrivilege;
 }else{
-    $model[ADMIN] = false;
+    header("Location:../login.php");
+    die();
 }
 if(isset($_SESSION['userId'])){
     $userId = $_SESSION['userId'];
     $model['currentUser'] = $storageManager->getUserById($_SESSION['userId']);
 }
 
-$model['categories'] = $storageManager->getCategories();
+$categories = $storageManager->getCategories();
+$model['categories']    = $categories;
 $model['reports'] = $storageManager->getReports(0, 20);
 require_once("./views/admin_reports_view.php");
 

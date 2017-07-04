@@ -18,19 +18,27 @@ if(isset($_SESSION[ADMIN])){
     $adminPrivilege = $_SESSION[ADMIN];
     $model[ADMIN] = $adminPrivilege;
 }else{
-    $model[ADMIN] = false;
+    header("Location:../login.php");
+    die();
 }
 if(isset($_SESSION['userId'])){
     $userId = $_SESSION['userId'];
     $model['currentUser'] = $storageManager->getUserById($_SESSION['userId']);
 }
 
-$editUserId = '7';
-$model['user'] = $storageManager->getUserById($editUserId);
+$editUserId = $_GET['userId'];
+$editUser = $storageManager->getUserById($editUserId);
+if(empty($editUser)){
+    header("Location:./adminUsers.php");
+    die();
+}
+$model['user'] = $editUser;
 $model['userType'] = array(
-                            REGULAR_TYPE => "Regular User",
-                            ADMIN_TYPE => "Admin"
-                        );
+    REGULAR_TYPE => "Regular User",
+     ADMIN_TYPE => "Admin"
+);
+$categories = $storageManager->getCategories();
+$model['categories']    = $categories;
 require_once("./views/admin_edit_user_view.php");
 
 ?>
